@@ -1,74 +1,97 @@
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct Node {
+typedef struct node {
     int data;
-    struct Node* prev;
-    struct Node* next;
+    struct node* next;
+    struct node* prev;
 } Node;
 
-
-typedef struct Stack {
+typedef struct {
     Node* top;
+    Node* bottom;
     int size;
 } Stack;
 
-Stack* create_stack() {
-    Stack* stack = (Stack*) malloc(sizeof(Stack));
-    stack->top = NULL;
-    stack->size = 0;
-    return stack;
-}
-
-
-
 void push(Stack* stack, int data) {
-    Node* new_node = (Node*) malloc(sizeof(Node));
-    new_node->data = data;
-    new_node->prev = NULL;
-    new_node->next = stack->top;
+    Node* node = (Node*) malloc(sizeof(Node));
+    node->data = data;
+    node->next = NULL;
+    node->prev = stack->top;
     if (stack->top != NULL) {
-        stack->top->prev = new_node;
+        stack->top->next = node;
     }
-    stack->top = new_node;
+    stack->top = node;
+    if (stack->size == 0) {
+        stack->bottom = node;
+    }
     stack->size++;
 }
 
-void pop(Stack* stack) {
-    if (stack->top == NULL) {
-        printf("Stack is empty.\n");
-        return;
-    }
-    Node* temp = stack->top;
-    stack->top = stack->top->next;
-    if (stack->top != NULL) {
-        stack->top->prev = NULL;
-    }
-    free(temp);
-    stack->size--;
-}
-
-int peek(Stack* stack) {
-    if (stack->top == NULL) {
-        printf("Stack is empty.\n");
+int pop(Stack* stack) {
+    if (stack->size == 0) {
+        printf("Error: Stack is empty.\n");
         return -1;
     }
-    return stack->top->data;
+    int data = stack->top->data;
+    Node* temp = stack->top;
+    stack->top = stack->top->prev;
+    if (stack->top != NULL) {
+        stack->top->next = NULL;
+    }
+    stack->size--;
+    free(temp);
+    return data;
 }
 
+void print_stack(Stack* stack) {
+    printf("Stack: ");
+    Node* node = stack->top;
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->prev;
+    }
+    printf("\n");
+}
+
+void swap_first_two(Stack* stack) {
+    if (stack->size < 2) {
+        printf("Error: Stack has less than two elements.\n");
+        return;
+    }
+    Node* first = stack->top;
+    Node* second = first->prev;
+    Node* temp = second->prev;
+    first->prev = temp;
+    if (temp != NULL) {
+        temp->next = first;
+    }
+    second->prev = first;
+    second->next = first->next;
+    first->next = second;
+    if (second->next != NULL) {
+        second->next->prev = second;
+    }
+    if (stack->bottom == first) {
+        stack->bottom = second;
+    } else if (stack->bottom == second) {
+        stack->bottom = first;
+    }
+}
+
+
 int main() {
-    Stack* stack_A = create_stack();
-    push(stack_A, 10);
-    push(stack_A, 20);
-    push(stack_A, 30);
-    printf("%d\n", peek(stack_A));
-    pop(stack_A);
-    printf("%d\n", peek(stack_A));
-    pop(stack_A);
-    printf("%d\n", peek(stack_A));
-    pop(stack_A);
-    printf("%d\n", peek(stack_A));
-    pop(stack_A);
-    return 0;
+    Stack stack = {NULL, NULL, 0};
+
+    push(&stack, 10);
+    push(&stack, 20);
+    push(&stack, 30);
+    push(&stack, 40);
+    push(&stack, 50);
+
+    print_stack(&stack);
+
+    swap_first_two(&stack);
+    print_stack(&stack);
+
 }
