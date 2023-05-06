@@ -32,8 +32,8 @@ void	push(Stack *stack, int data)
 		return;
 	node->data = data;
 	node->next = NULL;
-	node->prev = stack->top;
-	
+	node->prev = stack->top; // if 1st element to push ?
+	printf("STACK->TOP %p\n",stack->top);
 	// stack is not empty before
 	if(stack->top != NULL)
 		stack->top->next = node;
@@ -41,6 +41,21 @@ void	push(Stack *stack, int data)
 	if(stack->size == 0)
 		stack->bottom = node;
 	stack->size++;
+}
+
+int	pop(Stack* stack)
+{
+	if(stack->size == 0)
+		return (-1);
+	
+	int	data = stack->top->data; // ดึง data มาก่อน
+	Node *temp = stack->top; // เก็บตัวชี้หัวไว้
+	stack->top = stack->top->prev; // เขยิบไปชี้ตัวก่อนหน้า
+	if(stack->top != NULL)
+		stack->top->next = NULL; // ถ้ามีตัว top ให้ชี้ไปที่ null
+	stack->size--;
+	free(temp);
+	return data;
 }
 
 void print_stack(Stack* stack) {
@@ -54,14 +69,28 @@ void print_stack(Stack* stack) {
 }
 
 int main() {
-    Stack stack = {NULL, NULL, 0};
+    Stack *stack = create_stack();
 
-    push(&stack, 10);
-    push(&stack, 20);
-    push(&stack, 30);
-    push(&stack, 40);
-    push(&stack, 50);
+    push(stack, 10);
+    push(stack, 20);
+    push(stack, 30);
+    push(stack, 40);
+    push(stack, 50);
 
-    print_stack(&stack);
+    print_stack(stack);
+
+	pop(stack);
+	print_stack(stack);
+
+		pop(stack);
+	print_stack(stack);
+		pop(stack);
+	print_stack(stack);
+		pop(stack);
+	print_stack(stack);
+		pop(stack);
+	print_stack(stack);
+		pop(stack);
+	print_stack(stack);
 
 }
