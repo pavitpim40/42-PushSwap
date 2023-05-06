@@ -38,6 +38,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 }
 
+// push
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	new->next = *lst;
@@ -53,8 +54,24 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 	}
 }
 
+// ACTION COMMAND 
+void	push(t_list **stack, t_list *new)
+{
+	ft_lstadd_front(stack,new);
+}
 
+// void	pb(t_list **STACK_A, t_list **STACK_B)
+// {
+// 	if (*STACK_B == NULL)
+// 		*STACK_B = STACK_A[0];
+// 	else 
+// 		ft_lstadd_front(STACK_B, STACK_A[0]);
+// }
 
+void sa(t_list **STACK_A)
+{
+	
+}
 void print_content(void *content) {
     printf("%s\n", (char*)content);
 }
@@ -63,12 +80,16 @@ int main ()
 	char *arr[4] = {"10","20","30","40"};
 	int n = sizeof(arr) / sizeof(arr[0]);
 	int i = 0;
-	t_list **stack = (t_list **)malloc(sizeof(t_list));
+	t_list **STACK_A = (t_list **)malloc(sizeof(t_list));
+	t_list **STACK_B = (t_list **)malloc(sizeof(t_list));
+
 	
 	for(i = 0; i < n; i++) {
 		t_list *new = ft_lstnew(arr[i]);
-		ft_lstadd_back(stack,new);
+		ft_lstadd_back(STACK_A,new);
 	}
 
-	ft_lstiter(*stack, print_content);	
+	// pb(STACK_A,STACK_B);
+	ft_lstiter(*STACK_A, print_content);	
+	// ft_lstiter(*STACK_B, print_content);	
 }
