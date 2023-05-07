@@ -154,27 +154,37 @@ void action_reverse_rotate(Stack *stack)
 }
 
 // pa,pb
+// void action_push_stack(Stack *stack_src,Stack *stack_dst)
+// {
+// 		if(stack_src->size == 0)
+// 			return;
+
+// 		Node *top_src = stack_src->top;
+// 		stack_src->top = top_src->prev;
+// 		top_src->prev->next = NULL;
+
+// 		Node *top_dst = stack_dst->top;
+// 		if(top_dst != NULL)
+// 		{
+// 			top_dst->next = top_src;
+// 			top_src->prev = top_dst;
+// 		}
+// 		else 
+// 			top_src->prev = NULL;
+			
+// 		stack_dst->top = top_src;
+// 		stack_src->size--;
+// 		stack_dst->size++;
+// }
+
+// pa,pb v2
 void action_push_stack(Stack *stack_src,Stack *stack_dst)
 {
 		if(stack_src->size == 0)
 			return;
-
-		Node *top_src = stack_src->top;
-		stack_src->top = top_src->prev;
-		top_src->prev->next = NULL;
-
-		Node *top_dst = stack_dst->top;
-		if(top_dst != NULL)
-		{
-			top_dst->next = top_src;
-			top_src->prev = top_dst;
-		}
-		else 
-			top_src->prev = NULL;
-			
-		stack_dst->top = top_src;
-		stack_src->size--;
-		stack_dst->size++;
+		int data = stack_src->top->data;
+		push(stack_dst,data);
+		pop(stack_src);
 }
 
 void free_stack(Stack *stack) {
@@ -216,7 +226,6 @@ int main() {
 	action_push_stack(stack,stack_b);
 	action_push_stack(stack,stack_b);
 	action_push_stack(stack,stack_b);
-	
 	print_stack(stack);
 	print_stack(stack_b);
 
