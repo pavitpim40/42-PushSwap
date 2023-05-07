@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 01:49:24 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 15:07:03 by ppimchan         ###   ########.fr       */
+/*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/05/07 15:07:11 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+# include	<unistd.h>
+# include	<stdlib.h>
+# include	<limits.h>
+# include	<stdio.h>
 
-void	ft_bzero(void *s, size_t n)
-{
-	char	*str;
-	size_t	i;
-
-	i = 0;
-	str = (char *)s;
-	while (i < n)
-	{
-		str[i] = '\0';
-		i++;
-	}
-}
+void	ft_bzero(void *s, size_t n);
