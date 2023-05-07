@@ -10,8 +10,8 @@ HEADER_DIR		=	includes/
 HEADER			=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 #MANDATORY
-MAND_SRCS		=	push_swap.c srcs/stack.c
-MAND_PATH_DIR	=	./
+MAND_SRCS		=	main.c stack.c stack_action.c
+MAND_PATH_DIR	=	srcs/
 MAND_PATH		=	$(addprefix $(MAND_PATH_DIR), $(MAND_SRCS))
 MAND_OBJ		=	$(MAND_PATH:.c=.o)
 
