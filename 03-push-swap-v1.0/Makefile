@@ -16,7 +16,8 @@ MAND_PATH		=	$(addprefix $(MAND_PATH_DIR), $(MAND_SRCS))
 MAND_OBJ		=	$(MAND_PATH:.c=.o)
 
 #LIBFT
-LIBFT_SRCS		=	ft_strlen.c ft_bzero.c  ft_calloc.c ft_split.c ft_strjoin.c ft_atoi.c
+LIBFT_SRCS		=	ft_strlen.c ft_bzero.c  ft_calloc.c ft_split.c ft_strjoin.c \
+					ft_isdigit.c ft_atoi.c
 LIBFT_PATH_DIR	=	libft/
 LIBFT_PATH		=	$(addprefix $(LIBFT_PATH_DIR), $(LIBFT_SRCS))
 LIBFT_OBJ		=	$(LIBFT_PATH:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 16:03:13 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:09:03 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	*ft_calloc(size_t count, size_t size);
 int	ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
+int	ft_isdigit(int c);
 
 // STACK
 Stack *create_stack(char *name);
