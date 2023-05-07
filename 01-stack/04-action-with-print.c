@@ -15,6 +15,7 @@ typedef struct {
 	char *name;
 } Stack;
 
+// STACK_UTIL
 Stack *create_stack(char *name)
 {
 	Stack *stack = (Stack *)malloc(sizeof(Stack));
@@ -27,7 +28,28 @@ Stack *create_stack(char *name)
 	return stack;
 }
 
-// Basic Stack
+void free_stack(Stack *stack) {
+    Node *current = stack->top;
+    Node *next;
+    while (current != NULL) {
+        next = current->prev;
+        free(current);
+        current = next;
+    }
+    free(stack);
+}
+
+void print_stack(Stack* stack) {
+    printf("Stack: ");
+    Node* node = stack->top;
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->prev;
+    }
+    printf("\n");
+}
+
+// Basic Operation
 void push(Stack *stack, int data)
 {
 	Node* node = (Node *)malloc(sizeof(Node));
@@ -63,7 +85,7 @@ int	pop(Stack* stack)
 
 
 // sa,sb
-void swap_head(Stack *stack)
+void s_swap_top(Stack *stack)
 {
 	if(stack->size < 2)
 		return;
@@ -91,7 +113,7 @@ void swap_head(Stack *stack)
 }
 
 // ra,rb,rr
-void action_rotate(Stack *stack) 
+void shift_up(Stack *stack) 
 {
     if (stack == NULL || stack->size < 2) 
         return;
@@ -110,24 +132,24 @@ void action_rotate(Stack *stack)
 	
 }
 
-void rotate(Stack *stack_one, Stack *stack_two)
+void r_shift_up(Stack *stack_one, Stack *stack_two)
 {
 
 	if(stack_one && stack_two == NULL)
 	{
-		action_rotate(stack_one);
+		shift_up(stack_one);
 		printf("r%s\n",stack_one->name);
 	}
 	else if(stack_one && stack_two)
 	{
-		action_rotate(stack_one);
-		action_rotate(stack_two);
+		shift_up(stack_one);
+		shift_up(stack_two);
 		printf("rr\n");
 	}
 }
 
 // rra,rrb,rrr
-void action_reverse_rotate(Stack *stack)
+void shift_down(Stack *stack)
 {
 	if (stack == NULL || stack->size < 2) 
         return;
@@ -145,32 +167,24 @@ void action_reverse_rotate(Stack *stack)
 	
 }
 
-// pa,pb
-// void action_push_stack(Stack *stack_src,Stack *stack_dst)
-// {
-// 		if(stack_src->size == 0)
-// 			return;
+void rr_shift_down(Stack *stack_one, Stack *stack_two)
+{
 
-// 		Node *top_src = stack_src->top;
-// 		stack_src->top = top_src->prev;
-// 		top_src->prev->next = NULL;
-
-// 		Node *top_dst = stack_dst->top;
-// 		if(top_dst != NULL)
-// 		{
-// 			top_dst->next = top_src;
-// 			top_src->prev = top_dst;
-// 		}
-// 		else 
-// 			top_src->prev = NULL;
-			
-// 		stack_dst->top = top_src;
-// 		stack_src->size--;
-// 		stack_dst->size++;
-// }
+	if(stack_one && stack_two == NULL)
+	{
+		shift_down(stack_one);
+		printf("rr%s\n",stack_one->name);
+	}
+	else if(stack_one && stack_two)
+	{
+		shift_down(stack_one);
+		shift_down(stack_two);
+		printf("rrr\n");
+	}
+}
 
 // pa,pb v2
-void action_push_stack(Stack *stack_src,Stack *stack_dst)
+void p_move_top(Stack *stack_src,Stack *stack_dst)
 {
 		if(stack_src->size == 0)
 			return;
@@ -178,27 +192,6 @@ void action_push_stack(Stack *stack_src,Stack *stack_dst)
 		push(stack_dst,data);
 		pop(stack_src);
 		printf("p%s\n",stack_dst->name);
-}
-
-void free_stack(Stack *stack) {
-    Node *current = stack->top;
-    Node *next;
-    while (current != NULL) {
-        next = current->prev;
-        free(current);
-        current = next;
-    }
-    free(stack);
-}
-
-void print_stack(Stack* stack) {
-    printf("Stack: ");
-    Node* node = stack->top;
-    while (node != NULL) {
-        printf("%d ", node->data);
-        node = node->prev;
-    }
-    printf("\n");
 }
 
 int main() {
@@ -215,22 +208,24 @@ int main() {
 
 	// pop(stack);
 	// swap_head(stack);
-	rotate(stack,NULL);
-	action_push_stack(stack,stack_b);
-	action_push_stack(stack,stack_b);
-	action_push_stack(stack,stack_b); 
+	rr_shift_down(stack,NULL);
+	p_move_top(stack,stack_b);
+	p_move_top(stack,stack_b);
+	p_move_top(stack,stack_b); 
 	print_stack(stack);
-	// print_stack(stack_b);
+	print_stack(stack_b);
 
-	swap_head(stack);
+	s_swap_top(stack_b);
 	// action_push_stack(stack_b,stack);
-	rotate(stack,stack_b);
+	rr_shift_down(stack,stack_b);
+	r_shift_up(stack_b,stack);
+	s_swap_top(stack);
 	print_stack(stack);
-	// print_stack(stack_b);
+	print_stack(stack_b);
 
 	// swap_head(stack_b);
-	action_reverse_rotate(stack);
-	print_stack(stack);
+	// action_reverse_rotate(stack);
+	// print_stack(stack);
 	// print_stack(stack_b);
 
 	// swap_head(stack);
@@ -242,3 +237,13 @@ int main() {
 	free_stack(stack);
 	free_stack(stack_b);
 }
+
+// s -> s_swap_top
+// p -> p_move_top
+// r -> r_insert_bot
+// rr -> rr_insert_top
+
+// s -> s_swap_top
+// p -> p_move_top
+// r -> r_shift_up
+// rr -> rr_shift_down
