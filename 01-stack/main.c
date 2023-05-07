@@ -58,6 +58,36 @@ int	pop(Stack* stack)
 	return data;
 }
 
+// ???
+void swap_top_bottom(Stack *stack) {
+    if (stack == NULL || stack->size < 2) {
+        return;
+    }
+    
+    Node *top = stack->top;
+    Node *bottom = stack->bottom;
+    
+    // Swap top and bottom nodes
+    stack->top = bottom;
+    stack->bottom = top;
+    
+    // Update next and prev pointers for top and bottom nodes
+    top->next = bottom->next;
+    bottom->prev = top->prev;
+    bottom->next = NULL;
+    top->prev = NULL;
+    
+    // Update next and prev pointers for nodes adjacent to top and bottom nodes
+    if (top->next != NULL) {
+        top->next->prev = top;
+    }
+    if (bottom->prev != NULL) {
+        bottom->prev->next = bottom;
+    }
+}
+
+
+// sa,sb
 void swap_head(Stack *stack)
 {
 	if(stack->size < 2)
@@ -83,6 +113,26 @@ void swap_head(Stack *stack)
     // }
 	stack->top = second;
 }
+
+// ra,rb,rr
+void insert_top_to_bottom(Stack *stack) {
+    if (stack == NULL || stack->size < 2) 
+        return;
+    
+    Node *top = stack->top;
+    Node *bottom = stack->bottom;
+
+	stack->top = top->prev;
+    top->prev->next = NULL;
+    
+	bottom->prev = top;
+	top->next = bottom;
+	top->prev = NULL;
+  
+    // Update bottom pointer in stack struct
+    stack->bottom = top;
+}
+
 void print_stack(Stack* stack) {
     printf("Stack: ");
     Node* node = stack->top;
@@ -105,10 +155,18 @@ int main() {
     print_stack(stack);
 
 	// pop(stack);
+	// swap_head(stack);
+	insert_top_to_bottom(stack);
+	print_stack(stack);
+
 	swap_head(stack);
 	print_stack(stack);
 
-	printf("BOTT %d\n", stack->bottom->data);
+	// swap_head(stack);
+	// print_stack(stack);
+
+	printf("TOP %d\n", stack->top->data);
+	printf("BOT %d\n", stack->bottom->data);
 	
 
 }
