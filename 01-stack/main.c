@@ -176,6 +176,18 @@ void action_push_stack(Stack *stack_src,Stack *stack_dst)
 		stack_src->size--;
 		stack_dst->size++;
 }
+
+void free_stack(Stack *stack) {
+    Node *current = stack->top;
+    Node *next;
+    while (current != NULL) {
+        next = current->prev;
+        free(current);
+        current = next;
+    }
+    free(stack);
+}
+
 void print_stack(Stack* stack) {
     printf("Stack: ");
     Node* node = stack->top;
@@ -223,5 +235,6 @@ int main() {
 	printf("TOP %d\n", stack->top->data);
 	printf("BOT %d\n", stack->bottom->data);
 	
-
+	free_stack(stack);
+	free_stack(stack_b);
 }
