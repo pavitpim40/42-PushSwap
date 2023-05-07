@@ -107,8 +107,24 @@ void action_rotate(Stack *stack)
 	top->prev = NULL;
   
     stack->bottom = top;
+	
 }
 
+void rotate(Stack *stack_one, Stack *stack_two)
+{
+
+	if(stack_one && stack_two == NULL)
+	{
+		action_rotate(stack_one);
+		printf("r%s\n",stack_one->name);
+	}
+	else if(stack_one && stack_two)
+	{
+		action_rotate(stack_one);
+		action_rotate(stack_two);
+		printf("rr\n");
+	}
+}
 
 // rra,rrb,rrr
 void action_reverse_rotate(Stack *stack)
@@ -198,23 +214,24 @@ int main() {
     print_stack(stack);
 
 	// pop(stack);
-	swap_head(stack);
-	// action_rotate(stack);
+	// swap_head(stack);
+	rotate(stack,NULL);
 	action_push_stack(stack,stack_b);
 	action_push_stack(stack,stack_b);
 	action_push_stack(stack,stack_b); 
 	print_stack(stack);
-	print_stack(stack_b);
+	// print_stack(stack_b);
 
 	swap_head(stack);
 	// action_push_stack(stack_b,stack);
+	rotate(stack,stack_b);
 	print_stack(stack);
-	print_stack(stack_b);
+	// print_stack(stack_b);
 
-	swap_head(stack_b);
+	// swap_head(stack_b);
 	action_reverse_rotate(stack);
 	print_stack(stack);
-	print_stack(stack_b);
+	// print_stack(stack_b);
 
 	// swap_head(stack);
 	// print_stack(stack);
