@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 18:21:13 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/07 20:31:52 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,9 @@ int main(int argc, char *argv[])
 		return (1);
 	// create Stack
 	Stack *stack_A = create_stack("a");
+	input_fill(stack_A,argc,argv);
 
-	argv++;
-	while(*argv) 
-	{
-		// printf("%s\n", *argv);
-		char **array_word = ft_split(*argv, ' ');
-		int j = 0;
-		while(array_word[j] != NULL)
-		{
-			// push to stack
-			printf("num is %s\n", array_word[j]);
-			push(stack_A, ft_atoi(array_word[j]));
-			j++;
-			free(array_word[j]);
-		}
-		
-		argv++;
-		free(array_word);
-	}
+	print_stack(stack_A);
+	s_swap_top(stack_A);
 	print_stack(stack_A);
 }
