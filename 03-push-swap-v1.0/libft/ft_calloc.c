@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppimchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 15:43:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2022/04/01 15:57:50 by ppimchan         ###   ########.fr       */
+/*   Created: 2022/03/18 00:00:16 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/05/07 15:16:07 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/push_swap.h"
 
-t_list	*ft_lstnew(void *content)
+void	*ft_calloc(size_t count, size_t size)
 {
-	t_list	*new_node;
+	void	*ptr;
 
-	new_node = (t_list *)malloc(sizeof(t_list));
-	if (new_node == NULL)
+	if (count * size < count && count * size < size)
 		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	ptr = malloc(count * size);
+	if (ptr == 0)
+		return (ptr);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }

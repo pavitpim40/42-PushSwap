@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppimchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:22:21 by ppimchan          #+#    #+#             */
-/*   Updated: 2022/04/10 11:52:13 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/07 15:16:02 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/push_swap.h"
 
 int	ft_atoi(const char *str)
 {

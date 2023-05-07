@@ -10,13 +10,13 @@ HEADER_DIR		=	includes/
 HEADER			=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 #MANDATORY
-MAND_SRCS		=	push_swap.c 
+MAND_SRCS		=	push_swap.c srcs/stack.c
 MAND_PATH_DIR	=	./
 MAND_PATH		=	$(addprefix $(MAND_PATH_DIR), $(MAND_SRCS))
 MAND_OBJ		=	$(MAND_PATH:.c=.o)
 
 #LIBFT
-LIBFT_SRCS		=	ft_bzero.c 
+LIBFT_SRCS		=	ft_strlen.c ft_bzero.c  ft_calloc.c ft_split.c ft_strjoin.c ft_atoi.c
 LIBFT_PATH_DIR	=	libft/
 LIBFT_PATH		=	$(addprefix $(LIBFT_PATH_DIR), $(LIBFT_SRCS))
 LIBFT_OBJ		=	$(LIBFT_PATH:.c=.o)

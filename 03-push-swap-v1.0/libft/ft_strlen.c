@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppimchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 00:00:16 by ppimchan          #+#    #+#             */
-/*   Updated: 2022/04/10 11:58:03 by ppimchan         ###   ########.fr       */
+/*   Created: 2022/02/17 01:50:56 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/05/07 15:18:31 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/push_swap.h"
 
-void	*ft_calloc(size_t count, size_t size)
+size_t	ft_strlen(const char *s)
 {
-	void	*ptr;
+	int	i;
 
-	if (count * size < count && count * size < size)
-		return (NULL);
-	ptr = malloc(count * size);
-	if (ptr == 0)
-		return (ptr);
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
