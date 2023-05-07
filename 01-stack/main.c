@@ -115,7 +115,8 @@ void swap_head(Stack *stack)
 }
 
 // ra,rb,rr
-void insert_top_to_bottom(Stack *stack) {
+void action_rotate(Stack *stack) 
+{
     if (stack == NULL || stack->size < 2) 
         return;
     
@@ -129,10 +130,28 @@ void insert_top_to_bottom(Stack *stack) {
 	top->next = bottom;
 	top->prev = NULL;
   
-    // Update bottom pointer in stack struct
     stack->bottom = top;
 }
 
+
+// rra,rrb,rrr
+void action_reverse_rotate(Stack *stack)
+{
+	if (stack == NULL || stack->size < 2) 
+        return;
+    
+    Node *top = stack->top;
+    Node *bottom = stack->bottom;
+
+	stack->bottom = bottom->next;
+	top->next = bottom;
+	bottom->prev = top;
+	bottom->next->prev = NULL;
+	bottom->next = NULL;
+
+	stack->top = bottom;
+	
+}
 void print_stack(Stack* stack) {
     printf("Stack: ");
     Node* node = stack->top;
@@ -156,10 +175,14 @@ int main() {
 
 	// pop(stack);
 	// swap_head(stack);
-	insert_top_to_bottom(stack);
+	action_rotate(stack);
 	print_stack(stack);
 
 	swap_head(stack);
+	print_stack(stack);
+
+	// swap_head(stack);
+	action_reverse_rotate(stack);
 	print_stack(stack);
 
 	// swap_head(stack);
