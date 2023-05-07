@@ -161,6 +161,7 @@ void action_push_stack(Stack *stack_src,Stack *stack_dst)
 		int data = stack_src->top->data;
 		push(stack_dst,data);
 		pop(stack_src);
+		printf("p%s\n",stack_dst->name);
 }
 
 void free_stack(Stack *stack) {
@@ -213,6 +214,7 @@ int main() {
 	swap_head(stack_b);
 	action_reverse_rotate(stack);
 	print_stack(stack);
+	print_stack(stack_b);
 
 	// swap_head(stack);
 	// print_stack(stack);
