@@ -152,6 +152,30 @@ void action_reverse_rotate(Stack *stack)
 	stack->top = bottom;
 	
 }
+
+// pa,pb
+void action_push_stack(Stack *stack_src,Stack *stack_dst)
+{
+		if(stack_src->size == 0)
+			return;
+
+		Node *top_src = stack_src->top;
+		stack_src->top = top_src->prev;
+		top_src->prev->next = NULL;
+
+		Node *top_dst = stack_dst->top;
+		if(top_dst != NULL)
+		{
+			top_dst->next = top_src;
+			top_src->prev = top_dst;
+		}
+		else 
+			top_src->prev = NULL;
+			
+		stack_dst->top = top_src;
+		stack_src->size--;
+		stack_dst->size++;
+}
 void print_stack(Stack* stack) {
     printf("Stack: ");
     Node* node = stack->top;
@@ -164,6 +188,7 @@ void print_stack(Stack* stack) {
 
 int main() {
     Stack *stack = create_stack();
+	Stack *stack_b = create_stack();
 
     push(stack, 10);
     push(stack, 20);
@@ -175,15 +200,22 @@ int main() {
 
 	// pop(stack);
 	// swap_head(stack);
-	action_rotate(stack);
+	// action_rotate(stack);
+	action_push_stack(stack,stack_b);
+	action_push_stack(stack,stack_b);
+	action_push_stack(stack,stack_b);
+	
 	print_stack(stack);
-
-	swap_head(stack);
-	print_stack(stack);
+	print_stack(stack_b);
 
 	// swap_head(stack);
-	action_reverse_rotate(stack);
+	action_push_stack(stack_b,stack);
 	print_stack(stack);
+	print_stack(stack_b);
+
+	// swap_head(stack);
+	// action_reverse_rotate(stack);
+	// print_stack(stack);
 
 	// swap_head(stack);
 	// print_stack(stack);
