@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 17:09:03 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:37:48 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,6 @@ void s_swap_top(Stack *stack);
 void p_move_top(Stack *stack_src,Stack *stack_dst);
 void r_shift_up(Stack *stack_one, Stack *stack_two);
 void rr_shift_down(Stack *stack_one, Stack *stack_two);
+
+// INPUT_VALIDATE
+int is_valid_input(char **argv);

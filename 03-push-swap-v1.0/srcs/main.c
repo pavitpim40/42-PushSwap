@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 17:30:23 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:45:39 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,52 +54,14 @@
 // }
 
 
-int is_digit_or_space(char *arg)
-{	
-	// digit or space,not empty string
-	int	i;
 
-	i = 0;
-	printf("str is %s\n",arg);
-	if(*(arg+i) == '\0')
-		return (0);
-	while(*(arg+i))
-	{
-		printf("char %c\n",*(arg+i));
-		if(*(arg+i) == ' ' || ft_isdigit(*(arg+i)))
-			i++;
-		else 
-			return(0);
-	}
-	return (1); // truthy
-}
-
-int valid_input(char **argv)
-{
-	int	i;
-	// int r;
-
-	i = 1;
-	while(*(argv+i) != NULL)
-	{ 
-		if(!is_digit_or_space(*(argv+i))) // error
-		{
-			write(2, "Error\n",6);
-			return (0);	
-		}
-		i++;
-	}
-	return (1);
-}
 // FOR INPUT
 int main(int argc, char *argv[])
 {
-	// int i = 0;
-	// int r;
 	printf("ac = %d\n",argc);
-	// i = 1;
 
-	if(!valid_input(argv)) // implicit print Error
+	if(!is_valid_input(argv)) // implicit print Error
 		return (1);
-
+	// Prepare Input
+	// #1 ft_join
 }
