@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 17:45:39 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:21:13 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,26 @@ int main(int argc, char *argv[])
 
 	if(!is_valid_input(argv)) // implicit print Error
 		return (1);
-	// Prepare Input
-	// #1 ft_join
+	// create Stack
+	Stack *stack_A = create_stack("a");
+
+	argv++;
+	while(*argv) 
+	{
+		// printf("%s\n", *argv);
+		char **array_word = ft_split(*argv, ' ');
+		int j = 0;
+		while(array_word[j] != NULL)
+		{
+			// push to stack
+			printf("num is %s\n", array_word[j]);
+			push(stack_A, ft_atoi(array_word[j]));
+			j++;
+			free(array_word[j]);
+		}
+		
+		argv++;
+		free(array_word);
+	}
+	print_stack(stack_A);
 }
