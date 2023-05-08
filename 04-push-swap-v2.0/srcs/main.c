@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 09:49:08 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:10:58 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@
 // FOR INPUT
 int main(int argc, char *argv[])
 {
-	printf("ac = %d\n",argc);
+	// printf("ac = %d\n",argc);
 
-	if(!is_valid_input(argv)) // implicit print Error
+	if(!is_valid_input(argc,argv)) // implicit print Error
 		return (1);
 	// create Stack
+	// printf("test main");
 	Stack *stack_A = create_stack("a");
 	Stack *stack_B = create_stack("b");
 	input_fill(stack_A,argc,argv);

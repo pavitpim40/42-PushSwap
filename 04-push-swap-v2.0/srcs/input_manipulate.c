@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:33:54 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 20:31:16 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:11:11 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void input_fill(Stack *stack,int argc, char **argv)
 		while(array_word[j++])
 			len++;
 		j = 0;
-		while(array_word[len - 1 - j] != NULL)
+		while(array_word[len - 2 - j] != NULL)
 		{
 			// push to stack
 			// printf("num is %s\n", array_word[j]);
