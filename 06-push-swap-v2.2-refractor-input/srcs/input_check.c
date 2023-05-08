@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:45:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 18:59:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:20:42 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ int ft_is_sign(char c)
 // 	return (0); // truthy
 // }
 
-
-
 int not_digit_or_sign(char *word)
 {
 	int i;
@@ -101,7 +99,7 @@ int not_digit_or_sign(char *word)
 
 	if (*(word + i) == '\0')
 		return (0);
-	while (i < (int)ft_strlen(word) && *(word+i))
+	while (i < (int)ft_strlen(word) && *(word + i))
 	{
 		// printf("i = %d\n",i);
 		if (ft_is_sign(*(word + i)) && found_num == 0)
@@ -111,11 +109,11 @@ int not_digit_or_sign(char *word)
 			i++;
 			found_num = 1;
 		}
-		else{
+		else
+		{
 			// printf("exit\n");
 			return (1);
 		}
-			
 	}
 	return (0); // truthy
 }
@@ -132,19 +130,21 @@ int is_overflow(char *string)
 
 	// printf("STRING %s\n",string);
 	// printf("NUM %d\n",num);
-	while(string[i] && string_check[j])
+	while (string[i] && string_check[j])
 	{
-		if(string[i] == string_check[j])
+		if (string[i] == string_check[j])
 		{
 			i++;
 			j++;
 			continue;
-		} else {
+		}
+		else
+		{
 			// printf("Over flow\n");
 			return (1);
 		}
 	}
-// printf("Not Over flow\n");
+	// printf("Not Over flow\n");
 	return (0);
 }
 
@@ -154,23 +154,31 @@ int overflow(char *string)
 	char *string_check = ft_itoa(num);
 	int i = 0;
 	int j = 0;
-
-	while(string[i] && string_check[j])
+	printf("str = %s\n", string);
+	printf("num = %d\n", num);
+	printf("str_check = %s\n", string_check);
+	//
+	while (ft_is_sign(string[i]))
+		i++;
+	while (ft_is_sign(string_check[j]))
+		j++;
+	while (string[i] && string_check[j])
 	{
-		if(string[i] == string_check[j])
+		if (string[i] == string_check[j])
 		{
 			i++;
 			j++;
 			continue;
-		} else {
+		}
+		else
+		{
 			// printf("Over flow\n");
 			return (1);
 		}
 	}
-// printf("Not Over flow\n");
+	// printf("Not Over flow\n");
 	return (0);
 }
-
 
 // ######################################
 // ####################### DUP
@@ -227,7 +235,7 @@ int check_dup_all(int argc, char **argv)
 			}
 		}
 		i--;
-			
+
 		free(array_word);
 		// if(stack != NULL)
 		// 	free_stack(stack);
@@ -235,37 +243,15 @@ int check_dup_all(int argc, char **argv)
 	return (0);
 }
 
-
-
 // ######################################
 // ######################## ALL ARGUMENT
 // ######################################
-// int is_valid_input(int argc, char **argv)
-// {
-// 	// return  0 : not valid
-// 	// return 1 : valid
-// 	int i;
-
-// 	i = 1;
-// 	while (i < argc)
-// 	{
-// 		if (ft_strlen(*(argv + i)) == 0)
-// 			return 0;
-// 		if (is_digit_or_space(*(argv + i)) == 0)
-// 			return 0;
-// 		i++;
-// 	}
-// 	// check dup
-// 	i = 1;
-
-// 	return (1);
-// }
 
 // return  0 : not valid
 // return 1 : valid
 Stack *input_check(int argc, char **argv)
 {
-	
+
 	int i;
 	int j;
 	char **words;
@@ -281,51 +267,53 @@ Stack *input_check(int argc, char **argv)
 		if (ft_strlen(*(argv + i)) == 0)
 			return 0;
 		// เป็น string แต่อาจจะเป็น stringที่ spilt ได้/ไม่ได้ ก็ได้
-		words = ft_split(*(argv+i),' ');
+		words = ft_split(*(argv + i), ' ');
 		j = 0;
-		while(words[j])
+		while (words[j])
 		{
 			// printf("word %s and len is %zu\n", words[j],ft_strlen(words[j]));
-			// ในแต่ละ word ต้องเช็คอะไรบ้าง 
-			// sign หรือ เลขเท่าน้น 
-	
-			if(not_digit_or_sign(words[j]))
+			// ในแต่ละ word ต้องเช็คอะไรบ้าง
+			// sign หรือ เลขเท่าน้น
+			printf("word is %s\n", words[j]);
+			if (not_digit_or_sign(words[j]))
 			{
-				
+
 				printf("not valid %s\n", words[j]);
-				j++;
+				free(words[j]);
+				free(words);
+				free_stack(stack);
 				return NULL;
 				// continue;
 			}
 			// ไม่ overflow
-			if(overflow(words[j]))
+			if (overflow(words[j]))
 			{
 				printf("overflow %s\n", words[j]);
-				j++;
+				free(words[j]);
+				free(words);
+				free_stack(stack);
 				return NULL;
 			}
 			// dup_in_stack
-			if(check_dup(stack,ft_atoi(words[j])))
+			if (check_dup(stack, ft_atoi(words[j])))
 			{
 				printf("dup with %d\n", ft_atoi(words[j]));
+				free(words[j]);
+				free(words);
+				free_stack(stack);
 				return NULL;
-			} 
-			else 
+			}
+			else
 			{
 				printf("push with %d\n", ft_atoi(words[j]));
 				push(stack, ft_atoi(words[j]));
 			}
-
-			
 			free(words[j]);
 			j++;
 		}
-		// if (is_digit_or_space(*(argv + i)) == 0)
-		// 	return 0;
 		free(words);
 		i++;
 	}
-	
 
 	return stack;
 }
