@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 19:00:22 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:25:40 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ Stack *create_stack(char *name)
 void free_stack(Stack *stack) 
 {
 	// printf("ADD of STACK FREE %p\n", stack);
+	if(!stack)
+		return;
     Node *current = stack->top;
     Node *next;
     while (current != NULL) {

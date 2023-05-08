@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:45:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 21:20:42 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:42:14 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,72 +22,11 @@ int ft_is_sign(char c)
 	return (0);
 }
 
-// int is_white_pace(char c)
-// {
-// 	if (c == ' ')
-// 		return (1);
-// 	return (0);
-// }
 
 // ######################################
 // ####################### Each String ARGS ( 1 or multiple)
 // ######################################
-// int is_digit_or_space(char *arg)
-// {
-// 	int i;
-// 	int len;
-// 	int must_be_white_space;
 
-// 	i = 0;
-// 	len = ft_strlen(arg);
-// 	must_be_white_space = 0;
-
-// 	if (*(arg + i) == '\0')
-// 		return (0);
-// 	while (i < len)
-// 	{
-// 		if (is_white_pace(*(arg + i)))
-// 		{
-// 			i++;
-// 			must_be_white_space = 0;
-// 		}
-// 		else if (ft_is_sign(*(arg + i)) && must_be_white_space == 0)
-// 			i++;
-// 		else if (ft_isdigit(*(arg + i)))
-// 		{
-// 			i++;
-// 			must_be_white_space = 1;
-// 		}
-// 		else
-// 			return (0);
-// 	}
-// 	return (1); // truthy
-// }
-
-// int is_digit_or_sign(char *word)
-// {
-// 	int i;
-// 	int found_num;
-
-// 	i = 0;
-// 	found_num = 0;
-
-// 	if (*(word + i) == '\0')
-// 		return (0);
-// 	while (*(word+i))
-// 	{
-// 		if (ft_is_sign(*(word + i)) && found_num == 0)
-// 			i++;
-// 		else if (ft_isdigit(*(word + i)))
-// 		{
-// 			i++;
-// 			found_num = 1;
-// 		}
-// 		else
-// 			return (-1);
-// 	}
-// 	return (0); // truthy
-// }
 
 int not_digit_or_sign(char *word)
 {
@@ -121,32 +60,6 @@ int not_digit_or_sign(char *word)
 // ######################################
 // ####################### Each A String (only one string)
 // ######################################
-int is_overflow(char *string)
-{
-	int num = ft_atoi(string);
-	char *string_check = ft_itoa(num);
-	int i = 0;
-	int j = 0;
-
-	// printf("STRING %s\n",string);
-	// printf("NUM %d\n",num);
-	while (string[i] && string_check[j])
-	{
-		if (string[i] == string_check[j])
-		{
-			i++;
-			j++;
-			continue;
-		}
-		else
-		{
-			// printf("Over flow\n");
-			return (1);
-		}
-	}
-	// printf("Not Over flow\n");
-	return (0);
-}
 
 int overflow(char *string)
 {
@@ -154,16 +67,11 @@ int overflow(char *string)
 	char *string_check = ft_itoa(num);
 	int i = 0;
 	int j = 0;
-	printf("str = %s\n", string);
-	printf("num = %d\n", num);
-	printf("str_check = %s\n", string_check);
-	//
-	while (ft_is_sign(string[i]))
-		i++;
-	while (ft_is_sign(string_check[j]))
-		j++;
+
+	
 	while (string[i] && string_check[j])
 	{
+		// printf("in loop with str-check %s\n", string_check);
 		if (string[i] == string_check[j])
 		{
 			i++;
@@ -196,52 +104,6 @@ int check_dup(Stack *stack, int num)
 	return (0);
 }
 
-int check_dup_all(int argc, char **argv)
-{
-	int i;
-	int j;
-	int len;
-	char **array_word;
-	Stack *stack;
-
-	array_word = NULL;
-	i = argc - 1;
-	len = 0;
-	j = 0;
-	stack = create_stack("temp");
-	while (*(argv + i) && i > 0)
-	{
-		array_word = ft_split(*(argv + i), ' ');
-		while (array_word[j++])
-			len++;
-		j = 0;
-		while (j < len && array_word[len - 1 - j] != NULL)
-		{
-			// printf("check loop\n");
-			if (is_overflow(array_word[j]) || check_dup(stack, ft_atoi(array_word[j])))
-			{
-				// printf("DUP in check\n");
-				free_stack(stack);
-				free(array_word[j]);
-				free(array_word);
-				return (1);
-			}
-			else
-			{
-				printf("PUSH in check\n");
-				push(stack, ft_atoi(array_word[j]));
-				j++;
-				free(array_word[j]);
-			}
-		}
-		i--;
-
-		free(array_word);
-		// if(stack != NULL)
-		// 	free_stack(stack);
-	}
-	return (0);
-}
 
 // ######################################
 // ######################## ALL ARGUMENT
