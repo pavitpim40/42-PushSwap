@@ -6,11 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:44:47 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 15:48:18 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 00:02:00 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
 
 
 // pa,pb v2

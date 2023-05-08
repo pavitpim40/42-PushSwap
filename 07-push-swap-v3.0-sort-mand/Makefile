@@ -10,8 +10,9 @@ HEADER_DIR		=	includes/
 HEADER			=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 #MANDATORY
-MAND_SRCS		=	main.c stack.c stack_action.c input_validate.c input_manipulate.c sort/bubble_sort.c \
-					input_check.c sort/swap_sort.c
+MAND_SRCS		=	main.c stack/stack.c stack/stack_action.c input/input_validate.c \
+					input/input_manipulate.c sort/bubble_sort.c \
+					input/input_check.c sort/swap_sort.c sort/triple_sort.c
 MAND_PATH_DIR	=	srcs/
 MAND_PATH		=	$(addprefix $(MAND_PATH_DIR), $(MAND_SRCS))
 MAND_OBJ		=	$(MAND_PATH:.c=.o)

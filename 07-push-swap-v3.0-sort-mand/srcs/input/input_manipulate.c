@@ -6,13 +6,12 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:33:54 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 18:12:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:20:27 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // for trim, join, spilt
-
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
 
 // int is_overflow(char *string)
 // {

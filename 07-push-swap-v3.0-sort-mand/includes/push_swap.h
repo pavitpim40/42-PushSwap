@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 23:13:26 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:56:31 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ void input_fill(Stack *stack,int argc, char **argv);
 
 // SORT
 void swap_sort(Stack *stack_a);
+void triple_sort(Stack *stack_a);
 void bubble_sort(Stack *stack_a, Stack *stack_b);

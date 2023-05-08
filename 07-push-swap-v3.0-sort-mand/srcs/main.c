@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 23:13:14 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 00:12:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ int main(int argc, char *argv[])
 		return (1);
 	}
 
+	// printf("SIZE %d\n", stack_A->size);
+	// print_stack(stack_A);
 	if(stack_A->size == 2)
 		swap_sort(stack_A);
-	bubble_sort(stack_A, stack_B);
+	else if (stack_A->size == 3)
+		triple_sort(stack_A);
+	else
+		bubble_sort(stack_A, stack_B);
 
 
 	// ### EXIT

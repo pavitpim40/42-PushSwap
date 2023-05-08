@@ -6,12 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 23:10:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 23:12:25 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:25:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
-
 
 void swap_sort(Stack *stack_a)
 {

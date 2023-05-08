@@ -6,11 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:12:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 17:49:08 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:20:32 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
 
 // static int ft_is_sign(char c)
 // {
