@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 17:05:16 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:25:21 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 int main(int argc, char *argv[])
 {
 
-	printf("%d\n",ft_atoi("-2147483649"));
+	// printf("%d\n",ft_atoi("-2147483649"));
+	// printf("%s\n",ft_itoa(-2147483647));
 	if(!is_valid_input(argc,argv)) // implicit print Error
 	{	
 		write(2,"Error\n",6);
