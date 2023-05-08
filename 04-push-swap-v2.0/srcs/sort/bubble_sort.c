@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:06:40 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 10:28:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 11:19:56 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,93 @@
 
 // }
 
+
+// Correct Version
+// void bubble_sort(Stack *stack_a, Stack *stack_b)
+// {
+// 	Node *element_1 = stack_a->top;
+// 	Node *element_2 = stack_a->top->prev;
+// 	int count;
+// 	// int swap;
+// 	int size = stack_a->size;
+// 	count =0;
+// 	int count_inner = 0;
+// 	printf("stack %d\n", stack_b->size);
+
+// 	while (count < size - 1)
+// 	{
+// 			element_1 = stack_a->top;
+// 			element_2 = stack_a->top->prev;
+			
+// 			printf("outer===================== %d\n", count);
+// 			count_inner = 0;
+// 			while (count_inner< size-count-1)
+// 			{
+// 			print_stack(stack_a);
+// 			printf("inner %d\n", count_inner);
+// 			printf("DATA INNER EL1 = %d  EL2 = %d\n", element_1->data,element_2->data);
+// 				if(element_1->data > element_2->data)
+// 				{
+// 					printf("SWAP %d %d\n", element_1->data,element_2->data);
+					
+// 					// element_2 = element_2->prev; // for next loop
+// 					s_swap_top(stack_a);
+// 					p_move_top(stack_a,stack_b);
+// 					element_1 = stack_a->top;
+// 					element_2 = element_1->prev;
+// 					;
+// 				}
+// 			// element_1 = element_1->prev;
+// 			// printf("EL2 %d\n",element_2->data);
+// 			count_inner++;
+// 			print_stack(stack_a);
+// 			}
+// 			while (stack_a->size < size)
+// 				p_move_top(stack_b,stack_a);
+// 			// print_stack(stack_a);
+// 			count++;
+			
+// 	}
+	
+
+// }
+
+
 void bubble_sort(Stack *stack_a, Stack *stack_b)
 {
-	// Node *element_1 = stack_a->top;
-	// Node *element_2 = stack_a->top->prev;
+	Node *element_1;
+	Node *element_2;
 	int count;
 	// int swap;
 	int size = stack_a->size;
-	count =0;
+	count = 0;
 	int count_inner = 0;
-	printf("stack %d\n", stack_b->size);
 
-	while (count < size)
+	while (count < size - 1)
 	{
-			printf("outer==== %d\n", count);
+			element_1 = stack_a->top;
+			element_2 = stack_a->top->prev;
 			count_inner = 0;
-			while (count_inner< size-count)
+			while (count_inner< size-count-1)
 			{
-			printf("inner %d\n", count_inner);
-			count_inner++;
-				
-			}
-			count++;
-	}
-	
+				if(element_1->data > element_2->data)
+				{
+					s_swap_top(stack_a);
+					p_move_top(stack_a,stack_b);
+					element_1 = stack_a->top;
+					element_2 = element_1->prev;
 
+				}
+		
+			count_inner++;
+			print_stack(stack_a);
+			}
+			while (stack_a->size < size)
+				p_move_top(stack_b,stack_a);
+			count++;
+			
+	}
 }
+
+
+
