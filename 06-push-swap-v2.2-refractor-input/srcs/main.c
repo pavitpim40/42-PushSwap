@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 18:11:42 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:58:14 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ int main(int argc, char *argv[])
 
 
 	// ## START
-	// Stack *stack_A;
+	Stack *stack_A;
 	// Stack *stack_B;
 
 	// ### CHECK VALID ARGS
-	input_check(argc,argv);
+	stack_A = input_check(argc,argv);
+	print_stack(stack_A);
 	// if(!is_valid_input(argc,argv)) // implicit print Error
 	// {	
 	// 	write(2,"Error\n",6);

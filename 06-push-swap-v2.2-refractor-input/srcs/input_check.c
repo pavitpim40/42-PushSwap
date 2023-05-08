@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:45:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 18:54:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:59:24 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,7 @@ int check_dup_all(int argc, char **argv)
 
 // return  0 : not valid
 // return 1 : valid
-int input_check(int argc, char **argv)
+Stack *input_check(int argc, char **argv)
 {
 	
 	int i;
@@ -294,19 +294,21 @@ int input_check(int argc, char **argv)
 				
 				printf("not valid %s\n", words[j]);
 				j++;
-				continue;
+				return NULL;
+				// continue;
 			}
 			// ไม่ overflow
 			if(overflow(words[j]))
 			{
 				printf("overflow %s\n", words[j]);
 				j++;
-				continue;
+				return NULL;
 			}
 			// dup_in_stack
 			if(check_dup(stack,ft_atoi(words[j])))
 			{
 				printf("dup with %d\n", ft_atoi(words[j]));
+				return NULL;
 			} 
 			else 
 			{
@@ -325,5 +327,5 @@ int input_check(int argc, char **argv)
 	}
 	
 
-	return (1);
+	return stack;
 }

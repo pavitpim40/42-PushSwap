@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 16:56:48 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:00:22 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void free_stack(Stack *stack)
 void print_stack(Stack* stack) 
 {
     printf("Stack: ");
+	if(!stack)
+		return;
     Node* node = stack->top;
     while (node != NULL) {
         printf("%d ", node->data);
