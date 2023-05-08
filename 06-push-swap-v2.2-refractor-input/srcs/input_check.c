@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:45:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 21:42:14 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:22:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,31 +116,45 @@ Stack *input_check(int argc, char **argv)
 
 	int i;
 	int j;
+	// int len;
 	char **words;
 	Stack *stack;
 	// char *word;
 
-	i = 1;
+	i = argc - 1; // as a index
 	j = 0;
+	// len = 0;
 	stack = create_stack("a");
-	while (i < argc)
+	while (i > 0)
 	{
+		// printf("i is %d\n",i);
+		// printf("argv is %s\n",*(argv+i));
 		// check ว่าเป็น empty string รึเปล่า
 		if (ft_strlen(*(argv + i)) == 0)
 			return 0;
 		// เป็น string แต่อาจจะเป็น stringที่ spilt ได้/ไม่ได้ ก็ได้
+		
 		words = ft_split(*(argv + i), ' ');
+		
 		j = 0;
-		while (words[j])
+		while(words[j])
+			j++;
+		// printf("j is %d\n",j);
+		j--;
+		// printf("j is %d\n",j);
+		// printf("len is %d\n",len);
+
+		while (j >= 0)
 		{
 			// printf("word %s and len is %zu\n", words[j],ft_strlen(words[j]));
 			// ในแต่ละ word ต้องเช็คอะไรบ้าง
 			// sign หรือ เลขเท่าน้น
-			printf("word is %s\n", words[j]);
+			
+			// printf("word is %s\n", words[j]);
 			if (not_digit_or_sign(words[j]))
 			{
 
-				printf("not valid %s\n", words[j]);
+				// printf("not valid %s\n", words[j]);
 				free(words[j]);
 				free(words);
 				free_stack(stack);
@@ -150,7 +164,7 @@ Stack *input_check(int argc, char **argv)
 			// ไม่ overflow
 			if (overflow(words[j]))
 			{
-				printf("overflow %s\n", words[j]);
+				// printf("overflow %s\n", words[j]);
 				free(words[j]);
 				free(words);
 				free_stack(stack);
@@ -159,7 +173,7 @@ Stack *input_check(int argc, char **argv)
 			// dup_in_stack
 			if (check_dup(stack, ft_atoi(words[j])))
 			{
-				printf("dup with %d\n", ft_atoi(words[j]));
+				// printf("dup with %d\n", ft_atoi(words[j]));
 				free(words[j]);
 				free(words);
 				free_stack(stack);
@@ -167,14 +181,14 @@ Stack *input_check(int argc, char **argv)
 			}
 			else
 			{
-				printf("push with %d\n", ft_atoi(words[j]));
+				// printf("push with %d\n", ft_atoi(words[j]));
 				push(stack, ft_atoi(words[j]));
 			}
 			free(words[j]);
-			j++;
+			j--;
 		}
 		free(words);
-		i++;
+		i--;
 	}
 
 	return stack;

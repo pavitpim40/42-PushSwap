@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 21:47:11 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:55:05 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	// printf("%s\n",ft_itoa(-2147483647));
 	// printf("%d\n",ft_atoi("2147483648"));
 	// printf("%s\n",ft_itoa(2147483648));
-
+	// printf("ARGC %d\n", argc);
 	// ## START
 	Stack *stack_A;
 	Stack *stack_B;
@@ -55,11 +55,12 @@ int main(int argc, char *argv[])
 	// input_fill(stack_A,argc,argv);
 
 	// ### SORTED
-	print_stack(stack_A);
+	// print_stack(stack_A);
 	// s_swap_top(stack_A);
-	printf("size %s\n", stack_A->name);
+	// printf("size %s\n", stack_A->name);
 	bubble_sort(stack_A, stack_B);
-	print_stack(stack_A);
+	// write(1,"OK\n",3);
+	// print_stack(stack_A); 
 
 	// ### EXIT
 	free_stack(stack_A);
