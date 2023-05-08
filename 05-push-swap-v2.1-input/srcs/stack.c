@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 15:47:16 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:56:48 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ Stack *create_stack(char *name)
 
 void free_stack(Stack *stack) 
 {
+	// printf("ADD of STACK FREE %p\n", stack);
     Node *current = stack->top;
     Node *next;
     while (current != NULL) {
@@ -33,6 +34,7 @@ void free_stack(Stack *stack)
         free(current);
         current = next;
     }
+	stack->size = 0;
     free(stack);
 }
 
@@ -56,7 +58,9 @@ void push(Stack *stack, int data)
 	node->data = data;
 	node->next = NULL;
 	node->prev = stack->top; // if 1st element to push ?
+	// printf("PUSH %d\n",data);
 	// printf("STACK->TOP %p\n",stack->top);
+	
 	// stack is not empty before
 	if(stack->top != NULL)
 		stack->top->next = node;

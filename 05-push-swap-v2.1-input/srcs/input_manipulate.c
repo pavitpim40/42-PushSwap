@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:33:54 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/08 15:24:04 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:02:46 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,67 @@
 
 #include "../includes/push_swap.h"
 
-void input_fill(Stack *stack,int argc, char **argv)
+int check_dup(Stack *stack, int num)
 {
-	int	i;
+	Node *current;
+	current = stack->top;
+	while (current != NULL)
+	{
+		if (current->data == num)
+			return (1);
+		current = current->prev;
+	}
+	return (0);
+}
+
+int check_dup_all(int argc, char **argv)
+{
+	int i;
+	int j;
+	int len;
+	char **array_word;
+	Stack *stack;
+
+	array_word = NULL;
+	i = argc - 1;
+	len = 0;
+	j = 0;
+	stack = create_stack("temp");
+	while (*(argv + i) && i > 0)
+	{
+		array_word = ft_split(*(argv + i), ' ');
+		while (array_word[j++])
+			len++;
+		j = 0;
+		while (j < len && array_word[len - 1 - j] != NULL)
+		{
+			
+			if (check_dup(stack, ft_atoi(array_word[j])))
+			{
+				// printf("FIND BUG %p\n", array_word);
+				free_stack(stack);
+				free(array_word[j]);
+				free(array_word);
+				return (1);
+			}
+			else
+			{
+				push(stack, ft_atoi(array_word[j]));
+				j++;
+				free(array_word[j]);
+			}
+		}
+		i--;
+		free(array_word);
+		// if(stack != NULL)
+		// 	free_stack(stack);
+	}
+	return (0);
+}
+
+void input_fill(Stack *stack, int argc, char **argv)
+{
+	int i;
 	int j;
 	int len;
 	char **array_word;
@@ -25,24 +83,20 @@ void input_fill(Stack *stack,int argc, char **argv)
 	i = argc - 1;
 	len = 0;
 	j = 0;
-	while(*(argv+i) && i > 0) 
+
+	while (*(argv + i) && i > 0)
 	{
-		// printf("curr_argv = %s\n", *(argv+i));
-		array_word = ft_split(*(argv+i), ' ');
-		while(array_word[j++])
+		array_word = ft_split(*(argv + i), ' ');
+		while (array_word[j++])
 			len++;
-		// printf("curr_len = %d\n", len);
 		j = 0;
-		while(j < len && array_word[len - 1 - j] != NULL)
+		while (j < len && array_word[len - 1 - j] != NULL)
 		{
-			// push to stack
-			// printf("num is %s\n", array_word[j]);
 			push(stack, ft_atoi(array_word[j]));
 			j++;
-			printf("j = %d\n", j);
 			free(array_word[j]);
 		}
 		i--;
 		free(array_word);
-	}	
+	}
 }
