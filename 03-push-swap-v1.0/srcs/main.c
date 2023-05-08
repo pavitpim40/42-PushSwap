@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/07 20:31:52 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:57:33 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@
 int main(int argc, char *argv[])
 {
 	printf("ac = %d\n",argc);
+	printf("atoi  = %d\n",ft_atoi("42"));
 
-	if(!is_valid_input(argv)) // implicit print Error
-		return (1);
+	// if(!is_valid_input(argv)) // implicit print Error
+	// 	return (1);
 	// create Stack
 	Stack *stack_A = create_stack("a");
 	input_fill(stack_A,argc,argv);
