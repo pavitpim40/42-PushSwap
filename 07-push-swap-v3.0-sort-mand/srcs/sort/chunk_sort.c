@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:14:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 06:31:04 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 06:34:35 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void rotate_up(Stack *A, int c_bot)
 // 		return (0);
 // }
 
-void push_each_chunk(Stack *A, Stack *B, int loop_count, int chunk_size)
+void push_each_chunk(Stack *A, Stack *B, int loop_count, int chunk_size,int swap_down)
 {
 	int start = (loop_count - 1) * chunk_size + 1;
 	int end = (loop_count)*chunk_size;
@@ -60,6 +60,8 @@ void push_each_chunk(Stack *A, Stack *B, int loop_count, int chunk_size)
 		else
 			rotate_up(A,c_bot);
 		p_move_top(A, B);
+		if(swap_down == 1)
+			r_shift_up(B,NULL);
 	}
 }
 
@@ -69,11 +71,15 @@ void chunk_sort(Stack *A, Stack *B)
 	int chunk_count = 4;
 	int chunk_size = A->size / chunk_count;
 	int loop_count = 1;
+	int is_swap_down = 0;
 	while (chunk_count)
 	{
-		push_each_chunk(A, B, loop_count, chunk_size);
+		push_each_chunk(A, B, loop_count, chunk_size,is_swap_down);
 		print_stack(B);
 		loop_count++;
-		chunk_count--;
+		if(is_swap_down == 0)
+			is_swap_down = 1;
+		else 
+			is_swap_down = 0;
 	}
 }
