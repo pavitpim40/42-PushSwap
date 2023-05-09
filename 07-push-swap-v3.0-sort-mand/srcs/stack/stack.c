@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 02:21:39 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:29:43 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,31 +116,3 @@ int	pop(Stack* stack)
 	return data;
 }
 
-
-// sa,sb
-void s_swap_top(Stack *stack)
-{
-	if(stack->size < 2)
-		return;
-	
-	Node* first = stack->top;
-	Node* second = first->prev;
-	Node* third = second->prev;
-
-	first->prev = third;
-	if(third != NULL)
-		third->next = first;
-	first->next = second;
-	second->prev = first;
-	second->next = NULL;
-	
-
-	if(third == NULL)
-		stack->bottom = first;
-	// or
-	// if (stack->bottom == first) {
-    //     stack->bottom = second;
-    // }
-	stack->top = second;
-	printf("s%s\n",stack->name);
-}
