@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 19:28:09 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:46:09 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ Stack *input_check(int argc, char **argv);
 int is_valid_input(int argc, char **argv);
 int check_dup_all(int argc, char **argv);
 void input_fill(Stack *stack,int argc, char **argv);
+
+// RANKING
+void label_rank(Stack *A);
 
 // SORT
 void swap_sort(Stack *stack_a);

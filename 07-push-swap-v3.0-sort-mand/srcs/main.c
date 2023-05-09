@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 19:27:33 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:57:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int main(int argc, char *argv[])
 {
 
+	printf("hi\n");
 	Stack *stack_A;
 	Stack *stack_B;
 
@@ -29,10 +30,11 @@ int main(int argc, char *argv[])
 		write(2, "Error\n", 6);
 		return (1);
 	}
-
+	
+	label_rank(stack_A);
 	// printf("SIZE %d\n", stack_A->size);
-	printf("IDX %d\n", stack_A->top->index);
-	// print_stack(stack_A);
+	// printf("IDX %d\n", stack_A->top->index);
+	print_stack(stack_A);
 	if(stack_A->size == 2)
 		swap_sort(stack_A);
 	else if (stack_A->size == 3)
