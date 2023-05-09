@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 01:49:42 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:24:27 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ Stack *create_stack(char *name)
 	stack->bottom = NULL;
 	stack->size = 0;
 	stack->name = name;
+	stack->min = INT_MAX;
+	stack->max = INT_MIN;
 	return stack;
 }
 
