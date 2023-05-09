@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 23:46:09 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 00:10:13 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct node {
 	int	data;
-	int index;
+	int rank;
 	struct node* next;
 	struct node* prev;
 } Node;

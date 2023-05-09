@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 00:05:10 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 00:12:59 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void print_stack(Stack* stack)
 		return;
     Node* node = stack->top;
     while (node != NULL) {
-        printf("data = %d rank = %d \n", node->data,node->index);
+        printf("data = %d rank = %d \n", node->data,node->rank);
         node = node->prev;
     }
     printf("\n");
@@ -82,7 +82,7 @@ void push_with_index(Stack *stack, int data)
 	if(node == NULL)
 		return;
 	node->data = data;
-	node->index = stack->size;
+	node->rank = -1;
 	node->next = NULL;
 	node->prev = stack->top; // if 1st element to push ?
 	// printf("PUSH %d\n",data);
