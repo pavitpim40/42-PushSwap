@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:44:47 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 00:02:00 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:23:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void p_move_top(Stack *stack_src,Stack *stack_dst)
 		if(stack_src->size == 0)
 			return;
 		int data = stack_src->top->data;
-		push(stack_dst,data);
+		push_with_index(stack_dst,data,stack_src->top->rank);
 		pop(stack_src);
 		printf("p%s\n",stack_dst->name);
 }

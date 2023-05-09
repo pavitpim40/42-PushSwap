@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 01:03:19 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:18:30 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,29 @@ int main(int argc, char *argv[])
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	
+	// PRESORTED
 	label_rank(stack_A);
+	printf("=========STACK-A==============\n");
+	print_stack(stack_A);
 	// printf("SIZE %d\n", stack_A->size);
 	// printf("IDX %d\n", stack_A->top->index);
-	print_stack(stack_A);
-	if(stack_A->size == 2)
-		swap_sort(stack_A);
-	else if (stack_A->size == 3)
-		triple_sort(stack_A);
+	// print_stack(stack_A);
+	// if(stack_A->size == 2)
+		// swap_sort(stack_A);
+	// else if (stack_A->size == 3)
+		// triple_sort(stack_A);
 	// else if (stack_A->size == 5)
 	// 	five_sort(stack_A,stack_B);
-	else {
+	// else {
 		// bubble_sort(stack_A, stack_B);
 		// quick_sort(stack_A,stack_B);
-		// chunk_sort(stack_A,stack_B);
-	}
+		chunk_sort(stack_A,stack_B);
+	// }
 		
 	// write(1,"OK\n",3);
 // print_stack(stack_A);
+printf("=========STACK-B==============\n");
+	print_stack(stack_B);
 	// ### EXIT
 	free_stack(stack_A);
 	free_stack(stack_B);

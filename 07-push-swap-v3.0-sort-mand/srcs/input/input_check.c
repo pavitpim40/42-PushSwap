@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:45:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 01:20:05 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:22:01 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ Stack *input_check(int argc, char **argv)
 			else
 			{
 				// printf("push with %d\n", ft_atoi(words[j]));
-				push_with_index(stack, ft_atoi(words[j]));
+				push_with_index(stack, ft_atoi(words[j]),-1);
 			}
 			free(words[j]);
 			j--;
