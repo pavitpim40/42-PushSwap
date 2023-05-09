@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:14:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 04:20:47 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 05:22:42 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,39 +154,46 @@ void chunk_sort(Stack *A, Stack *B)
 	int c_top = 0;
 	int c_bot = 0;
 	// Node *f_bot = A->bottom;
-	int fake_count = 20;
+	
 	// #1 ทำจน A หมด
-	int mid = 5; // control ว่าหากี่ตัว
-	while (fake_count)
+	int chunk_count = 4;
+	int chunk_size = A->size / chunk_count; 
+	int loop_count = 1;
+	while (chunk_count)
 	{	
 		// printf("a\n");
 		// #2 ทำทีละ chunk;
-		
-		int current_size = A->size;
-		while (mid)
+		// กำหนดว่า 
+		int start = (loop_count-1) * chunk_size + 1;
+		int end = (loop_count) * chunk_size;
+		printf("-------------ROUND : %d -------------\n", loop_count);
+		printf("start=%d , end=%d\n",start,end);
+		while (chunk_size)
 		{
 			// printf("NEW ROUND , mid = %d\n",mid);
 			// #3.1 ดูว่าไล่กี่ตัววถึงจะเจอใน range
-			while ((f_top->data < 1 || f_top->data > 20) && c_top <= A->size/2)
+			
+			while ((f_top->rank < start || f_top->rank > end) && c_top <= A->size/2)
 			{
 				c_top++;
 				f_top = f_top->prev;
 			}
-			while((f_bot->data < 1 || f_bot->data > 20) && c_bot<= A->size/2)
+			while((f_bot->rank < start || f_bot->rank > end) && c_bot<= A->size/2)
 			{	
 				c_bot++;
 				f_bot = f_bot->next;
 			}
-			printf("-------------ROUND : %d -------------\n", 6-mid);
-			print_stack(A);
-			printf("c_top=%d\n",c_top);
-			printf("c_bot=%d\n",c_bot);
-			printf("curren_size=%d\n",current_size);
+			
+			// print_stack(A);
+			// printf("c_top=%d\n",c_top);
+			// printf("c_bot=%d\n",c_bot);
+
+			// 3.2 ตัดสินใจว่าจะ push ใครไป
 			if (c_top - 1 <=  c_bot )
 			{
 				while (c_top--)
 					r_shift_up(A, NULL);
-				printf("PUSH EL from TOP = %d\n", f_top->data);
+				// printf("PUSH EL from TOP = %d\n", f_top->data);
 				p_move_top(A, B);
 				
 			}
@@ -195,21 +202,22 @@ void chunk_sort(Stack *A, Stack *B)
 				while (c_bot--)
 					rr_shift_down(A, NULL);
 				rr_shift_down(A, NULL);
-				printf("PUSH EL from BOT = %d\n", f_bot->data);
+				// printf("PUSH EL from BOT = %d\n", f_bot->data);
 				p_move_top(A, B);
 				
 			}
-		
+			// 3.3 reset รอบใหม่
 			f_top = A->top;
-			
 			f_bot = A->bottom;
-			// #3.2 หมุนลงล่างตาม c_top
 			c_top = 0;
 			c_bot = 0;
-			mid--;
-			printf("BEF NEW ROUND , mid = %d\n",mid);
+			chunk_size--;
+			// printf("BEF NEW ROUND , mid = %d\n",mid);
 		}
-		fake_count--;
+		print_stack(B);
+		chunk_size = 5;
+		loop_count++;
+		chunk_count--;
 	}
 	
 }
