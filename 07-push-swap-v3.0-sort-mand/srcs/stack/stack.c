@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 01:19:46 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 01:49:42 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ void push_with_index(Stack *stack, int data)
 	node->prev = stack->top; // if 1st element to push ?
 	// printf("PUSH %d\n",data);
 	// printf("STACK->TOP %p\n",stack->top);
-	
-	// stack is not empty before
+	if(data > stack->max)
+		stack->max = data;
+	if(data < stack->min)
+		stack->min = data;
 	if(stack->top != NULL)
 		stack->top->next = node;
 	stack->top = node;

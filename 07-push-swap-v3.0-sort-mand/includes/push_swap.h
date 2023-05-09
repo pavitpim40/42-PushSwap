@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 01:20:31 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 10:30:23 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@ typedef struct {
 	Node* top;
 	Node* bottom;
 	int	size;
+	int	max;
+	int min;
 	char *name;
 } Stack;
 
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
-int	ft_isdigit(int c);
+int		ft_isdigit(int c);
 char	*ft_itoa(int n);
 
 // STACK
@@ -63,3 +65,4 @@ void swap_sort(Stack *stack_a);
 void triple_sort(Stack *stack_a);
 void five_sort(Stack *stack_a,Stack *stack_b);
 void bubble_sort(Stack *stack_a, Stack *stack_b);
+void quick_sort(Stack *stack_a,Stack *stack_b);
