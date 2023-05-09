@@ -13,7 +13,7 @@ HEADER			=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 MAND_SRCS		=	main.c stack/stack.c stack/stack_action.c input/input_validate.c \
 					input/input_manipulate.c sort/bubble_sort.c \
 					input/input_check.c sort/swap_sort.c sort/triple_sort.c \
-					sort/five_sort.c sort/quick_sort.c sort/chunk_sort.c
+					sort/five_sort.c sort/quick_sort.c sort/chunk_sort.c pre_sort/label_rank.c
 MAND_PATH_DIR	=	srcs/
 MAND_PATH		=	$(addprefix $(MAND_PATH_DIR), $(MAND_SRCS))
 MAND_OBJ		=	$(MAND_PATH:.c=.o)
