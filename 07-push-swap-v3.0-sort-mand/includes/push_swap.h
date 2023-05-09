@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 12:40:54 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:54:33 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ void swap_sort(Stack *stack_a);
 void triple_sort(Stack *stack_a);
 void five_sort(Stack *stack_a,Stack *stack_b);
 void bubble_sort(Stack *stack_a, Stack *stack_b);
-// void quick_sort(Stack *stack_a,Stack *stack_b);
-void quick_sort(Stack *stack_a,Stack *stack_b, int size);
+void quick_sort(Stack *stack_a,Stack *stack_b);
+// void quick_sort(Stack *stack_a,Stack *stack_b, int size);
