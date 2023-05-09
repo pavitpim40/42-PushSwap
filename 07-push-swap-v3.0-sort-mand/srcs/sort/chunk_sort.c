@@ -6,11 +6,28 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:14:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 06:34:35 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 06:51:51 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
+
+// static int find_max(Stack *B)
+// {
+// 	Node *current;
+// 	int max;
+// 	printf("a\n");
+// 	current = B->top;
+// 	max = B->size;
+// 	while (current)
+// 	{
+		
+// 		if (current->rank == -1 && current->data < max)
+// 			max = current->data;
+// 		current = current->prev;
+// 	}
+// 	return (max);
+// }
 
 void rotate_down(Stack *A, int c_top)
 {
@@ -36,7 +53,7 @@ void rotate_up(Stack *A, int c_bot)
 // 		return (0);
 // }
 
-void push_each_chunk(Stack *A, Stack *B, int loop_count, int chunk_size,int swap_down)
+void push_each_chunk(Stack *A, Stack *B, int loop_count, int chunk_size, int swap_down)
 {
 	int start = (loop_count - 1) * chunk_size + 1;
 	int end = (loop_count)*chunk_size;
@@ -81,5 +98,7 @@ void chunk_sort(Stack *A, Stack *B)
 			is_swap_down = 1;
 		else 
 			is_swap_down = 0;
+		chunk_count--;
 	}
+	// printf("MAX  = %d\n",find_max(B));
 }
