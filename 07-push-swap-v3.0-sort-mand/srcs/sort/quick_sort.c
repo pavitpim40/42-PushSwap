@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:06:44 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 15:37:14 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:52:52 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,24 +133,53 @@
 // }
 
 
-// PSEUDO_Q_SORT
+// ## 1 PSEUDO_Q_SORT, Recursive ?
 
-void quick_sort(Stack *src, Stack *dst)
-{
-	Node *current;
-	Node *pivot;
+// void quick_sort(Stack *src, Stack *dst)
+// {
+// 	Node *current;
+// 	Node *pivot;
 
-	current = src->top;
-	pivot = src->bottom; // may run into problem , when recursive
+// 	current = src->top;
+// 	pivot = src->bottom; // may run into problem , when recursive
 
-	while(current && current->index != pivot->index)
-	{
-		if(current->data < pivot->data)
-			p_move_top(src,dst);
-		else
-			r_shift_up(src,NULL);
-		current = current->prev;
-	}
-	print_stack(src);
-	print_stack(dst);
+// 	while(current && current->index != pivot->index)
+// 	{
+// 		if(current->data < pivot->data)
+// 			p_move_top(src,dst);
+// 		else
+// 			r_shift_up(src,NULL);
+// 		current = current->prev;
+// 	}
+// 	print_stack(src);
+// 	print_stack(dst);
+// }
+
+// ## 2 Q_SORT
+
+void quicksort(Stack *stack_a, Stack *stack_b) {
+    
+	if (stack_a->size <= 1)
+        return;
+    
+    int pivot = stack_a->top->data;
+    int size = stack_a->size;
+    
+    while (size--) {
+        int value = pop(stack_a);
+        if (value <= pivot) {
+            push(stack_b, value);
+        } else {
+            push(stack_a, value);
+        }
+    }
+    
+    // quicksort(stack_a, stack_b);
+    // quicksort(stack_b, stack_a);
+    
+    // push(stack_a, pivot);
+    // while (stack_b->size > 0) {
+    //     push(stack_a, pop(stack_b));
+    // }
 }
+
