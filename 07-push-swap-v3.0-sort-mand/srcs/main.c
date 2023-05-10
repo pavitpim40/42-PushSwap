@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 11:17:52 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:11:52 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int main(int argc, char *argv[])
 
 	// write(1,"OK\n",3);
 	// print_stack(stack_A);
-	// printf("=========STACK-A==============\n");
-	// print_stack(stack_A);
+	printf("=========STACK-A==============\n");
+	print_stack(stack_A);
 	// ### EXIT
 	free_stack(stack_A);
 	free_stack(stack_B);

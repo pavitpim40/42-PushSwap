@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:14:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 12:03:36 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:12:15 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,10 @@ void chunk_sort(Stack *A, Stack *B)
 
 	// #1 ทำจนกว่าจะครบทุก chunk
 
-	// printf("Chunk_size %d\n", chunk_size);
-	while (chunk_count)
+	printf("Chunk_size %d\n", chunk_size);
+	while (B->size)
 	{
-		// max = B->size;
-		// ในแต่ละ chunk ให้หาเลขจนครบ
-		while (chunk_size)
-		{
+		// {
 			c_top = 0;
 			c_bot = 0;
 			f_top = B->top;
@@ -162,11 +159,5 @@ void chunk_sort(Stack *A, Stack *B)
 				// printf("BOT:PUSH EL = %d with index %d\n", B->top->data, B->top->rank);
 				p_move_top(B, A);
 			}
-
-			chunk_size--;
-		}
-		// printf("Chunk_COUNT %d\n", chunk_count);
-		chunk_size = 5;
-		chunk_count--;
 	}
 }
