@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 12:40:56 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:54:59 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ void input_fill(Stack *stack,int argc, char **argv);
 void label_rank(Stack *A);
 
 // SORT
+void rotate_down(Stack *A, int c_top);
+void rotate_up(Stack *A, int c_bot);
+void chunk_sort(Stack *A, Stack *B);
 void swap_sort(Stack *stack_a);
 void triple_sort(Stack *stack_a);
 void five_sort(Stack *stack_a,Stack *stack_b);
@@ -71,4 +74,3 @@ void bubble_sort(Stack *stack_a, Stack *stack_b);
 void forth_sort(Stack *A,Stack *B);
 // void quick_sort(Stack *stack_a,Stack *stack_b);
 // void quick_sort(Stack *stack_a,Stack *stack_b, int size);
-void chunk_sort(Stack *A, Stack *B);

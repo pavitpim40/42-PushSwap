@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 23:10:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 15:17:31 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:35:03 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,54 +72,91 @@ void forth_sort(Stack *A, Stack *B)
 	}
 	else if (bot == 1 || bot == 4)
 	{
-		// printf("CASE3-4\n");
-
-		// printf("ACTION-1\n");
 		rr_shift_down(A, NULL);
-		// print_stack(A);
-
-		// printf("ACTION-2\n");
 		p_move_top(A, B);
-		// print_stack(A);
-
-		// printf("ACTION-3\n");
 		triple_sort(A);
-		// print_stack(A);
-		p_move_top(B,A);
-		// print_stack(A);
+		p_move_top(B, A);
 		if (bot == 4)
 			r_shift_up(A, NULL);
-		// printf("END---------------------------CASE3-4\n");
-		// print_stack(A);
 	}
-	else {
+	else
+	{
 		int c_top = 0;
 		Node *curr = A->top;
-		
-		while(curr->rank != 1)
+
+		while (curr->rank != 1)
 		{
 
 			c_top++;
 			curr = curr->prev;
 		}
-		// printf("c_top=%d\n",c_top);
 		while (c_top--)
 		{
-			r_shift_up(A,NULL);
+			r_shift_up(A, NULL);
 		}
-		p_move_top(A,B);
+		p_move_top(A, B);
 		triple_sort(A);
-		p_move_top(B,A);
-		
+		p_move_top(B, A);
 	}
 }
 
-void five_sort(Stack *stack_a, Stack *stack_b)
+void five_sort(Stack *A, Stack *B)
 {
-	p_move_top(stack_a, stack_b);
-	p_move_top(stack_a, stack_b);
-	triple_sort(stack_a);
-	swap_sort(stack_b);
-	p_move_top(stack_b, stack_a);
-	p_move_top(stack_b, stack_a);
+	// find Min
+	Node *top = A->top;
+	Node *bot = A->bottom;
+	int c_top = 0;
+	int c_bot = 0;
+
+	int bound = 2;
+	int start = 1;
+	while (start <= bound)
+	{
+		top = A->top;
+		bot = A->bottom;
+		c_top = 0;
+		c_bot = 0;
+		while (top->rank != start && c_top <= A->size / 2)
+		{
+			c_top++;
+			top = top->prev;
+		}
+
+		while (bot->rank != start && c_bot <= A->size / 2)
+		{
+			c_bot++;
+			bot = bot->next;
+		}
+
+		// printf("c_top=%d\n",c_top);
+		// printf("c_bot=%d\n",c_bot);
+		if (c_top-1  <= c_bot)
+		{
+				// printf("PUSH FROM top with data = %d and rank %d\n", top->data, top->rank);
+				rotate_down(A, c_top);
+			// rotate_down(A, c_top);
+		}
+		else
+		{
+			// printf("PUSH FROM Bott with data = %d and rank %d\n", bot->data, bot->rank);
+				rotate_up(A, c_bot);
+		}
+
+		p_move_top(A, B);
+		// print_stack(A);
+		start++;
+	}
+	// print_stack(A);
+	// printf("=================SORT-3==================\n");
+	triple_sort(A);
+	// print_stack(A);
+	// printf("=================SORT-2==================\n");
+	swap_sort(B);
+	// print_stack(B);
+	r_shift_up(B, NULL);
+	p_move_top(B, A);
+	// print_stack(A);
+	
+	p_move_top(B, A);
+	// r_shift_up(A,NULL);
 }
