@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 02:29:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:04:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,18 @@ void push_with_index(Stack *stack, int data,int rank)
 	Node* node = (Node *)malloc(sizeof(Node));
 	if(node == NULL)
 		return;
+	
 	node->data = data;
 	node->rank = -1;
 	node->next = NULL;
+	printf("DEBUG\n");
+	print_stack(stack);
+	// printf("stack->top->rank %d\n",sta);
+	printf("DEBUG\n");
 	node->prev = stack->top; // if 1st element to push ?
+		
 	node->rank = rank;
+	
 	// printf("PUSH %d\n",data);
 	// printf("STACK->TOP %p\n",stack->top);
 	if(data > stack->max)
