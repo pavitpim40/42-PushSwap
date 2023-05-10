@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:14:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 12:12:15 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:43:27 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void chunk_sort(Stack *A, Stack *B)
 
 	// #1 ทำจนกว่าจะครบทุก chunk
 
-	printf("Chunk_size %d\n", chunk_size);
+	// printf("Chunk_size %d\n", chunk_size);
 	while (B->size)
 	{
 		// {
@@ -130,7 +130,7 @@ void chunk_sort(Stack *A, Stack *B)
 			f_top = B->top;
 			f_bot = B->bottom;
 			max = B->size;
-			printf("====================ROUND:%d==================\n", 6 - chunk_size);
+			// printf("====================ROUND:%d==================\n", 6 - chunk_size);
 			// printf("F_TOP_RANK = %d\n", f_top->rank);
 			// printf("MAX = %d\n", max);
 			while (f_top->rank != max && c_top <= B->size / 2)
