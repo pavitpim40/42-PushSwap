@@ -13,8 +13,9 @@ HEADER			=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 MAND_SRCS		=	main.c stack/stack.c \
 					action/action_s.c action/action_p.c action/action_r.c action/action_rr.c \
 					input/input_validate.c input/input_fill.c\
-					sort/bubble_sort.c sort/small_sort.c \
-					sort/quick_sort.c sort/chunk_sort.c pre_sort/label_rank.c \
+					pre_sort/label_rank.c \
+					sort/small_sort.c  sort/chunk_sort.c \
+					sort/quick_sort.c \
 					
 MAND_PATH_DIR	=	srcs/
 MAND_PATH		=	$(addprefix $(MAND_PATH_DIR), $(MAND_SRCS))
