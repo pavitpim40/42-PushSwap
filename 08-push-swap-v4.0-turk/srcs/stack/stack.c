@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 14:40:40 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:22:10 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ Stack *create_stack(char *name)
 
 void free_stack(Stack *stack) 
 {
-	// printf("ADD of STACK FREE %p\n", stack);
 	if(!stack)
 		return;
     Node *current = stack->top;
@@ -55,19 +54,18 @@ void print_stack(Stack* stack)
     printf("\n");
 }
 
-// Basic Operation
+
 void push(Stack *stack, int data)
 {
-	Node* node = (Node *)malloc(sizeof(Node));
+	Node* node;
+
+	node = (Node *)malloc(sizeof(Node));
 	if(node == NULL)
 		return;
 	node->data = data;
 	node->next = NULL;
-	node->prev = stack->top; // if 1st element to push ?
-	// printf("PUSH %d\n",data);
-	// printf("STACK->TOP %p\n",stack->top);
-	
-	// stack is not empty before
+	node->prev = stack->top; 
+
 	if(stack->top != NULL)
 		stack->top->next = node;
 	stack->top = node;
@@ -76,25 +74,18 @@ void push(Stack *stack, int data)
 	stack->size++;
 }
 
-void push_with_index(Stack *stack, int data,int rank)
+void push_with_rank(Stack *stack, int data,int rank)
 {
-	Node* node = (Node *)malloc(sizeof(Node));
+	Node* node;
+	
+	node = (Node *)malloc(sizeof(Node));
 	if(node == NULL)
 		return;
-	
 	node->data = data;
-	node->rank = -1;
 	node->next = NULL;
-	// printf("DEBUG\n");
-	// print_stack(stack);
-	// printf("stack->top->rank %d\n",sta);
-	// printf("DEBUG\n");
-	node->prev = stack->top; // if 1st element to push ?
-		
+	node->prev = stack->top; 
 	node->rank = rank;
 	
-	// printf("PUSH %d\n",data);
-	// printf("STACK->TOP %p\n",stack->top);
 	if(data > stack->max)
 		stack->max = data;
 	if(data < stack->min)
@@ -112,12 +103,11 @@ int	pop(Stack* stack)
 {
 	if(stack->size == 0)
 		return (-1);
-	
-	int	data = stack->top->data; // ดึง data มาก่อน
-	Node *temp = stack->top; // เก็บตัวชี้หัวไว้
-	stack->top = stack->top->prev; // เขยิบไปชี้ตัวก่อนหน้า
+	int	data = stack->top->data;
+	Node *temp = stack->top; 
+	stack->top = stack->top->prev; 
 	if(stack->top != NULL)
-		stack->top->next = NULL; // ถ้ามีตัว top ให้ชี้ไปที่ null
+		stack->top->next = NULL; 
 	stack->size--;
 	free(temp);
 	return data;

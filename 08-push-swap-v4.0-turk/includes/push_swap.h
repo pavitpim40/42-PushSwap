@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 16:58:28 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:19:05 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ Stack *create_stack(char *name);
 void free_stack(Stack *stack);
 void print_stack(Stack* stack);
 void push(Stack *stack, int data);
-void push_with_index(Stack *stack, int data,int rank);
+void push_with_rank(Stack *stack, int data,int rank);
 int	pop(Stack* stack);
 
 // STACK-ACTION

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:45:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 17:16:35 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:19:09 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int try_to_fill_arg(Stack *A, char *each_arg)
 			return 0;
 		}
 		else
-			push_with_index(A, ft_atoi(words[j]), -1);
+			push_with_rank(A, ft_atoi(words[j]), -1);
 		free(words[j]);
 		j--;
 	}
