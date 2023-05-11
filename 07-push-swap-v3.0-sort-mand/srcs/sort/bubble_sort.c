@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:06:40 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/09 00:45:57 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:01:36 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void bubble_sort(Stack *stack_a, Stack *stack_b)
 	int size;
 
 	size = stack_a->size;
-	// printf("hi bubble size = %d\n", size);
 	count = 0;
 
 	while (count++ < size - 1)
@@ -40,11 +39,9 @@ void bubble_sort(Stack *stack_a, Stack *stack_b)
 
 		element_1 = stack_a->top;
 		element_2 = element_1->prev;
-		// printf("el_1=%d el2=%d\n", element_1->data, element_2->data);
 		count_inner = 0;
 		while (count_inner++ < size - count)
 		{
-			// printf("inner\n");
 			if (element_1->data > element_2->data)
 				do_bubble(stack_a, stack_b);
 			else
