@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 21:21:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:58:03 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ int main(int argc, char *argv[])
 		return (1);
 	}
 	// PRESORTED
+	if(is_sorted(stack_A))
+	{
+		free_stack(stack_A);
+		free_stack(stack_B);
+		// printf("SORTED");
+		return (0);
+	}
 	label_rank(stack_A);
 	if (stack_A->size == 2)
 		swap_sort(stack_A);

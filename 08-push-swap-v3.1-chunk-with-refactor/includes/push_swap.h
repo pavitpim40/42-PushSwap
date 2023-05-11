@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 21:20:45 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:50:46 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int verify_string(Stack *A, char *word);
 void label_rank(Stack *A);
 
 // SORT_UTILS
+int is_sorted(Stack *stack);
 void rotate_down(Stack *A, int c_top);
 void rotate_up(Stack *A, int c_bot);
 
@@ -71,7 +72,6 @@ void move_num(Stack *src, Stack *dst, int num);
 void move_num_in_range(Stack *src, Stack *dst, int start, int end);
 
 void move_first_found(Stack *src, Stack *dst, int min, int max);
-// void move_nums_in_range(Stack *src, Stack *dst, int start, int end);
 void move_first_found_optimize(Stack *src, Stack *dst, int min, int max);
 
 // SORT_ALGO
