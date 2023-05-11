@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:48:29 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 19:33:57 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:36:52 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void move_num_in_range(Stack *src, Stack *dst, int start, int end)
 
 
 // เอาเลขไหนก็ได้ในช่วงนั้น move ไปก่อน
-void move_first_found_in_range(Stack *src, Stack *dst, int min, int max)
+void move_first_found(Stack *src, Stack *dst, int min, int max)
 {
 	Node *top;
 	Node *bot;
