@@ -1,2 +1,5 @@
 push_swap_tester/
 tester_gemartin/
+
+*.o
+.DS_Store
