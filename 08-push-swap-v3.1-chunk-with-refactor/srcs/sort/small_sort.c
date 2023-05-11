@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 23:10:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 19:33:14 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 02:39:56 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void triple_sort(Stack *A)
 
 void forth_sort(Stack *A, Stack *B)
 {
-	move_num_in_range(A, B, 1, 1);
+	// printf("A->min = %d\n",A->min);
+	move_num_in_range(A, B, A->min_rank, A->min_rank);
 	triple_sort(A);
 	p_move_top(B, A);
 }

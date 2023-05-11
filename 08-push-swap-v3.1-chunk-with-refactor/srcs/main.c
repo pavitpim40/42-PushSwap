@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 21:58:03 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 02:41:30 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
 	{
 		// 	free_stack(stack_A);
 		free_stack(stack_B);
-		write(2, "Error\n", 6);
-		return (1);
+		write(2, "Error\n", 5);
+		exit(1);
 	}
 	// PRESORTED
 	if(is_sorted(stack_A))
@@ -39,6 +39,12 @@ int main(int argc, char *argv[])
 		return (0);
 	}
 	label_rank(stack_A);
+
+	// printf("======================================\n");
+	// printf("========== STARTING SORTED ==========\n");
+	// printf("======================================\n");
+	// printf("MAIN:A->min = %d\n",stack_A->min);
+	// print_stack(stack_A);
 	if (stack_A->size == 2)
 		swap_sort(stack_A);
 	else if (stack_A->size == 3)

@@ -6,13 +6,13 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:56 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 01:14:48 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 02:36:49 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-static int find_min(Stack *A)
+int find_min(Stack *A)
 {
 	Node *current;
 	int min;
@@ -52,4 +52,6 @@ void label_rank(Stack *A)
 			current = current->prev;
 		}
 	}
+	A->min_rank = 1;
+	A->max_rank = A->size;
 }

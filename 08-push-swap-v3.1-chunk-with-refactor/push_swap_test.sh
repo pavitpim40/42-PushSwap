@@ -3688,6 +3688,7 @@ printf ${BLUE}"\n-------------------------------------------------------------\n
 printf ${BLUE}"\n\t\t  Random test with big nums\t\t\n"${DEF_COLOR};
 printf ${BLUE}"\n-------------------------------------------------------------\n\n"${DEF_COLOR};
 
+# 1
 ARG=$(ruby -e "puts (-2147483648..-2147483149).to_a.shuffle.join(' ')");
 N=$(./push_swap $ARG | wc -l)
 if [ $N -lt 5500 ]; then
@@ -3708,6 +3709,7 @@ else
 	printf "${RED} [KO]${DEF_COLOR}\n";
 fi
 
+# 2
 ARG=$(ruby -e "puts (-2147483648..-2147483149).to_a.shuffle.join(' ')");
 N=$(./push_swap $ARG | wc -l)
 if [ $N -lt 5500 ]; then
@@ -3728,6 +3730,7 @@ else
 	printf "${RED} [KO]${DEF_COLOR}\n";
 fi
 
+# 3
 ARG=$(ruby -e "puts (0..499).to_a.shuffle.join(' ')");
 N=$(./push_swap $ARG | wc -l)
 if [ $N -lt 5500 ]; then
@@ -3748,6 +3751,7 @@ else
 	printf "${RED} [KO]${DEF_COLOR}\n";
 fi
 
+#4
 ARG=$(ruby -e "puts (0..499).to_a.shuffle.join(' ')");
 N=$(./push_swap $ARG | wc -l)
 if [ $N -lt 5500 ]; then
@@ -3768,6 +3772,7 @@ else
 	printf "${RED} [KO]${DEF_COLOR}\n";
 fi
 
+#5
 ARG=$(ruby -e "puts (0..498).to_a.shuffle.join(' ')");
 N=$(./push_swap $ARG | wc -l)
 if [ $N -lt 5500 ]; then

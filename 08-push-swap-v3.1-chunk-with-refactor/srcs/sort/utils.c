@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:48:29 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 21:25:29 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 02:40:47 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void move_num_in_range(Stack *src, Stack *dst, int start, int end)
 	}
 }
 
-
-
 // เอาเลขไหนก็ได้ในช่วงนั้น move ไปก่อน
 void move_first_found(Stack *src, Stack *dst, int min, int max)
 {
@@ -96,18 +94,20 @@ void move_first_found_optimize(Stack *src, Stack *dst, int min, int max)
 	bot = src->bottom;
 	c_top = 0;
 	c_bot = 0;
-	while ((top->rank < min || top->rank > max) && c_top++ <= src->size / 2)
-		top = top->prev;
-	while ((bot->rank < min || bot->rank > max) && c_bot++ <= src->size / 2)
+
+;
+	while (top != NULL && (top->rank < min || top->rank > max) && c_top++ <= src->size / 2)
+				top = top->prev;
+	
+	while (bot && (bot->rank < min || bot->rank > max) && c_bot++ <= src->size / 2)
 		bot = bot->next;
+		
 	if (c_top - 1 <= c_bot)
 		rotate_down(src, c_top);
 	else
 		rotate_up(src, c_bot);
 	val = src->top->rank;
 	p_move_top(src, dst);
-	// printf("push val = %d\n",val);
-	if(val < (min+max)/2)
-		r_shift_up(dst,NULL);
-
+	if (val < (min + max) / 2)
+		r_shift_up(dst, NULL);
 }

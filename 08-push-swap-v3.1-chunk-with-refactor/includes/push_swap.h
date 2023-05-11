@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 21:50:46 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 02:35:37 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct
 	int size;
 	int max;
 	int min;
+	int min_rank;
+	int max_rank;
 	char *name;
 } Stack;
 
@@ -47,12 +49,13 @@ Stack *create_stack(char *name);
 void free_stack(Stack *stack);
 void print_stack(Stack *stack);
 void push(Stack *stack, int data);
-void push_with_rank(Stack *stack, int data, int rank);
+void push_with_rank(Stack *dst, int data,int rank);
 int pop(Stack *stack);
 
 // STACK-ACTION
 void s_swap_top(Stack *stack);
 void p_move_top(Stack *stack_src, Stack *stack_dst);
+void p_move_top_with_rank(Stack *stack_src, Stack *stack_dst, int rank);
 void r_shift_up(Stack *stack_one, Stack *stack_two);
 void rr_shift_down(Stack *stack_one, Stack *stack_two);
 
@@ -61,7 +64,10 @@ Stack *fill_stack(int argc, char **argv);
 int verify_string(Stack *A, char *word);
 
 // RANKING
+int find_next_min_rank(Stack *src);
+int find_min(Stack *A);
 void label_rank(Stack *A);
+
 
 // SORT_UTILS
 int is_sorted(Stack *stack);
