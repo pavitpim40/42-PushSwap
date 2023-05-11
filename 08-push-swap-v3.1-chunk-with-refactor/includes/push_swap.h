@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 18:06:54 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:51:44 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,14 @@ int verify_string(Stack *A, char *word);
 // RANKING
 void label_rank(Stack *A);
 
-// SORT
+// SORT_UTILS
+void find_num_and_move(Stack *src, Stack *dst, int num);
+void find_num_in_range_and_move(Stack *src, Stack *dst, int start, int end);
 void move_num_in_range(Stack *src, Stack *dst, int num, int max);
 void rotate_down(Stack *A, int c_top);
 void rotate_up(Stack *A, int c_bot);
 
+// SORT_ALGO
 void swap_sort(Stack *stack_a);
 void triple_sort(Stack *stack_a);
 void forth_sort(Stack *A,Stack *B);
