@@ -6,22 +6,22 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:14:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 19:37:22 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:21:05 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-static void retrieve_chunk(Stack *A, Stack *B,  int chunk_size,int loop_count, int swap_down)
+static void retrieve_chunk(Stack *A, Stack *B,  int chunk_size,int loop_count)
 {
 	int min = (loop_count - 1) * chunk_size + 1;
 	int max = (loop_count) * chunk_size;
 
 	while (chunk_size--)
 	{
-		move_first_found(A, B, min, max);
-		if (swap_down == 1)
-			r_shift_up(B, NULL);
+		move_first_found_optimize(A, B, min, max);
+		// if (swap_down == 1)
+		// 	r_shift_up(B, NULL);
 	}
 }
 
@@ -46,7 +46,7 @@ void chunk_sort(Stack *A, Stack *B)
 	is_swap_down = 0;
 	while (A->size)
 	{
-		retrieve_chunk(A, B, chunk_size, loop_count, 0);
+		retrieve_chunk(A, B, chunk_size, loop_count);
 		if (is_swap_down == 0)
 			is_swap_down = 1;
 		else

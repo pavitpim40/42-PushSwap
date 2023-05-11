@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 19:37:05 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:20:45 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void move_num_in_range(Stack *src, Stack *dst, int start, int end);
 
 void move_first_found(Stack *src, Stack *dst, int min, int max);
 // void move_nums_in_range(Stack *src, Stack *dst, int start, int end);
-
+void move_first_found_optimize(Stack *src, Stack *dst, int min, int max);
 
 // SORT_ALGO
 void swap_sort(Stack *stack_a);
