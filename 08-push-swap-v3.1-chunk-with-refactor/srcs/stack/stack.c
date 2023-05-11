@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 02:49:45 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 03:10:14 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void push(Stack *stack, int data)
 	node->data = data;
 	node->next = NULL;
 	node->prev = stack->top;
-
+	
 	if (stack->top != NULL)
 		stack->top->next = node;
 	stack->top = node;
@@ -88,9 +88,17 @@ void push_with_rank(Stack *dst, int data, int rank)
 	node->rank = rank;
 
 	if (data > dst->max)
+	{
 		dst->max = data;
+		dst->max_rank = rank;
+	}
+		
 	if (data < dst->min)
+	{
 		dst->min = data;
+		dst->min_rank = rank;
+	}
+		
 	if (dst->top != NULL)
 		dst->top->next = node;
 	dst->top = node;

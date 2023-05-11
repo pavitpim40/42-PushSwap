@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:48:29 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 02:40:47 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 03:43:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ void move_first_found_optimize(Stack *src, Stack *dst, int min, int max)
 		rotate_down(src, c_top);
 	else
 		rotate_up(src, c_bot);
+	// Optimize
 	val = src->top->rank;
+	// find_cheapest_rotate(dst, src->top->rank);
 	p_move_top(src, dst);
 	if (val < (min + max) / 2)
 		r_shift_up(dst, NULL);

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 02:35:37 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 03:37:38 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,6 @@ void swap_sort(Stack *stack_a);
 void triple_sort(Stack *stack_a);
 void forth_sort(Stack *A,Stack *B);
 void five_sort(Stack *stack_a,Stack *stack_b);
+
+void find_cheapest_rotate(Stack *B, int target_rank);
 void chunk_sort(Stack *A, Stack *B);
