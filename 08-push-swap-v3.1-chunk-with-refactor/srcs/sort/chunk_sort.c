@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:14:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 21:21:05 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:33:53 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int calc_chunk_count(Stack *A)
 	if (A->size <= 100)
 		return (5) ;
 	else if (A->size <= 500)
-		return (11);
+		return (10);
 	else
 		return 5;
 }

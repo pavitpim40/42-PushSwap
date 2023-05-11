@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:48:29 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 21:20:58 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:25:29 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void move_first_found_optimize(Stack *src, Stack *dst, int min, int max)
 	val = src->top->rank;
 	p_move_top(src, dst);
 	// printf("push val = %d\n",val);
-	if(val > (min+max)/2)
+	if(val < (min+max)/2)
 		r_shift_up(dst,NULL);
 
 }

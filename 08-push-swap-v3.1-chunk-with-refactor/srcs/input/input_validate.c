@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:12:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 17:11:35 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:41:16 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,13 @@ static int is_overflow(char *word)
 		if (word[i++] == word_check[j++])
 			continue;
 		else
+		{
+			free(word_check);
 			return (1);
+		}
+			
 	}
+	free(word_check);
 	return (0);
 }
 
