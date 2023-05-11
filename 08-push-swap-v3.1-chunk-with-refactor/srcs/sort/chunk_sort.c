@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:14:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 19:01:07 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:34:34 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void move_chunk_in_range(Stack *A, Stack *B,  int chunk_size,int loop_count, int swap_down)
 {
-	int start = (loop_count - 1) * chunk_size + 1;
-	int end = (loop_count)*chunk_size;
+	int min = (loop_count - 1) * chunk_size + 1;
+	int max = (loop_count) * chunk_size;
 
 	while (chunk_size--)
 	{
-		find_num_in_range_and_move(A, B, start, end);
+		move_first_found_in_range(A, B, min, max);
 		if (swap_down == 1)
 			r_shift_up(B, NULL);
 	}
@@ -59,5 +59,5 @@ void chunk_sort(Stack *A, Stack *B)
 		}
 	}
 	while (B->size)
-		find_num_and_move(B, A, B->size);
+		move_num(B, A, B->size);
 }

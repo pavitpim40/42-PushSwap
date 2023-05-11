@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:48:29 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 18:49:59 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:33:57 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void rotate_up(Stack *A, int c_bot)
 	rr_shift_down(A, NULL);
 }
 
-void find_num_and_move(Stack *src, Stack *dst, int num)
+// เอาแค่เลขตัวเดียว
+void move_num(Stack *src, Stack *dst, int num)
 {
 	Node *top;
 	Node *bot;
@@ -48,7 +49,20 @@ void find_num_and_move(Stack *src, Stack *dst, int num)
 	p_move_top(src, dst);
 }
 
-void find_num_in_range_and_move(Stack *src, Stack *dst, int start, int end)
+// เอาหลายเลข แต่ไล่เรียงตัวแบบเรียงลำกับ
+void move_num_in_range(Stack *src, Stack *dst, int start, int end)
+{
+	while (start <= end)
+	{
+		move_num(src, dst, start);
+		start++;
+	}
+}
+
+
+
+// เอาเลขไหนก็ได้ในช่วงนั้น move ไปก่อน
+void move_first_found_in_range(Stack *src, Stack *dst, int min, int max)
 {
 	Node *top;
 	Node *bot;
@@ -59,9 +73,9 @@ void find_num_in_range_and_move(Stack *src, Stack *dst, int start, int end)
 	bot = src->bottom;
 	c_top = 0;
 	c_bot = 0;
-	while ((top->rank < start || top->rank > end) && c_top++ <= src->size / 2)
+	while ((top->rank < min || top->rank > max) && c_top++ <= src->size / 2)
 		top = top->prev;
-	while ((bot->rank < start || bot->rank > end) && c_bot++ <= src->size / 2)
+	while ((bot->rank < min || bot->rank > max) && c_bot++ <= src->size / 2)
 		bot = bot->next;
 	if (c_top - 1 <= c_bot)
 		rotate_down(src, c_top);
@@ -70,11 +84,3 @@ void find_num_in_range_and_move(Stack *src, Stack *dst, int start, int end)
 	p_move_top(src, dst);
 }
 
-void move_num_in_range(Stack *src, Stack *dst, int num, int max)
-{
-	while (num <= max)
-	{
-		find_num_and_move(src, dst, num);
-		num++;
-	}
-}
