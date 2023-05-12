@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:36:01 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 20:45:05 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/13 02:45:09 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,18 @@ int	pop(t_stack *stack)
 	stack->size--;
 	free(temp);
 	return (data);
+}
+
+void print_stack(t_stack *stack)
+{
+	printf("Stack: \n");
+	if (!stack)
+		return;
+	t_node *node = stack->top;
+	while (node != NULL)
+	{
+		printf("data = %d rank = %d \n", node->data, node->rank);
+		node = node->prev;
+	}
+	printf("\n");
 }
