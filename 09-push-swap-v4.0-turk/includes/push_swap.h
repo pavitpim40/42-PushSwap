@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 13:08:48 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:30:01 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct
 	char *name;
 } Stack;
 
+// LIBFT
 size_t ft_strlen(const char *s);
 void ft_putstr_fd(char *s, int fd);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -49,6 +50,9 @@ char **ft_split(char const *s, char c);
 char *ft_strjoin(char const *s1, char const *s2);
 int ft_isdigit(int c);
 char *ft_itoa(int n);
+
+// GNL
+char *get_next_line(int fd);
 
 // STACK
 Stack *create_stack(char *name);

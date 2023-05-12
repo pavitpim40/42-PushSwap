@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:56:39 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 13:19:58 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:50:39 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void error_and_exit(char *word, Stack *A,Stack *B)
 
 void execute_action(Stack *A, Stack *B, char *action)
 {
+	printf("ACTION CMP = %d\n", ft_strncmp(action, "sa\n", 4));
 	if (ft_strncmp(action, "sa\n", 4) == 0)
 		s_swap_top(A);
 	else if (ft_strncmp(action, "sb\n", 4) == 0)
@@ -51,6 +52,7 @@ void execute_action(Stack *A, Stack *B, char *action)
 		rr_shift_down(A, B);
 	else
 		error_and_exit("Error\n",A,B);
+	print_stack(A);
 }
 
 void checker(Stack *A, Stack *B)
@@ -58,13 +60,18 @@ void checker(Stack *A, Stack *B)
 	char *action;
 
 	action = get_next_line(STDIN_FILENO);
-	while (action)
+	printf("ACTION = %s\n", action);
+	while (action && !is_sorted(A))
 	{
 		execute_action(A, B, action);
 		free(action);
+		if(is_sorted(A))
+			break;
 		action = get_next_line(STDIN_FILENO);
+		print_stack(A);
 	}
-	free(action);
+	// if(action)
+	// 	free(action);
 	if (is_sorted(A) && B->size == 0)
 		ft_putstr_fd("OK\n", STDOUT_FILENO);
 	else
@@ -97,6 +104,7 @@ int main(int argc, char *argv[])
 		// printf("SORTED");
 		return (0);
 	}
+	// printf("hello checker");
 	label_rank(stack_A);
 	checker(stack_A,stack_B);
 	

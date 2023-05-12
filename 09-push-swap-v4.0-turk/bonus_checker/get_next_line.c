@@ -6,11 +6,35 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:46:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 12:54:59 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:31:11 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != c)
+	{
+		if (*s == '\0')
+			return (NULL);
+		s++;
+	}
+	return ((char *)s);
+}
+
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*s;
+
+	s = ft_strjoin(s1, s2);
+	if (s1 != NULL)
+		free(s1);
+	if (s2 != NULL)
+		free(s2);
+	return (s);
+}
 
 char	*create_buffer(char *buffer)
 {
