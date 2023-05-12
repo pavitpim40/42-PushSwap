@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 02:41:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 05:00:38 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ int main(int argc, char *argv[])
 	else if (stack_A->size == 5)
 		five_sort(stack_A,stack_B);
 	else
-		chunk_sort(stack_A, stack_B);
+		turk_sort(stack_A,stack_B);
+		// chunk_sort(stack_A, stack_B);
 
 	// write(1,"OK\n",3);
 	// print_stack(stack_A);
-	// printf("======================================\n");
-	// printf("==========  SORTED STACK-A  ==========\n");
-	// printf("======================================\n");
-	// print_stack(stack_A);
+	printf("======================================\n");
+	printf("==========  SORTED STACK-A  ==========\n");
+	printf("======================================\n");
+	print_stack(stack_A);
 	// ### EXIT
 	free_stack(stack_A);
 	free_stack(stack_B);

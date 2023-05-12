@@ -15,7 +15,7 @@ MAND_SRCS		=	main.c stack/stack.c \
 					input/input_validate.c input/input_fill.c\
 					pre_sort/label_rank.c \
 					sort/utils.c sort/small_sort.c  sort/chunk_sort.c \
-					sort/quick_sort.c sort/is_sorted.c sort/optimal_rotate.c \
+					sort/quick_sort.c sort/is_sorted.c sort/optimal_rotate.c sort/turk_sort.c \
 					
 MAND_PATH_DIR	=	srcs/
 MAND_PATH		=	$(addprefix $(MAND_PATH_DIR), $(MAND_SRCS))
