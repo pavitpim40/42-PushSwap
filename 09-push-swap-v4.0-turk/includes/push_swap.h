@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 13:30:01 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:19:05 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void push_with_rank(Stack *dst, int data, int rank);
 int pop(Stack *stack);
 
 // STACK-ACTION
-void s_swap_top(Stack *stack);
-void p_move_top(Stack *stack_src, Stack *stack_dst);
-void p_move_top_with_rank(Stack *stack_src, Stack *stack_dst, int rank);
-void r_shift_up(Stack *stack_one, Stack *stack_two);
-void rr_shift_down(Stack *stack_one, Stack *stack_two);
+void s_swap_top(Stack *stack, int mode);
+void p_move_top(Stack *stack_src, Stack *stack_dst,  int mode);
+void p_move_top_with_rank(Stack *stack_src, Stack *stack_dst, int rank,int mode);
+void r_shift_up(Stack *stack_one, Stack *stack_two, int mode);
+void rr_shift_down(Stack *stack_one, Stack *stack_two, int mode);
 
 // INPUT
 Stack *fill_stack(int argc, char **argv);

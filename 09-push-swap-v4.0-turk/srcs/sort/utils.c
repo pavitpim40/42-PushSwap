@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:48:29 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 03:43:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:21:34 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void rotate_down(Stack *A, int c_top)
 {
 	while (c_top--)
-		r_shift_up(A, NULL);
+		r_shift_up(A, NULL,1);
 }
 
 // bot
 void rotate_up(Stack *A, int c_bot)
 {
 	while (c_bot--)
-		rr_shift_down(A, NULL);
-	rr_shift_down(A, NULL);
+		rr_shift_down(A, NULL,1);
+	rr_shift_down(A, NULL,1);
 }
 
 // เอาแค่เลขตัวเดียว
@@ -46,7 +46,7 @@ void move_num(Stack *src, Stack *dst, int num)
 		rotate_down(src, c_top);
 	else
 		rotate_up(src, c_bot);
-	p_move_top(src, dst);
+	p_move_top(src, dst,1);
 }
 
 // เอาหลายเลข แต่ไล่เรียงตัวแบบเรียงลำกับ
@@ -79,7 +79,7 @@ void move_first_found(Stack *src, Stack *dst, int min, int max)
 		rotate_down(src, c_top);
 	else
 		rotate_up(src, c_bot);
-	p_move_top(src, dst);
+	p_move_top(src, dst,1);
 }
 
 void move_first_found_optimize(Stack *src, Stack *dst, int min, int max)
@@ -109,7 +109,7 @@ void move_first_found_optimize(Stack *src, Stack *dst, int min, int max)
 	// Optimize
 	val = src->top->rank;
 	// find_cheapest_rotate(dst, src->top->rank);
-	p_move_top(src, dst);
+	p_move_top(src, dst,1);
 	if (val < (min + max) / 2)
-		r_shift_up(dst, NULL);
+		r_shift_up(dst, NULL,1);
 }

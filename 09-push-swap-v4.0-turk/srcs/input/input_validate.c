@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:12:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 21:41:16 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:08:22 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int is_nan(char *word)
 		return (0);
 	while (i < (int)ft_strlen(word) && *(word + i))
 	{
+		// if(*(word+i) == ' ' && found_num == 0)
+		// 	i++;
 		if (is_sign(*(word + i)) && found_num == 0)
 			i++;
 		else if (ft_isdigit(*(word + i)))

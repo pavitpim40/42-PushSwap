@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:27:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/10 02:28:55 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:17:33 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,20 @@ static void shift_up(Stack *stack)
 	
 }
 
-void r_shift_up(Stack *stack_one, Stack *stack_two)
+void r_shift_up(Stack *stack_one, Stack *stack_two, int mode)
 {
 
 	if(stack_one && stack_two == NULL)
 	{
 		shift_up(stack_one);
-		printf("r%s\n",stack_one->name);
+		if(mode == 1)
+			printf("r%s\n",stack_one->name);
 	}
 	else if(stack_one && stack_two)
 	{
 		shift_up(stack_one);
 		shift_up(stack_two);
-		printf("rr\n");
+		if(mode == 1)
+			printf("rr\n");
 	}
 }

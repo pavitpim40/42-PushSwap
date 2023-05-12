@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:45:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/11 17:19:09 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:35:12 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,21 @@ Stack *fill_stack(int argc, char **argv)
 {
 	int success_fill;
 	Stack *A;
+	// char *temp;
+	// char *res;
 
 	A = create_stack("a");
 	success_fill = 0;
+	// res = ft_strjoin("","");
+	// // new sol
+	// while(argc > 1)
+	// {
+	// 	temp = ft_strdup("", argv[argc-1]);
+	// 	res = ft_strjoin(res,temp);
+	// 	free(temp);
+	// 	argc--;
+	// }
+
 	while (argc > 1)
 	{
 		if (ft_strlen(argv[argc - 1]) == 0)
