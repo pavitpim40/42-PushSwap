@@ -6,11 +6,21 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 02:41:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:19:12 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void error_and_exit(char *word, Stack *A,Stack *B)
+{
+	if(A)
+		free_stack(A);
+	if(B)
+		free_stack(B);
+	write(2, word, ft_strlen(word));
+	exit(1);
+}
 
 // FOR INPUT
 int main(int argc, char *argv[])
@@ -24,14 +34,10 @@ int main(int argc, char *argv[])
 	stack_A = fill_stack(argc, argv);
 	stack_B = create_stack("b");
 	if (!stack_A)
-	{
-		// 	free_stack(stack_A);
-		free_stack(stack_B);
-		write(2, "Error\n", 5);
-		exit(1);
-	}
+		error_and_exit("Error\n",stack_A,stack_B);
+	
 	// PRESORTED
-	if(is_sorted(stack_A))
+	if (is_sorted(stack_A))
 	{
 		free_stack(stack_A);
 		free_stack(stack_B);
@@ -50,9 +56,9 @@ int main(int argc, char *argv[])
 	else if (stack_A->size == 3)
 		triple_sort(stack_A);
 	else if (stack_A->size == 4)
-		forth_sort(stack_A,stack_B);
+		forth_sort(stack_A, stack_B);
 	else if (stack_A->size == 5)
-		five_sort(stack_A,stack_B);
+		five_sort(stack_A, stack_B);
 	else
 		chunk_sort(stack_A, stack_B);
 
@@ -65,4 +71,5 @@ int main(int argc, char *argv[])
 	// ### EXIT
 	free_stack(stack_A);
 	free_stack(stack_B);
+	return (0);
 }

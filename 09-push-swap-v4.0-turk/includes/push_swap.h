@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 03:37:38 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:08:48 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
+
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 6
+#endif
 
 typedef struct node
 {
@@ -36,6 +40,8 @@ typedef struct
 } Stack;
 
 size_t ft_strlen(const char *s);
+void ft_putstr_fd(char *s, int fd);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 void ft_bzero(void *s, size_t n);
 void *ft_calloc(size_t count, size_t size);
 int ft_atoi(const char *str);
@@ -49,7 +55,7 @@ Stack *create_stack(char *name);
 void free_stack(Stack *stack);
 void print_stack(Stack *stack);
 void push(Stack *stack, int data);
-void push_with_rank(Stack *dst, int data,int rank);
+void push_with_rank(Stack *dst, int data, int rank);
 int pop(Stack *stack);
 
 // STACK-ACTION
@@ -68,7 +74,6 @@ int find_next_min_rank(Stack *src);
 int find_min(Stack *A);
 void label_rank(Stack *A);
 
-
 // SORT_UTILS
 int is_sorted(Stack *stack);
 void rotate_down(Stack *A, int c_top);
@@ -83,8 +88,8 @@ void move_first_found_optimize(Stack *src, Stack *dst, int min, int max);
 // SORT_ALGO
 void swap_sort(Stack *stack_a);
 void triple_sort(Stack *stack_a);
-void forth_sort(Stack *A,Stack *B);
-void five_sort(Stack *stack_a,Stack *stack_b);
+void forth_sort(Stack *A, Stack *B);
+void five_sort(Stack *stack_a, Stack *stack_b);
 
 void find_cheapest_rotate(Stack *B, int target_rank);
 void chunk_sort(Stack *A, Stack *B);
