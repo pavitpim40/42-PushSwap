@@ -6,33 +6,34 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:45:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/13 16:31:52 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:42:51 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-static int	try_to_fill_arg(t_stack *A, char *each_arg)
+static int try_to_fill_arg(t_stack *A, char *each_arg)
 {
-	char	**words;
-	int		j;
+	char **words;
+	int j;
 
 	words = ft_split(each_arg, ' ');
-	j = -1;
-	while (words[++j])
-		;
+	j = 0;
+	while (words[j])
+		j++;
+	j--;
 	while (j >= 0)
 	{
-		if (words[j] && !verify_string(A, words[j]))
+		if (!verify_string(A, words[j]))
 		{
 			while (j)
 				free(words[j--]);
 			free(words[0]);
 			free(words);
 			free_stack(A);
-			return (0);
+			return 0;
 		}
-		else if (words[j])
+		else
 			push_with_rank(A, ft_atoi(words[j]), -1);
 		free(words[j]);
 		j--;
@@ -40,6 +41,35 @@ static int	try_to_fill_arg(t_stack *A, char *each_arg)
 	free(words);
 	return (1);
 }
+
+// static int	try_to_fill_arg(t_stack *A, char *each_arg)
+// {
+// 	char	**words;
+// 	int		j;
+
+// 	words = ft_split(each_arg, ' ');
+// 	j = -1;
+// 	while (words[++j])
+// 		;
+// 	while (j >= 0)
+// 	{
+// 		if (words[j] && !verify_string(A, words[j]))
+// 		{
+// 			while (j)
+// 				free(words[j--]);
+// 			free(words[0]);
+// 			free(words);
+// 			free_stack(A);
+// 			return (0);
+// 		}
+// 		else if (words[j])
+// 			push_with_rank(A, ft_atoi(words[j]), -1);
+// 		free(words[j]);
+// 		j--;
+// 	}
+// 	free(words);
+// 	return (1);
+// }
 
 t_stack	*fill_stack(int argc, char **argv)
 {
