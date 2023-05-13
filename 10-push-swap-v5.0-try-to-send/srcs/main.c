@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 23:02:11 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:14:21 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char *argv[])
 	b = create_stack("b");
 	if (!a)
 		error_and_exit("Error\n", a, b);
-	if (is_sorted(a))
+	if (a->size == 0 || is_sorted(a))
 	{
 		free_stack(a);
 		free_stack(b);

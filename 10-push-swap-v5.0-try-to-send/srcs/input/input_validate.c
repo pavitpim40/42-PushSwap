@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:12:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/13 17:03:14 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:06:02 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int is_nan(char *word)
 		return (1);
 	return (0);
 }
-
 
 // static int	is_nan(char *word)
 // {
@@ -110,11 +109,7 @@ static int	is_dup(t_stack *stack, int num)
 
 int	verify_string(t_stack *A, char *word)
 {
-	if (is_nan(word))
-		return (0);
-	if (is_overflow(word))
-		return (0);
-	if (is_dup(A, ft_atoi(word)))
+	if (is_nan(word) || is_overflow(word) || is_dup(A, ft_atoi(word)))
 		return (0);
 	return (1);
 }
