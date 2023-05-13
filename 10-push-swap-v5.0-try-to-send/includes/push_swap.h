@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/13 02:45:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:16:33 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ void	triple_sort(t_stack *stack_a);
 void	forth_sort(t_stack *A, t_stack *B);
 void	five_sort(t_stack *stack_a, t_stack *stack_b);
 void	chunk_sort(t_stack *A, t_stack *B);
+void	turk_sort(t_stack *a, t_stack *b);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/13 17:14:21 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:14:46 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int argc, char *argv[])
 	label_rank(a);
 	if (a->size <= 5)
 		small_sort(a, b);
+	else if (a->size <= 10)
+		turk_sort(a, b);
 	else
 		chunk_sort(a, b);
 	free_stack(a);
