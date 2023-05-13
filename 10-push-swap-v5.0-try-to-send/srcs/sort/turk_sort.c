@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 00:51:28 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 01:09:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,17 @@ void	turk_sort(t_stack *a, t_stack *b)
 		// int index = 0;
 		printf("============ LOOP %d ==============\n", index+1);
 		int rotate_cost = cal_rotate_cost(current->rank, b);
-		printf("node-data = %d , cost = %d , total_cost = %d\n", current->data, rotate_cost,index + 1 + rotate_cost);
-			printf("=================================\n");
+		if(index <= size_a / 2) {
+			printf("ftop:node-data = %d , cost = %d , total_cost = %d\n", current->data, rotate_cost,index + 1 + rotate_cost);
+		} else {
+			printf("fbot:node-data = %d \n", current->data);
+			printf("rotate_a_cost = %d\n", a->size-index);
+			printf("rotate_b_cost = %d\n",rotate_cost);
+			printf("push_cost = 1\n");
+			printf("total cost = %d\n",a->size-index + 1 + rotate_cost);
+		}
+		
+		printf("=================================\n");
 		
 		// update to next node
 		current = current->prev;
