@@ -6,27 +6,53 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:12:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 22:43:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:00:31 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-static int	is_nan(char *word)
+static int is_sign(char c)
 {
-	int	i;
-
-	i = 0;
-	if (word[i] == '-' || word[i] == '+')
-		i++;
-	if (!word[i])
-		return (1);
-	while (ft_isdigit(word[i]))
-		i++;
-	if (word[i] != 0)
+	if (c == '-' || c == '+')
 		return (1);
 	return (0);
 }
+
+static int is_nan(char *word)
+{
+	int i;
+
+	i = 0;
+	if (word[i] == '\0')
+		return (0);
+	if(is_sign(word[i]))
+		i++;
+	if(!word[i])
+		return (1);
+	while (ft_isdigit(word[i]))
+		i++;
+	if(word[i] != 0)
+		return (1);
+	return (0);
+}
+
+
+// static int	is_nan(char *word)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (word[i] == '-' || word[i] == '+')
+// 		i++;
+// 	if (!word[i])
+// 		return (1);
+// 	while (ft_isdigit(word[i]))
+// 		i++;
+// 	if (word[i] != 0)
+// 		return (1);
+// 	return (0);
+// }
 
 static int	is_overflow(char *word)
 {
