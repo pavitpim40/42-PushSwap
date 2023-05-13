@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:12:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/13 17:00:31 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:03:14 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,45 @@ static int is_nan(char *word)
 // 	return (0);
 // }
 
-static int	is_overflow(char *word)
+static int is_overflow(char *word)
 {
-	long	num;
-	long	max;
-	long	min;
+	int num = ft_atoi(word);
+	char *word_check = ft_itoa(num);
+	int i = 0;
+	int j = 0;
 
-	max = INT_MAX;
-	min = INT_MIN;
-	if (!word)
-		return (1);
-	if (ft_strlen(word) > 11)
-		return (1);
-	num = ft_atol(word);
-	if (max < num || num < min)
-		return (1);
+	while (word[i] && word_check[j])
+	{
+		if (word[i++] == word_check[j++])
+			continue;
+		else
+		{
+			free(word_check);
+			return (1);
+		}
+			
+	}
+	free(word_check);
 	return (0);
 }
+
+// static int	is_overflow(char *word)
+// {
+// 	long	num;
+// 	long	max;
+// 	long	min;
+
+// 	max = INT_MAX;
+// 	min = INT_MIN;
+// 	if (!word)
+// 		return (1);
+// 	if (ft_strlen(word) > 11)
+// 		return (1);
+// 	num = ft_atol(word);
+// 	if (max < num || num < min)
+// 		return (1);
+// 	return (0);
+// }
 
 static int	is_dup(t_stack *stack, int num)
 {
