@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 18:32:09 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:41:23 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,6 +346,8 @@ void turk_sort(t_stack *a, t_stack *b)
 	int action_a = 0;
 	int action_b = 0;
 	int which_side = 0;
+	int top_min;
+	int bot_min;
 	while (a->size > 3 && current)
 	{
 		// ## 1.1 start from top node
@@ -363,15 +365,33 @@ void turk_sort(t_stack *a, t_stack *b)
 		printf("cta : %d, ctb : %d\n", c_ta, c_tb);
 		printf("cba : %d, cbb : %d\n", c_ba, c_bb);
 
-		if (c_ta >= c_tb)
-			printf("net from top %d\n", c_ta);
-		else if (c_ta < c_tb)
-			printf("net from top %d\n", c_tb);
+		if (c_ta >= c_tb){
 
-		if (c_ba <= c_bb)
-			printf("net from bot %d\n", c_ba*-1);
-		else if (c_ba > c_bb)
-			printf("net from bot %d\n", c_bb *-1);
+			printf("net from top %d\n", c_ta);
+			top_min = c_ta;
+		}
+		else if (c_ta < c_tb) {
+			printf("net from top %d\n", c_tb);
+			top_min = c_tb;
+		}
+			
+
+		if (c_ba <= c_bb) {
+				printf("net from bot %d\n", c_ba*-1);
+				bot_min = -1*c_ba;
+		}
+		
+		else if (c_ba > c_bb){
+					printf("net from bot %d\n", c_bb *-1);
+					bot_min = -1*c_bb;
+		}
+		printf("top_min=%d\n",top_min);
+		printf("bot_min=%d\n",bot_min);
+		if(top_min < bot_min)
+			printf("you should move top\n");
+		else 
+			printf("you should move bot\n");
+		
 		// Update Cheapest;
 		// from top;
 		if (c_tb < 0)
