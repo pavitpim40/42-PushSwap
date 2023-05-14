@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 18:41:23 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:56:51 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,6 +348,11 @@ void turk_sort(t_stack *a, t_stack *b)
 	int which_side = 0;
 	int top_min;
 	int bot_min;
+	int top_top;
+	int bot_bot;
+	int cross_one=INT_MAX;
+	int cross_two=INT_MAX;
+	int min_move = INT_MAX;
 	while (a->size > 3 && current)
 	{
 		// ## 1.1 start from top node
@@ -365,33 +370,75 @@ void turk_sort(t_stack *a, t_stack *b)
 		printf("cta : %d, ctb : %d\n", c_ta, c_tb);
 		printf("cba : %d, cbb : %d\n", c_ba, c_bb);
 
-		if (c_ta >= c_tb){
+		// แบ่งแค่ 2 case;
+		// top_top = c_ta + c_tb;
+		// bot_bot = c_ba + c_ba;
+		if (c_ta >= c_tb)
+		{
 
-			printf("net from top %d\n", c_ta);
+			printf("case 1A : net from top %d\n", c_ta);
+			top_top = c_ta;
 			top_min = c_ta;
+			if (top_min < min_move)
+				min_move = c_ta;
 		}
-		else if (c_ta < c_tb) {
-			printf("net from top %d\n", c_tb);
+		if (c_ta < c_tb)
+		{
+			printf("case 1B : net from top %d\n", c_tb);
+			top_top = c_tb;
 			top_min = c_tb;
+			if (top_min < min_move)
+				min_move = c_tb;
 		}
-			
 
-		if (c_ba <= c_bb) {
-				printf("net from bot %d\n", c_ba*-1);
-				bot_min = -1*c_ba;
-		}
+		if (c_ba <= c_bb)
+		{
 		
-		else if (c_ba > c_bb){
-					printf("net from bot %d\n", c_bb *-1);
-					bot_min = -1*c_bb;
+			printf("case 2A : net from bot %d\n", c_ba * -1);
+			bot_min = -1 * c_ba;
+			bot_bot = -1 * c_ba;
+			if (bot_min < min_move)
+				min_move = bot_min;
 		}
-		printf("top_min=%d\n",top_min);
-		printf("bot_min=%d\n",bot_min);
-		if(top_min < bot_min)
+
+		if (c_ba > c_bb)
+		{
+			printf("case 2B : net from bot %d\n", c_bb * -1);
+			bot_min = -1 * c_bb;
+			bot_bot = -1 * c_bb;
+			if (bot_min < min_move)
+				min_move = bot_min;
+		}
+		// เคสไขว้
+		cross_one =c_ta +  (-1 * c_bb);
+		if(cross_one< min_move)
+		{
+			printf("case 3 : ไขว้\n");
+			min_move = cross_one;
+			cross_one = min_move;
+			
+		}
+		cross_two = (c_ba *-1)  + c_tb;
+		if(cross_two < min_move)
+		{
+			printf("case 4 : ไขว้\n");
+			min_move = cross_two;
+			cross_two = min_move;
+			
+		}
+		printf("top_min=%d\n", top_min);
+		printf("bot_min=%d\n", bot_min);
+		printf("************************************\n");
+		printf("top_top=%d\n", top_top);
+		printf("bot_bot=%d\n", bot_bot);
+		printf("cross_one=%d\n", cross_one);
+		printf("cross-two=%d\n", cross_two);
+		printf("WINNER MIN_MOVE = %d\n", min_move);
+		if (top_min < bot_min)
 			printf("you should move top\n");
-		else 
+		else
 			printf("you should move bot\n");
-		
+
 		// Update Cheapest;
 		// from top;
 		if (c_tb < 0)
