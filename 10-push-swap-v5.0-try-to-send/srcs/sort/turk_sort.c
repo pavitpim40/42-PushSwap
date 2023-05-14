@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 13:18:19 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:35:46 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,8 @@ void turk_sort(t_stack *a, t_stack *b)
 	// #1 Move to B
 	int size_a;
 	t_node *current;
-	// int cheapest_cost = 0;
+	int cheapest_cost = INT_MAX;
+	int cheapest_idx = -1;
 
 	size_a = a->size;
 	p_move_top(a, b, 1);
@@ -401,6 +402,7 @@ void turk_sort(t_stack *a, t_stack *b)
 		printf("data : %d\n",current->rank);
 		printf("cta : %d, ctb : %d\n",c_ta,c_tb);
 		printf("cba : %d, cbb : %d\n",c_ba,c_bb);
+
 		printf("net top %d\n", c_ta-c_tb);
 		if(c_ba < c_bb)
 		{
@@ -410,12 +412,28 @@ void turk_sort(t_stack *a, t_stack *b)
 			printf("net bot %d\n", -1 * (c_bb - c_ba));
 		printf("=================================\n");
 
+		// Update Cheapest;
+		// int net_cost;
+		if(c_tb < 0)
+			c_tb *= -1;
+		if(c_ta >= c_tb && c_ta < cheapest_cost)
+		{
+			cheapest_cost = c_ta;
+			cheapest_idx = index;
+		}
+		else if(c_ta < c_tb && c_tb < cheapest_cost)
+		{
+			cheapest_cost = c_tb;
+			cheapest_idx = index;
+		}
+
 		// update to next node
 		current = current->prev;
 		index++;
 		size_a--;
 	}
 
+	printf("cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
 	// #1.5 Triple sort
 	// #2 Move back to A
 }
