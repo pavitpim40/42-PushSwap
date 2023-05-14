@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 12:49:19 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:18:19 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,6 +401,13 @@ void turk_sort(t_stack *a, t_stack *b)
 		printf("data : %d\n",current->rank);
 		printf("cta : %d, ctb : %d\n",c_ta,c_tb);
 		printf("cba : %d, cbb : %d\n",c_ba,c_bb);
+		printf("net top %d\n", c_ta-c_tb);
+		if(c_ba < c_bb)
+		{
+			printf("net bot %d\n", -1 * (c_ba - c_bb));
+		}	
+		else if (c_ba >= c_bb)
+			printf("net bot %d\n", -1 * (c_bb - c_ba));
 		printf("=================================\n");
 
 		// update to next node
