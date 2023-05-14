@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:36:01 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/13 02:45:09 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 02:27:05 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,15 @@ int	pop(t_stack *stack)
 	if (stack->top != NULL)
 	{
 		stack->top->next = NULL;
+		// printf("_______________POP_______________\n");
+		// printf("temp->rank = %d\n",temp->rank);
+		// printf("stack->min = %d\n",temp->rank);
 		if (temp->rank == stack->min_rank)
+		{
 			stack->min_rank = find_next_min_rank(stack);
+			stack->min = stack->min_rank;
+		}
+			
 	}
 	stack->size--;
 	free(temp);
