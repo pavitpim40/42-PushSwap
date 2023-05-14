@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 22:48:48 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 23:37:57 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,65 +36,7 @@ int cal_lowest_move(int c_top, int c_bot)
 		return (c_bot);
 	}
 }
-// เจอตำแหน่งที่ต้องการคือจบ
-// int find_pos(int find_rank, t_stack *b)
-// {
-// 	t_node *f_top;
-// 	t_node *f_bot;
-// 	int c_top;
-// 	int c_bot;
-// 	int		founded;
 
-// 	c_top = 0;
-// 	c_bot = 0;
-// 	f_top = b->top;
-// 	f_bot = b->bottom;
-// 	founded = 0;
-// 	printf("B->max = %d\n", b->max);
-// 	printf("find_rank = %d\n", find_rank);
-// 	while (!founded && (f_top || f_bot))
-// 	{
-// 		// กรณีที่จะหาตัว max
-// 		if (find_rank == b->max && f_top->rank == b->max)
-// 		{
-// 			// c_top++;
-// 			printf("found from top\n");
-// 			founded = 1;
-// 			break;
-// 		}
-// 		else if (find_rank == b->max && f_bot->rank == b->max)
-// 		{
-// 			printf("found from bot\n");
-// 			c_bot--;
-// 			founded = 2;
-// 			break;
-// 		}
-
-// 		else if (find_rank == f_top->rank)
-// 		{
-// 			// c_top++;
-// 			founded = 1;
-// 			break;
-// 		}
-// 		else if (f_bot->rank == find_rank)
-// 		{
-// 			c_bot--;
-// 			founded = 2;
-// 			break;
-
-// 		}
-
-// 		c_top++;
-// 		c_bot--;
-// 		f_top = f_top->prev;
-// 		f_bot = f_bot->next;
-// 	}
-// 	if(founded == 1)
-// 		return (c_top);
-// 	else if(founded == 2)
-// 		return (c_bot);
-// 	return (-1);
-// }
 
 int find_pos_from_top(int find_rank, t_stack *b)
 {
@@ -129,7 +71,7 @@ int find_pos_from_top(int find_rank, t_stack *b)
 	}
 	if (founded == 1)
 		return (c_top);
-	return (-1);
+	return (INT_MIN);
 }
 
 int find_pos_from_bot(int find_rank, t_stack *b)
@@ -145,16 +87,20 @@ int find_pos_from_bot(int find_rank, t_stack *b)
 	// printf("find_rank = %d\n", find_rank);
 	while (!founded && f_bot)
 	{
+		// printf("hi\n");
 		if (find_rank == b->max && f_bot->rank == b->max)
 		{
 			// printf("found from bot\n");
+			// printf("hi-1, find_rank%d\n", find_rank);
 			c_bot--;
 			founded = 2;
 			break;
 		}
 		else if (f_bot->rank == find_rank)
 		{
+			// printf("hi-2, find_rank%d\n", find_rank);
 			c_bot--;
+			// printf("hi-2, pos=%d\n",c_bot);
 			founded = 2;
 			break;
 		}
@@ -163,7 +109,7 @@ int find_pos_from_bot(int find_rank, t_stack *b)
 	}
 	if (founded)
 		return (c_bot);
-	return (-1);
+	return (INT_MIN);
 }
 
 int find_pos(int find_rank, t_stack *b)
@@ -188,7 +134,8 @@ int find_less_than_pos(int rank, t_stack *b)
 		// printf("target rank = %d\n", target_rank);
 		// if (pos_top != -1 && pos_bot)
 		// 	return cal_lowest_move(pos_top,pos_bot);
-		if (pos != -1)
+		// if (pos != -1)
+		if (pos != INT_MIN)
 			return (pos);
 		target_rank--;
 	}
@@ -204,10 +151,11 @@ int find_less_than_pos_from_top(int rank, t_stack *b)
 		int pos = find_pos_from_top(target_rank, b);
 		// int pos_top = find_pos_from_top(target_rank,b);
 		// int pos_bot = find_pos_from_bot(target_rank,b);
-		printf("top:target rank = %d\n", target_rank);
+		// printf("top:target rank = %d\n", target_rank);
 		// if (pos_top != -1 && pos_bot)
 		// 	return cal_lowest_move(pos_top,pos_bot);
-		if (pos != -1)
+		// if (pos != -1)
+		if (pos != INT_MIN)
 			return (pos);
 		target_rank--;
 	}
@@ -223,10 +171,11 @@ int find_less_than_pos_from_bot(int rank, t_stack *b)
 		int pos = find_pos_from_bot(target_rank, b);
 		// int pos_top = find_pos_from_top(target_rank,b);
 		// int pos_bot = find_pos_from_bot(target_rank,b);
-		printf("bot:target rank = %d\n", target_rank);
+		// printf("bot:target rank = %d and pos=%d\n", target_rank,pos);
 		// if (pos_top != -1 && pos_bot)
 		// 	return cal_lowest_move(pos_top,pos_bot);
-		if (pos != -1)
+		// if (pos != -1)
+		if (pos != INT_MIN)
 			return (pos);
 		target_rank--;
 	}
@@ -287,7 +236,7 @@ int cal_rotate_cost_from_bot(int move_rank, t_stack *b)
 
 	else
 	{
-		// printf("FN:cal_rotate_cost: find rank = %d\n", move_rank);
+		// printf("FN:cal_rotate_from_bot: find rank = %d\n", move_rank);
 		cost = find_less_than_pos_from_bot(move_rank, b);
 		return (cost);
 	}
@@ -383,34 +332,23 @@ void turk_sort(t_stack *a, t_stack *b)
 	size_a = a->size;
 	p_move_top(a, b, 1);
 	p_move_top(a, b, 1);
-	// push7
-	// r_shift_up(b, NULL, 1);
-	// p_move_top(a, b, 1);
-	// push 1
-	// p_move_top(a, b, 1);
-	// push3
+	// # push7
+	r_shift_up(b, NULL, 1);
+	p_move_top(a, b, 1);
+	// # push 1
+	p_move_top(a, b, 1);
+	// # push3
 	// r_shift_up(a, NULL, 1);
 	// rr_shift_down(b, NULL, 1);
 	// p_move_top(a, b, 1);
 	current = a->top;
 	int index = 0;
-	// int action_a = 0;
-	// int action_b = 0;
-	// int which_side = 0;
-	// int top_min;
-	// int bot_min;
-	// int top_top;
-	// int bot_bot;
-	// int cross_one = INT_MAX;
-	// int cross_two = INT_MAX;
 	int abs_min_move = INT_MAX;
 	int cheapest_case;
 	int cheapest_move;
 	while (a->size > 3 && current)
 	{
 		// ## 1.1 start from top node
-
-		// int index = 0;
 		printf("============ LOOP %d ==============\n", index + 1);
 		// int rotate_cost = cal_rotate_cost(current->rank, b);
 
@@ -430,153 +368,33 @@ void turk_sort(t_stack *a, t_stack *b)
 		if (cheapest_move < abs_min_move)
 		{
 			abs_min_move = cheapest_move;
-			// cheapest_idx = index;
 			printf("------------------> update new min\n");
 			cheapest[0] = index;
 			cheapest[1] = cheapest_move;
 			cheapest[2] = cheapest_case;
+			
 			cheapest[3] = c_ta;
 			cheapest[4] = c_tb;
 			cheapest[5] = -1 * c_ba;
 			cheapest[6] = -1 * c_bb;
-			// int i = 0;
-			// cheapest = [index,cheapest_case, c_ta,c_ba,c_tb,c_bb];
 		}
-		// // แบ่งแค่ 4 case;
-		// // top_top = c_ta + c_tb;
-		// if (c_ta >= c_tb)
-		// {
-		// 	printf("case 1A : net from top %d\n", c_ta);
-		// 	top_top = c_ta;
-		// 	top_min = c_ta;
-		// 	if (top_min < min_move)
-		// 		min_move = c_ta;
-		// }
-		// if (c_ta < c_tb)
-		// {
-		// 	printf("case 1B : net from top %d\n", c_tb);
-		// 	top_top = c_tb;
-		// 	top_min = c_tb;
-		// 	if (top_min < min_move)
-		// 		min_move = c_tb;
-		// }
-
-		// // bot_bot = c_ba + c_ba;
-		// if (c_ba <= c_bb)
-		// {
-
-		// 	printf("case 2A : net from bot %d\n", c_ba * -1);
-		// 	bot_min = -1 * c_ba;
-		// 	bot_bot = -1 * c_ba;
-		// 	if (bot_min < min_move)
-		// 		min_move = bot_min;
-		// }
-
-		// if (c_ba > c_bb)
-		// {
-		// 	printf("case 2B : net from bot %d\n", c_bb * -1);
-		// 	bot_min = -1 * c_bb;
-		// 	bot_bot = -1 * c_bb;
-		// 	if (bot_min < min_move)
-		// 		min_move = bot_min;
-		// }
-
-		// // cross_one : เคสไขว้
-		// cross_one = c_ta + (-1 * c_bb);
-		// if (cross_one < min_move)
-		// {
-		// 	printf("case 3 : ไขว้\n");
-		// 	min_move = cross_one;
-		// 	cross_one = min_move;
-		// }
-
-		// // cross_two : เคสไขว้
-		// cross_two = (c_ba * -1) + c_tb;
-		// if (cross_two < min_move)
-		// {
-		// 	printf("case 4 : ไขว้\n");
-		// 	min_move = cross_two;
-		// 	cross_two = min_move;
-		// }
-
-		// printf("top_min=%d\n", top_min);
-		// printf("bot_min=%d\n", bot_min);
-		// printf("************************************\n");
-		// printf("top_top=%d\n", top_top);
-		// printf("bot_bot=%d\n", bot_bot);
-		// printf("cross_one=%d\n", cross_one);
-		// printf("cross-two=%d\n", cross_two);
-		// printf("WINNER MIN_MOVE = %d\n", min_move);
-
-		// if (top_min < bot_min)
-		// 	printf("you should move top\n");
-		// else
-		// 	printf("you should move bot\n");
-
-		// // Update Cheapest;
-		// // from top;
-		// if (c_tb < 0)
-		// 	c_tb *= -1;
-		// if (c_ta >= c_tb && c_ta < cheapest_cost)
-		// {
-		// 	cheapest_cost = c_ta;
-		// 	cheapest_idx = index;
-		// 	action_a = c_ta;
-		// 	action_b = c_tb;
-		// 	which_side = 1;
-		// 	printf("INNER:CASE-1: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-		// 	printf("which side=%d\n", which_side);
-		// 	// printf("=================================\n");
-		// }
-		// else if (c_ta < c_tb && c_tb < cheapest_cost)
-		// {
-		// 	cheapest_cost = c_tb;
-		// 	cheapest_idx = index;
-		// 	action_a = c_ta;
-		// 	action_b = c_tb;
-		// 	which_side = 1;
-		// 	printf("INNER:CASE-2: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-		// 	printf("which side=%d\n", which_side);
-		// 	// printf("=================================\n");
-		// }
-		// // from bot
-		// c_ba = -1 * c_ba;
-		// c_bb = -1 * c_bb;
-		// if (c_ba >= c_bb && c_ba < cheapest_cost)
-		// {
-		// 	cheapest_cost = c_ba;
-		// 	cheapest_idx = index;
-		// 	which_side = 2;
-		// 	printf("INNER:CASE-3: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-		// 	printf("which side=%d\n", which_side);
-		// 	// printf("=================================\n");
-		// }
-		// else if (c_ba < c_bb && c_bb < cheapest_cost)
-		// {
-		// 	cheapest_cost = c_bb;
-		// 	cheapest_idx = index;
-		// 	action_a = c_ba;
-		// 	action_b = c_bb;
-		// 	which_side = 2;
-		// 	printf("INNER:CASE-4: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-		// 	printf("which side=%d\n", which_side);
-		// 	// printf("=================================\n");
-		// }
-		// printf("=================================\n");
-
 		// update to next node
 		current = current->prev;
 		index++;
 		size_a--;
 	}
+	printf("=========== SUMMARY ===========\n");
+	printf("cheapest index = %d\n", cheapest[0]);
+	printf("cheapest move = %d\n", cheapest[1]);
+	printf("cheapest case = %d\n", cheapest[2]);
 
-	printf("cheapest index=%d\n", cheapest[0]);
-	printf("cheapest move=%d\n", cheapest[1]);
-	printf("cheapest case=%d\n", cheapest[2]);
-	printf("cheapest ct_a=%d\n", cheapest[3]);
-	printf("cheapest cb_a=%d\n", cheapest[4]);
-	printf("cheapest ct_b=%d\n", cheapest[5]);
-	printf("cheapest cb_b=%d\n", cheapest[6]);
+	printf("cheapest ct_a = %d\n", cheapest[3]);
+	printf("cheapest cb_a = %d\n", cheapest[4]);
+	printf("cheapest ct_b = %d\n", cheapest[5]);
+	printf("cheapest cb_b = %d\n", cheapest[6]);
+
+	print_stack(a);
+	print_stack(b);
 
 	// printf("cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
 	// printf("cta=%d\n", action_a);
