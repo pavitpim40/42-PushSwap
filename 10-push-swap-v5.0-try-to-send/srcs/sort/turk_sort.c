@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 19:56:51 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 21:44:35 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,56 @@ int cal_rotate_cost(int move_rank, t_stack *b)
 	}
 }
 
+// เอา 4 ทิศหาว่าควร move ทางไหน
+int *calc_cheapest_case(int c_ta, int c_tb, int c_ba, int c_bb)
+{
+	int top_top;
+	int bot_bot;
+	int cross_one;
+	int cross_two;
+
+	if (c_ta >= c_tb)
+		top_top = c_ta;
+	else if (c_ta < c_tb)
+		top_top = c_tb;
+	if (c_ba >= c_bb)
+		bot_bot = c_ba;
+	else if (c_ba < c_bb)
+		bot_bot = c_bb;
+	cross_one = c_ta + (c_bb * -1);
+	cross_two = c_tb + (c_ba * -1);
+	if (top_top < bot_bot && top_top < cross_one && top_top < cross_two)
+		return (1);
+	if (bot_bot < top_top && bot_bot < cross_one && bot_bot < cross_two)
+		return (2);
+	if (cross_one < top_top && cross_one < bot_bot && cross_one < cross_two)
+		return (3);
+	if (cross_two < top_top && cross_two < bot_bot && cross_two < cross_one)
+		return (4);
+}
+// เอาเคสทั้่ง 4 มาหา min move;
+int *calc_cheapest_move(int move_case, int c_ta, int c_tb, int c_ba, int c_bb)
+{
+	if (move_case == 1)
+	{
+		if (c_ta >= c_tb)
+			return (c_ta);
+		else if (c_ta < c_tb)
+			return (c_tb);
+	}
+	else if (move_case == 2)
+	{
+		if (c_ba >= c_bb)
+			return (c_ba);
+		else if (c_ba < c_bb)
+			return (c_bb);
+	}
+	else if (move_case == 3)
+		return c_ta + (c_bb * -1);
+	else if (move_case == 4)
+		return c_tb + (c_ba * -1);
+}
+
 void turk_sort(t_stack *a, t_stack *b)
 {
 	// #1 Move to B
@@ -328,7 +378,7 @@ void turk_sort(t_stack *a, t_stack *b)
 	t_node *current;
 	int cheapest_cost = INT_MAX;
 	int cheapest_idx = -1;
-
+	int cheapest[6]; // [idex,case,c_ta,c_ba,c_tb,c_bb]
 	size_a = a->size;
 	p_move_top(a, b, 1);
 	p_move_top(a, b, 1);
@@ -350,8 +400,8 @@ void turk_sort(t_stack *a, t_stack *b)
 	int bot_min;
 	int top_top;
 	int bot_bot;
-	int cross_one=INT_MAX;
-	int cross_two=INT_MAX;
+	int cross_one = INT_MAX;
+	int cross_two = INT_MAX;
 	int min_move = INT_MAX;
 	while (a->size > 3 && current)
 	{
@@ -370,12 +420,10 @@ void turk_sort(t_stack *a, t_stack *b)
 		printf("cta : %d, ctb : %d\n", c_ta, c_tb);
 		printf("cba : %d, cbb : %d\n", c_ba, c_bb);
 
-		// แบ่งแค่ 2 case;
+		// แบ่งแค่ 4 case;
 		// top_top = c_ta + c_tb;
-		// bot_bot = c_ba + c_ba;
 		if (c_ta >= c_tb)
 		{
-
 			printf("case 1A : net from top %d\n", c_ta);
 			top_top = c_ta;
 			top_min = c_ta;
@@ -391,9 +439,10 @@ void turk_sort(t_stack *a, t_stack *b)
 				min_move = c_tb;
 		}
 
+		// bot_bot = c_ba + c_ba;
 		if (c_ba <= c_bb)
 		{
-		
+
 			printf("case 2A : net from bot %d\n", c_ba * -1);
 			bot_min = -1 * c_ba;
 			bot_bot = -1 * c_ba;
@@ -409,23 +458,25 @@ void turk_sort(t_stack *a, t_stack *b)
 			if (bot_min < min_move)
 				min_move = bot_min;
 		}
-		// เคสไขว้
-		cross_one =c_ta +  (-1 * c_bb);
-		if(cross_one< min_move)
+
+		// cross_one : เคสไขว้
+		cross_one = c_ta + (-1 * c_bb);
+		if (cross_one < min_move)
 		{
 			printf("case 3 : ไขว้\n");
 			min_move = cross_one;
 			cross_one = min_move;
-			
 		}
-		cross_two = (c_ba *-1)  + c_tb;
-		if(cross_two < min_move)
+
+		// cross_two : เคสไขว้
+		cross_two = (c_ba * -1) + c_tb;
+		if (cross_two < min_move)
 		{
 			printf("case 4 : ไขว้\n");
 			min_move = cross_two;
 			cross_two = min_move;
-			
 		}
+
 		printf("top_min=%d\n", top_min);
 		printf("bot_min=%d\n", bot_min);
 		printf("************************************\n");
@@ -434,6 +485,7 @@ void turk_sort(t_stack *a, t_stack *b)
 		printf("cross_one=%d\n", cross_one);
 		printf("cross-two=%d\n", cross_two);
 		printf("WINNER MIN_MOVE = %d\n", min_move);
+
 		if (top_min < bot_min)
 			printf("you should move top\n");
 		else
