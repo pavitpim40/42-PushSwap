@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 12:11:01 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:49:19 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 int cal_lowest_move(int c_top, int c_bot)
 {
-	printf("c_top = %d\n", c_top);
-	printf("c_bot = %d\n", c_bot);
+	// printf("c_top = %d\n", c_top);
+	// printf("c_bot = %d\n", c_bot);
 	if (c_top <= c_bot * -1)
 	{
 		printf("1\n");
@@ -106,15 +106,15 @@ int find_pos_from_top(int find_rank, t_stack *b)
 	c_top = 0;
 	f_top = b->top;
 	founded = 0;
-	printf("B->max = %d\n", b->max);
-	printf("find_rank = %d\n", find_rank);
+	// printf("B->max = %d\n", b->max);
+	// printf("find_rank = %d\n", find_rank);
 	while (!founded && f_top )
 	{
 		// กรณีที่จะหาตัว max
 		if (find_rank == b->max && f_top->rank == b->max)
 		{
 			// c_top++;
-			printf("found from top\n");
+			// printf("found from top\n");
 			founded = 1;
 			break;
 		}
@@ -142,13 +142,13 @@ int find_pos_from_bot(int find_rank, t_stack *b)
 	c_bot = 0;
 	f_bot = b->bottom;
 	founded = 0;
-	printf("B->max = %d\n", b->max);
-	printf("find_rank = %d\n", find_rank);
+	// printf("B->max = %d\n", b->max);
+	// printf("find_rank = %d\n", find_rank);
 	while (!founded && f_bot)
 	{
 		if (find_rank == b->max && f_bot->rank == b->max)
 		{
-			printf("found from bot\n");
+			// printf("found from bot\n");
 			c_bot--;
 			founded = 2;
 			break;
@@ -187,7 +187,7 @@ int find_less_than_pos(int rank, t_stack *b)
 		int pos = find_pos(target_rank, b);
 		// int pos_top = find_pos_from_top(target_rank,b);
 		// int pos_bot = find_pos_from_bot(target_rank,b);
-		printf("target rank = %d\n", target_rank);
+		// printf("target rank = %d\n", target_rank);
 		// if (pos_top != -1 && pos_bot)
 		// 	return cal_lowest_move(pos_top,pos_bot);
 		if (pos != -1 )
@@ -196,6 +196,106 @@ int find_less_than_pos(int rank, t_stack *b)
 	}
 	return (-1);
 }
+
+int find_less_than_pos_from_top(int rank, t_stack *b)
+{
+	int target_rank = rank - 1;
+
+	while (target_rank > 0)
+	{
+		int pos = find_pos_from_top(target_rank, b);
+		// int pos_top = find_pos_from_top(target_rank,b);
+		// int pos_bot = find_pos_from_bot(target_rank,b);
+		printf("top:target rank = %d\n", target_rank);
+		// if (pos_top != -1 && pos_bot)
+		// 	return cal_lowest_move(pos_top,pos_bot);
+		if (pos != -1 )
+			return (pos);
+		target_rank--;
+	}
+	return (-1);
+}
+
+
+int find_less_than_pos_from_bot(int rank, t_stack *b)
+{
+	int target_rank = rank - 1;
+
+	while (target_rank > 0)
+	{
+		int pos = find_pos_from_bot(target_rank, b);
+		// int pos_top = find_pos_from_top(target_rank,b);
+		// int pos_bot = find_pos_from_bot(target_rank,b);
+		printf("bot:target rank = %d\n", target_rank);
+		// if (pos_top != -1 && pos_bot)
+		// 	return cal_lowest_move(pos_top,pos_bot);
+		if (pos != -1 )
+			return (pos);
+		target_rank--;
+	}
+	return (-1);
+}
+
+// calc_rotate_from_top
+int	cal_rotate_cost_from_top(int move_rank, t_stack *b)
+{
+	int cost;
+
+	// int cost_top = 0;
+	// int cost_bot = 0;
+	if (move_rank < b->min)
+	{
+		printf("top:As a new min %d\n", move_rank);
+		cost = find_pos_from_top(b->max,b);
+		return (cost);
+	}
+		
+	else if (move_rank > b->max)
+	{
+			printf("top:As a new max %d\n", move_rank);
+		// printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
+		cost = find_pos_from_top(b->max,b);
+		return (cost);
+	}
+
+	else
+	{
+		// printf("FN:cal_rotate_cost: find rank = %d\n", move_rank);
+		cost = find_less_than_pos_from_top(move_rank, b);
+		return (cost);
+	}
+}
+
+int	cal_rotate_cost_from_bot(int move_rank, t_stack *b)
+{
+	int cost;
+
+	// int cost_top = 0;
+	// int cost_bot = 0;
+	if (move_rank < b->min)
+	{
+		printf("bot:As a new min %d\n", move_rank);
+		cost = find_pos_from_bot(b->max,b);
+		return (cost);
+	}
+		
+	else if (move_rank > b->max)
+	{
+
+			printf("bot:As a new max %d\n", move_rank);
+		// printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
+		cost = find_pos_from_bot(b->max,b);
+		return (cost);
+	}
+
+	else
+	{
+		// printf("FN:cal_rotate_cost: find rank = %d\n", move_rank);
+		cost = find_less_than_pos_from_bot(move_rank, b);
+		return (cost);
+	}
+}
+// calc_rotate_from_bot
 
 int cal_rotate_cost(int move_rank, t_stack *b)
 {
@@ -207,25 +307,18 @@ int cal_rotate_cost(int move_rank, t_stack *b)
 	{
 		cost = find_pos(b->max,b);
 		return (cost);
-		// cost_top = find_pos_from_top(b->max, b);
-		// cost_bot = find_pos_from_bot(b->max, b);
-		// return cal_lowest_move(cost_top,cost_bot);
 	}
 		
 	else if (move_rank > b->max)
 	{
-		printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
+		// printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
 		cost = find_pos(b->max,b);
-		// printf("FN:cal_rotate_cost: rotate_cost of NEW_MAX = %d and %d\n", cost_top , cost_top);
 		return (cost);
-		// cost_top = find_pos_from_top(b->max, b);
-		// cost_bot = find_pos_from_bot(b->max, b);
-		// return cal_lowest_move(cost_top,cost_bot);
 	}
 
 	else
 	{
-		printf("FN:cal_rotate_cost: find rank = %d\n", move_rank);
+		// printf("FN:cal_rotate_cost: find rank = %d\n", move_rank);
 		cost = find_less_than_pos(move_rank, b);
 		return (cost);
 	}
@@ -261,45 +354,53 @@ void turk_sort(t_stack *a, t_stack *b)
 		// int index = 0;
 		printf("============ LOOP %d ==============\n", index + 1);
 		int rotate_cost = cal_rotate_cost(current->rank, b);
+	
 		// variant 4
 	
 		if (index <= (a->size-1)/ 2 && rotate_cost >= 0)
 		{
 			// variant 1 : index ครึ่งแรก , rotate คืนบวก => ใช้ rr ได้
-			printf("v-1:node-data = %d \n", current->data);
-			printf("rotate_a_cost = %d\n", index);
-			printf("rotate_b_cost = %d\n", rotate_cost);
-			printf("total cost = %d\n", index + 1 + rotate_cost);
+			// printf("v-1:node-data = %d \n", current->data);
+			// printf("rotate_a_cost = %d\n", index);
+			// printf("rotate_b_cost = %d\n", rotate_cost);
+			// printf("total cost = %d\n", index + 1 + rotate_cost);
 		}
 		else if (index <= (a->size-1)/ 2 && rotate_cost < 0)
 		{
 			// variant 2 : index ครึ่งแรก , rotate คืนลบ
-			printf("v-2:node-data = %d \n", current->data);
-			printf("rotate_a_cost = %d\n", index);
-			printf("rotate_b_cost = %d\n", rotate_cost);
-			printf("total cost = %d\n", index + 1 + (-1 *rotate_cost));
+			// printf("v-2:node-data = %d \n", current->data);
+			// printf("rotate_a_cost = %d\n", index);
+			// printf("rotate_b_cost = %d\n", rotate_cost);
+			// printf("total cost = %d\n", index + 1 + (-1 *rotate_cost));
 		}
 		else if (index > (a->size-1) / 2 && rotate_cost >= 0)
 		{
 			// variant 3 : index ครึ่งหลัง , rotate คืนบวก
-			printf("v-3:node-data = %d \n", current->data);
-			int rr_cost_a = index-a->size;
-			printf("rotate_a_cost = %d\n", rr_cost_a);
-			printf("rotate_b_cost = %d\n", rotate_cost);
-			printf("push_cost = 1\n");
-			printf("total cost = %d\n", (index-a->size) - 1 + (-1*rotate_cost));
+			// printf("v-3:node-data = %d \n", current->data);
+			// int rr_cost_a = index-a->size;
+			// printf("rotate_a_cost = %d\n", rr_cost_a);
+			// printf("rotate_b_cost = %d\n", rotate_cost);
+			// printf("push_cost = 1\n");
+			// printf("total cost = %d\n", (index-a->size) - 1 + (-1*rotate_cost));
 		}
 		else
 		{
 			// index ครึ่งหลัง , rotate ลบ => ใช้ rrr ได้
-			printf("v-4:node-data = %d \n", current->data);
-			int rr_cost_a = index- a->size;
-			printf("rotate_a_cost = %d\n", rr_cost_a);
-			printf("rotate_b_cost = %d\n", rotate_cost);
-			printf("push_cost = 1\n");
-			printf("total cost = %d\n", index-a->size - 1 + rotate_cost);
+			// printf("v-4:node-data = %d \n", current->data);
+			// int rr_cost_a = index- a->size;
+			// printf("rotate_a_cost = %d\n", rr_cost_a);
+			// printf("rotate_b_cost = %d\n", rotate_cost);
+			// printf("push_cost = 1\n");
+			// printf("total cost = %d\n", index-a->size - 1 + rotate_cost);
 		}
+		int c_ta = index;
+		int c_ba = index - a->size;
+		int c_tb = cal_rotate_cost_from_top(current->rank,b);
+		int c_bb = cal_rotate_cost_from_bot(current->rank,b);
 
+		printf("data : %d\n",current->rank);
+		printf("cta : %d, ctb : %d\n",c_ta,c_tb);
+		printf("cba : %d, cbb : %d\n",c_ba,c_bb);
 		printf("=================================\n");
 
 		// update to next node
