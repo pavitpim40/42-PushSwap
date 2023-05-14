@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 21:44:35 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:48:48 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,14 +242,14 @@ int cal_rotate_cost_from_top(int move_rank, t_stack *b)
 	// int cost_bot = 0;
 	if (move_rank < b->min)
 	{
-		printf("top:As a new min %d\n", move_rank);
+		// printf("top:As a new min %d\n", move_rank);
 		cost = find_pos_from_top(b->max, b);
 		return (cost);
 	}
 
 	else if (move_rank > b->max)
 	{
-		printf("top:As a new max %d\n", move_rank);
+		// printf("top:As a new max %d\n", move_rank);
 		// printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
 		cost = find_pos_from_top(b->max, b);
 		return (cost);
@@ -271,7 +271,7 @@ int cal_rotate_cost_from_bot(int move_rank, t_stack *b)
 	// int cost_bot = 0;
 	if (move_rank < b->min)
 	{
-		printf("bot:As a new min %d\n", move_rank);
+		// printf("bot:As a new min %d\n", move_rank);
 		cost = find_pos_from_bot(b->max, b);
 		return (cost);
 	}
@@ -279,7 +279,7 @@ int cal_rotate_cost_from_bot(int move_rank, t_stack *b)
 	else if (move_rank > b->max)
 	{
 
-		printf("bot:As a new max %d\n", move_rank);
+		// printf("bot:As a new max %d\n", move_rank);
 		// printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
 		cost = find_pos_from_bot(b->max, b);
 		return (cost);
@@ -322,53 +322,54 @@ int cal_rotate_cost(int move_rank, t_stack *b)
 }
 
 // เอา 4 ทิศหาว่าควร move ทางไหน
-int *calc_cheapest_case(int c_ta, int c_tb, int c_ba, int c_bb)
+int calc_cheapest_case(int c_ta, int c_tb, int c_ba, int c_bb)
 {
 	int top_top;
 	int bot_bot;
 	int cross_one;
 	int cross_two;
 
-	if (c_ta >= c_tb)
-		top_top = c_ta;
-	else if (c_ta < c_tb)
+	// printf("data : %d\n", current->rank);
+	// printf("========= INNER ============\n");
+	// printf("cta : %d, ctb : %d\n", c_ta, c_tb);
+	// printf("cba : %d, cbb : %d\n", c_ba, c_bb);
+
+	top_top = c_ta;
+	bot_bot = c_ba;
+	if (c_ta < c_tb)
 		top_top = c_tb;
-	if (c_ba >= c_bb)
-		bot_bot = c_ba;
-	else if (c_ba < c_bb)
+	if (c_ba < c_bb)
 		bot_bot = c_bb;
-	cross_one = c_ta + (c_bb * -1);
-	cross_two = c_tb + (c_ba * -1);
-	if (top_top < bot_bot && top_top < cross_one && top_top < cross_two)
+	cross_one = c_ta + c_bb;
+	cross_two = c_tb + c_ba;
+	printf("case-1 : top_top : %d\n", top_top);
+	printf("case-2 : bot_bot : %d\n", bot_bot);
+	printf("case-3 : cross_one : %d\n", cross_one);
+	printf("case-4 : cross_two : %d\n", cross_two);
+	if (top_top <= bot_bot && top_top <= cross_one && top_top <= cross_two)
 		return (1);
-	if (bot_bot < top_top && bot_bot < cross_one && bot_bot < cross_two)
+	if (bot_bot <= top_top && bot_bot <= cross_one && bot_bot <= cross_two)
 		return (2);
-	if (cross_one < top_top && cross_one < bot_bot && cross_one < cross_two)
+	if (cross_one <= top_top && cross_one <= bot_bot && cross_one <= cross_two)
 		return (3);
-	if (cross_two < top_top && cross_two < bot_bot && cross_two < cross_one)
-		return (4);
+	// if (cross_two < top_top && cross_two < bot_bot && cross_two < cross_one)
+	return (4);
 }
 // เอาเคสทั้่ง 4 มาหา min move;
-int *calc_cheapest_move(int move_case, int c_ta, int c_tb, int c_ba, int c_bb)
+int calc_cheapest_move(int move_case, int c_ta, int c_tb, int c_ba, int c_bb)
 {
-	if (move_case == 1)
-	{
-		if (c_ta >= c_tb)
-			return (c_ta);
-		else if (c_ta < c_tb)
-			return (c_tb);
-	}
-	else if (move_case == 2)
-	{
-		if (c_ba >= c_bb)
-			return (c_ba);
-		else if (c_ba < c_bb)
-			return (c_bb);
-	}
-	else if (move_case == 3)
-		return c_ta + (c_bb * -1);
-	else if (move_case == 4)
-		return c_tb + (c_ba * -1);
+	if (move_case == 1 && c_ta >= c_tb)
+		return (c_ta);
+	else if (move_case == 1 && c_ta < c_tb)
+		return (c_tb);
+	if (move_case == 2 && c_ba >= c_bb)
+		return (c_ba);
+	else if (move_case == 2 && c_ba < c_bb)
+		return (c_bb);
+
+	if (move_case == 3)
+		return c_ta + c_bb ;
+	return c_tb + c_ba ;
 }
 
 void turk_sort(t_stack *a, t_stack *b)
@@ -376,9 +377,9 @@ void turk_sort(t_stack *a, t_stack *b)
 	// #1 Move to B
 	int size_a;
 	t_node *current;
-	int cheapest_cost = INT_MAX;
-	int cheapest_idx = -1;
-	int cheapest[6]; // [idex,case,c_ta,c_ba,c_tb,c_bb]
+	// int cheapest_cost = INT_MAX;
+	// int cheapest_idx = -1;
+	int cheapest[7]; // [idex,case,c_ta,c_ba,c_tb,c_bb]
 	size_a = a->size;
 	p_move_top(a, b, 1);
 	p_move_top(a, b, 1);
@@ -393,16 +394,18 @@ void turk_sort(t_stack *a, t_stack *b)
 	// p_move_top(a, b, 1);
 	current = a->top;
 	int index = 0;
-	int action_a = 0;
-	int action_b = 0;
-	int which_side = 0;
-	int top_min;
-	int bot_min;
-	int top_top;
-	int bot_bot;
-	int cross_one = INT_MAX;
-	int cross_two = INT_MAX;
-	int min_move = INT_MAX;
+	// int action_a = 0;
+	// int action_b = 0;
+	// int which_side = 0;
+	// int top_min;
+	// int bot_min;
+	// int top_top;
+	// int bot_bot;
+	// int cross_one = INT_MAX;
+	// int cross_two = INT_MAX;
+	int abs_min_move = INT_MAX;
+	int cheapest_case;
+	int cheapest_move;
 	while (a->size > 3 && current)
 	{
 		// ## 1.1 start from top node
@@ -420,127 +423,146 @@ void turk_sort(t_stack *a, t_stack *b)
 		printf("cta : %d, ctb : %d\n", c_ta, c_tb);
 		printf("cba : %d, cbb : %d\n", c_ba, c_bb);
 
-		// แบ่งแค่ 4 case;
-		// top_top = c_ta + c_tb;
-		if (c_ta >= c_tb)
+		cheapest_case = calc_cheapest_case(c_ta, c_tb, c_ba * -1, c_bb * -1);
+		cheapest_move = calc_cheapest_move(cheapest_case, c_ta, c_tb, c_ba *-1, c_bb *-1);
+		printf("cheapest case = %d\n", cheapest_case);
+		printf("cheapest move = %d\n", cheapest_move);
+		if (cheapest_move < abs_min_move)
 		{
-			printf("case 1A : net from top %d\n", c_ta);
-			top_top = c_ta;
-			top_min = c_ta;
-			if (top_min < min_move)
-				min_move = c_ta;
+			abs_min_move = cheapest_move;
+			// cheapest_idx = index;
+			printf("------------------> update new min\n");
+			cheapest[0] = index;
+			cheapest[1] = cheapest_move;
+			cheapest[2] = cheapest_case;
+			cheapest[3] = c_ta;
+			cheapest[4] = c_tb;
+			cheapest[5] = -1 * c_ba;
+			cheapest[6] = -1 * c_bb;
+			// int i = 0;
+			// cheapest = [index,cheapest_case, c_ta,c_ba,c_tb,c_bb];
 		}
-		if (c_ta < c_tb)
-		{
-			printf("case 1B : net from top %d\n", c_tb);
-			top_top = c_tb;
-			top_min = c_tb;
-			if (top_min < min_move)
-				min_move = c_tb;
-		}
+		// // แบ่งแค่ 4 case;
+		// // top_top = c_ta + c_tb;
+		// if (c_ta >= c_tb)
+		// {
+		// 	printf("case 1A : net from top %d\n", c_ta);
+		// 	top_top = c_ta;
+		// 	top_min = c_ta;
+		// 	if (top_min < min_move)
+		// 		min_move = c_ta;
+		// }
+		// if (c_ta < c_tb)
+		// {
+		// 	printf("case 1B : net from top %d\n", c_tb);
+		// 	top_top = c_tb;
+		// 	top_min = c_tb;
+		// 	if (top_min < min_move)
+		// 		min_move = c_tb;
+		// }
 
-		// bot_bot = c_ba + c_ba;
-		if (c_ba <= c_bb)
-		{
+		// // bot_bot = c_ba + c_ba;
+		// if (c_ba <= c_bb)
+		// {
 
-			printf("case 2A : net from bot %d\n", c_ba * -1);
-			bot_min = -1 * c_ba;
-			bot_bot = -1 * c_ba;
-			if (bot_min < min_move)
-				min_move = bot_min;
-		}
+		// 	printf("case 2A : net from bot %d\n", c_ba * -1);
+		// 	bot_min = -1 * c_ba;
+		// 	bot_bot = -1 * c_ba;
+		// 	if (bot_min < min_move)
+		// 		min_move = bot_min;
+		// }
 
-		if (c_ba > c_bb)
-		{
-			printf("case 2B : net from bot %d\n", c_bb * -1);
-			bot_min = -1 * c_bb;
-			bot_bot = -1 * c_bb;
-			if (bot_min < min_move)
-				min_move = bot_min;
-		}
+		// if (c_ba > c_bb)
+		// {
+		// 	printf("case 2B : net from bot %d\n", c_bb * -1);
+		// 	bot_min = -1 * c_bb;
+		// 	bot_bot = -1 * c_bb;
+		// 	if (bot_min < min_move)
+		// 		min_move = bot_min;
+		// }
 
-		// cross_one : เคสไขว้
-		cross_one = c_ta + (-1 * c_bb);
-		if (cross_one < min_move)
-		{
-			printf("case 3 : ไขว้\n");
-			min_move = cross_one;
-			cross_one = min_move;
-		}
+		// // cross_one : เคสไขว้
+		// cross_one = c_ta + (-1 * c_bb);
+		// if (cross_one < min_move)
+		// {
+		// 	printf("case 3 : ไขว้\n");
+		// 	min_move = cross_one;
+		// 	cross_one = min_move;
+		// }
 
-		// cross_two : เคสไขว้
-		cross_two = (c_ba * -1) + c_tb;
-		if (cross_two < min_move)
-		{
-			printf("case 4 : ไขว้\n");
-			min_move = cross_two;
-			cross_two = min_move;
-		}
+		// // cross_two : เคสไขว้
+		// cross_two = (c_ba * -1) + c_tb;
+		// if (cross_two < min_move)
+		// {
+		// 	printf("case 4 : ไขว้\n");
+		// 	min_move = cross_two;
+		// 	cross_two = min_move;
+		// }
 
-		printf("top_min=%d\n", top_min);
-		printf("bot_min=%d\n", bot_min);
-		printf("************************************\n");
-		printf("top_top=%d\n", top_top);
-		printf("bot_bot=%d\n", bot_bot);
-		printf("cross_one=%d\n", cross_one);
-		printf("cross-two=%d\n", cross_two);
-		printf("WINNER MIN_MOVE = %d\n", min_move);
+		// printf("top_min=%d\n", top_min);
+		// printf("bot_min=%d\n", bot_min);
+		// printf("************************************\n");
+		// printf("top_top=%d\n", top_top);
+		// printf("bot_bot=%d\n", bot_bot);
+		// printf("cross_one=%d\n", cross_one);
+		// printf("cross-two=%d\n", cross_two);
+		// printf("WINNER MIN_MOVE = %d\n", min_move);
 
-		if (top_min < bot_min)
-			printf("you should move top\n");
-		else
-			printf("you should move bot\n");
+		// if (top_min < bot_min)
+		// 	printf("you should move top\n");
+		// else
+		// 	printf("you should move bot\n");
 
-		// Update Cheapest;
-		// from top;
-		if (c_tb < 0)
-			c_tb *= -1;
-		if (c_ta >= c_tb && c_ta < cheapest_cost)
-		{
-			cheapest_cost = c_ta;
-			cheapest_idx = index;
-			action_a = c_ta;
-			action_b = c_tb;
-			which_side = 1;
-			printf("INNER:CASE-1: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-			printf("which side=%d\n", which_side);
-			// printf("=================================\n");
-		}
-		else if (c_ta < c_tb && c_tb < cheapest_cost)
-		{
-			cheapest_cost = c_tb;
-			cheapest_idx = index;
-			action_a = c_ta;
-			action_b = c_tb;
-			which_side = 1;
-			printf("INNER:CASE-2: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-			printf("which side=%d\n", which_side);
-			// printf("=================================\n");
-		}
-		// from bot
-		c_ba = -1 * c_ba;
-		c_bb = -1 * c_bb;
-		if (c_ba >= c_bb && c_ba < cheapest_cost)
-		{
-			cheapest_cost = c_ba;
-			cheapest_idx = index;
-			which_side = 2;
-			printf("INNER:CASE-3: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-			printf("which side=%d\n", which_side);
-			// printf("=================================\n");
-		}
-		else if (c_ba < c_bb && c_bb < cheapest_cost)
-		{
-			cheapest_cost = c_bb;
-			cheapest_idx = index;
-			action_a = c_ba;
-			action_b = c_bb;
-			which_side = 2;
-			printf("INNER:CASE-4: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-			printf("which side=%d\n", which_side);
-			// printf("=================================\n");
-		}
-		printf("=================================\n");
+		// // Update Cheapest;
+		// // from top;
+		// if (c_tb < 0)
+		// 	c_tb *= -1;
+		// if (c_ta >= c_tb && c_ta < cheapest_cost)
+		// {
+		// 	cheapest_cost = c_ta;
+		// 	cheapest_idx = index;
+		// 	action_a = c_ta;
+		// 	action_b = c_tb;
+		// 	which_side = 1;
+		// 	printf("INNER:CASE-1: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
+		// 	printf("which side=%d\n", which_side);
+		// 	// printf("=================================\n");
+		// }
+		// else if (c_ta < c_tb && c_tb < cheapest_cost)
+		// {
+		// 	cheapest_cost = c_tb;
+		// 	cheapest_idx = index;
+		// 	action_a = c_ta;
+		// 	action_b = c_tb;
+		// 	which_side = 1;
+		// 	printf("INNER:CASE-2: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
+		// 	printf("which side=%d\n", which_side);
+		// 	// printf("=================================\n");
+		// }
+		// // from bot
+		// c_ba = -1 * c_ba;
+		// c_bb = -1 * c_bb;
+		// if (c_ba >= c_bb && c_ba < cheapest_cost)
+		// {
+		// 	cheapest_cost = c_ba;
+		// 	cheapest_idx = index;
+		// 	which_side = 2;
+		// 	printf("INNER:CASE-3: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
+		// 	printf("which side=%d\n", which_side);
+		// 	// printf("=================================\n");
+		// }
+		// else if (c_ba < c_bb && c_bb < cheapest_cost)
+		// {
+		// 	cheapest_cost = c_bb;
+		// 	cheapest_idx = index;
+		// 	action_a = c_ba;
+		// 	action_b = c_bb;
+		// 	which_side = 2;
+		// 	printf("INNER:CASE-4: cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
+		// 	printf("which side=%d\n", which_side);
+		// 	// printf("=================================\n");
+		// }
+		// printf("=================================\n");
 
 		// update to next node
 		current = current->prev;
@@ -548,9 +570,17 @@ void turk_sort(t_stack *a, t_stack *b)
 		size_a--;
 	}
 
-	printf("cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
-	printf("cta=%d\n", action_a);
-	printf("ctb=%d\n", action_b);
+	printf("cheapest index=%d\n", cheapest[0]);
+	printf("cheapest move=%d\n", cheapest[1]);
+	printf("cheapest case=%d\n", cheapest[2]);
+	printf("cheapest ct_a=%d\n", cheapest[3]);
+	printf("cheapest cb_a=%d\n", cheapest[4]);
+	printf("cheapest ct_b=%d\n", cheapest[5]);
+	printf("cheapest cb_b=%d\n", cheapest[6]);
+
+	// printf("cheapest index = %d, cost =%d\n", cheapest_idx, cheapest_cost);
+	// printf("cta=%d\n", action_a);
+	// printf("ctb=%d\n", action_b);
 	// #1.5 Triple sort
 	// #2 Move back to A
 }
