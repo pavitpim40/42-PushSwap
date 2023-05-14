@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/14 23:37:57 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/14 23:46:22 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,9 +338,9 @@ void turk_sort(t_stack *a, t_stack *b)
 	// # push 1
 	p_move_top(a, b, 1);
 	// # push3
-	// r_shift_up(a, NULL, 1);
-	// rr_shift_down(b, NULL, 1);
-	// p_move_top(a, b, 1);
+	r_shift_up(a, NULL, 1);
+	rr_shift_down(b, NULL, 1);
+	p_move_top(a, b, 1);
 	current = a->top;
 	int index = 0;
 	int abs_min_move = INT_MAX;
