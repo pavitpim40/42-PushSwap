@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 20:44:58 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:21:14 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ void	push_with_rank(t_stack *dst, int data, int rank)
 	}
 	if (data < dst->min)
 	{
+		printf("_________INNER PUSH WITH RANK________\n");
+		printf("STACK %s\n",dst->name);
+		printf("dst->min=%d\n",dst->min);
+		printf("rank=%d\n",rank);
 		dst->min = data;
 		dst->min_rank = rank;
 	}
