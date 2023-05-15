@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 02:14:41 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 02:28:15 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,22 +323,22 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 {
 	int action_case;
 	int gap;
-	int c_ta;
-	int c_tb;
-	int c_ba;
-	int c_bb;
+	int src_top;
+	int dst_top;
+	int src_bot;
+	int dst_bot;
 
 	action_case = action_array[2];
-	c_ta = action_array[3];
-	c_tb = action_array[4];
-	c_ba = action_array[5];
-	c_bb = action_array[6];
+	src_top = action_array[3];
+	dst_top = action_array[4];
+	src_bot = action_array[5];
+	dst_bot = action_array[6];
 
-	if (action_case == 1 && c_ta >= c_tb)
+	if (action_case == 1 && src_top >= dst_top)
 	{
 
-		gap = c_ta - c_tb;
-		while (c_tb && c_tb--)
+		gap = src_top - dst_top;
+		while (dst_top && dst_top--)
 		{
 
 			r_shift_up(src, dst, 1);
@@ -347,13 +347,13 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 		while (gap && gap--)
 			r_shift_up(src, NULL, 1);
 	}
-	if (action_case == 1 && c_ta < c_tb)
+	if (action_case == 1 && src_top < dst_top)
 	{
 
-		gap = c_tb - c_ta;
+		gap = dst_top - src_top;
 		if (move_back == 0)
 		{
-			while (c_ta != 0 && c_ta--)
+			while (src_top != 0 && src_top--)
 			{
 				r_shift_up(src, dst, 1);
 			}
@@ -362,7 +362,7 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 		}
 		else
 		{
-			while (c_ta != 0 && c_ta--)
+			while (src_top != 0 && src_top--)
 			{
 				r_shift_up(src, dst, 1);
 			}
@@ -370,30 +370,30 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 				r_shift_up(src, NULL, 1);
 		}
 	}
-	if (action_case == 2 && c_ba >= c_bb)
+	if (action_case == 2 && src_bot >= dst_bot)
 	{
-		gap = c_ba - c_bb;
+		gap = src_bot - dst_bot;
 		if (move_back == 0)
 		{
-			while (c_bb && c_bb--)
+			while (dst_bot && dst_bot--)
 				rr_shift_down(src, dst, 1);
 			while (gap && gap--)
 				rr_shift_down(src, NULL, 1);
 		}
 		else
 		{
-			while (c_bb && c_bb--)
+			while (dst_bot && dst_bot--)
 				rr_shift_down(src, dst, 1);
 			while (gap && gap--)
 				rr_shift_down(dst, NULL, 1);
 		}
 	}
-	if (action_case == 2 && c_ba < c_bb)
+	if (action_case == 2 && src_bot < dst_bot)
 	{
-		gap = c_bb - c_ba;
+		gap = dst_bot - src_bot;
 		if (move_back == 0)
 		{
-			while (c_ba && c_ba--)
+			while (src_bot && src_bot--)
 				rr_shift_down(src, dst, 1);
 			while (gap && gap--)
 				rr_shift_down(dst, NULL, 1);
@@ -401,7 +401,7 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 		else
 		{
 
-			while (c_ba && c_ba--)
+			while (src_bot && src_bot--)
 				rr_shift_down(src, dst, 1);
 			while (gap && gap--)
 				rr_shift_down(src, NULL, 1);
@@ -411,16 +411,16 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 	{
 		if (move_back == 0)
 		{
-			while (c_ta--)
+			while (src_top--)
 				r_shift_up(src, NULL, 1);
-			while (c_bb--)
+			while (dst_bot--)
 				rr_shift_down(dst, NULL, 1);
 		}
 		else if (move_back == 1)
 		{
-			while (c_ta--)
+			while (src_top--)
 				r_shift_up(dst, NULL, 1);
-			while (c_bb--)
+			while (dst_bot--)
 				rr_shift_down(src, NULL, 1);
 		}
 	}
@@ -429,16 +429,16 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 
 		if (move_back == 0)
 		{
-			while (c_ba--)
+			while (src_bot--)
 				rr_shift_down(src, NULL, 1);
-			while (c_tb--)
+			while (dst_top--)
 				r_shift_up(dst, NULL, 1);
 		}
 		else if (move_back == 1)
 		{
-			while (c_ta--)
+			while (src_top--)
 				rr_shift_down(dst, NULL, 1);
-			while (c_bb--)
+			while (dst_bot--)
 				r_shift_up(src, NULL, 1);
 		}
 	}
