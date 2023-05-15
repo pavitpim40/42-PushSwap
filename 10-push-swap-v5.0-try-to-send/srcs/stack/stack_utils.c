@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:36:01 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/15 02:27:05 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:33:28 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ int	find_next_min_rank(t_stack *src)
 	return (next_min_rank);
 }
 
+int	find_next_max_rank(t_stack *src)
+{
+	t_node	*current;
+	int		next_max_rank;
+
+	current = src->top;
+	next_max_rank = INT_MIN;
+	while (current)
+	{
+		if (current->rank != -1 && current->rank > next_max_rank)
+			next_max_rank = current->rank;
+		current = current->prev;
+	}
+	return (next_max_rank);
+}
 int	pop(t_stack *stack)
 {
 	int		data;
@@ -47,7 +62,11 @@ int	pop(t_stack *stack)
 		if (temp->rank == stack->min_rank)
 		{
 			stack->min_rank = find_next_min_rank(stack);
-			stack->min = stack->min_rank;
+			// stack->min = stack->min_rank;
+		}
+		if (temp->rank == stack->max_rank)
+		{
+			stack->max_rank = find_next_max_rank(stack);
 		}
 			
 	}
@@ -58,7 +77,7 @@ int	pop(t_stack *stack)
 
 void print_stack(t_stack *stack)
 {
-	printf("Stack: \n");
+	printf("Stack: %s\n", stack->name);
 	if (!stack)
 		return;
 	t_node *node = stack->top;
