@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:36:01 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/15 15:33:28 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:52:38 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,37 @@ int	find_next_min_rank(t_stack *src)
 		current = current->prev;
 	}
 	return (next_min_rank);
+}
+
+int	find_next_min(t_stack *src)
+{
+	t_node	*current;
+	int		next_min;
+
+	current = src->top;
+	next_min = INT_MAX;
+	while (current)
+	{
+		if (current->rank != -1 && current->data < next_min)
+			next_min = current->data;
+		current = current->prev;
+	}
+	return (next_min);
+}
+int	find_next_max(t_stack *src)
+{
+	t_node	*current;
+	int		next_max;
+
+	current = src->top;
+	next_max = INT_MIN;
+	while (current)
+	{
+		if (current->rank != -1 && current->data > next_max)
+			next_max = current->data;
+		current = current->prev;
+	}
+	return (next_max);
 }
 
 int	find_next_max_rank(t_stack *src)
@@ -62,11 +93,13 @@ int	pop(t_stack *stack)
 		if (temp->rank == stack->min_rank)
 		{
 			stack->min_rank = find_next_min_rank(stack);
-			// stack->min = stack->min_rank;
+			stack->min = find_next_min(stack);
+			
 		}
 		if (temp->rank == stack->max_rank)
 		{
 			stack->max_rank = find_next_max_rank(stack);
+			stack->max = find_next_max(stack);
 		}
 			
 	}

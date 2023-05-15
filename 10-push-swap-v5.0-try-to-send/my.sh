@@ -15,3 +15,5 @@ done < test_check.txt
 else
 	printf "[KO]\n";
 fi
+
+ruby -e "puts (00..99).to_a.shuffle.join(' ')"

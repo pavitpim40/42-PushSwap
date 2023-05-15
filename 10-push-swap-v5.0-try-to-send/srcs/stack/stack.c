@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/15 17:11:02 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:58:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,18 @@ void push_with_rank(t_stack *dst, int data, int rank)
 		dst->max = data;
 	if (rank > dst->max_rank)
 		dst->max_rank = rank;
+	// printf("\n######## PUSH WITH RANK ############\n");
+	// printf("STACK : %s\n", dst->name);
+	// printf("___data = %d\n", data);
+	// printf("___rank = %d\n", rank);
+	// printf("dst->min = %d\n", dst->min);
+	// printf("dst->max = %d\n", dst->max);
+	// printf("dst->min_rank = %d\n", dst->min_rank);
+	// printf("dst->max_rank = %d\n", dst->max_rank);
 	if (data < dst->min)
 	{
 		dst->min = data;
-		dst->min_rank = rank; 
+		dst->min_rank = rank;
 	}
 	if (rank != -1 && rank < dst->min_rank)
 		dst->min_rank = rank; // why cannot move ?
