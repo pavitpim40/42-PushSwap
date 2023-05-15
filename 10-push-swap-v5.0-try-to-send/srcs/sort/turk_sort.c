@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/15 15:42:51 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:55:43 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,8 +243,10 @@ int cal_rotate_cost_from_top(int move_rank, t_stack *b, int find_greater)
 
 	// int cost_top = 0;
 	// int cost_bot = 0;
-	// printf("move rank %d\n", move_rank);
-	// printf("dst->min %d\n", b->min);
+	printf("move rank %d\n", move_rank);
+	printf("dst->min %d\n", b->min);
+	printf("dst->min_rank %d\n", b->min_rank);
+	printf("dst->max_rank %d\n", b->max_rank);
 	if (move_rank < b->min_rank)
 	{
 		// printf("cal_rotate_cost_from_top: top:As a new min %d\n", move_rank);
@@ -258,8 +260,12 @@ int cal_rotate_cost_from_top(int move_rank, t_stack *b, int find_greater)
 	else if (move_rank > b->max_rank)
 	{
 		// printf("top:As a new max %d\n", move_rank);
-		// printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
-		cost = find_pos_from_top(b->max_rank, b);
+		printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
+		if (find_greater == 1)
+			cost = find_pos_from_top(b->min_rank, b);
+		else
+			cost = find_pos_from_top(b->max_rank, b);
+		printf("cost = %d\n", cost);
 		return (cost);
 	}
 
@@ -299,7 +305,10 @@ int cal_rotate_cost_from_bot(int move_rank, t_stack *b, int find_greater)
 
 		// printf("bot:As a new max %d\n", move_rank);
 		// printf("FN:cal_rotate_cost: move as a NEW_MAX = %d\n", move_rank);
-		cost = find_pos_from_bot(b->max_rank, b);
+		if (find_greater == 1)
+			cost = find_pos_from_bot(b->min_rank, b);
+		else
+			cost = find_pos_from_bot(b->max_rank, b);
 		return (cost);
 	}
 
@@ -307,12 +316,13 @@ int cal_rotate_cost_from_bot(int move_rank, t_stack *b, int find_greater)
 	{
 		if (find_greater == 1)
 			cost = find_greater_than_pos_from_bot(move_rank, b);
-		else{
+		else
+		{
 			// printf("find_less_than_rank %d\n",move_rank);
 			cost = find_less_than_pos_from_bot(move_rank, b);
 			// printf("COSTTTTTTTTTTTT %d\n", cost);
 		}
-			
+
 		return (cost);
 	}
 }
@@ -436,12 +446,24 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 		// printf("c_ta=%d\n", c_ta);
 		// printf("c_tb=%d\n", c_tb);
 		// printf("gap=%d\n", gap);
-		while (c_ta != 0 && c_ta--)
+		if (move_back == 0)
 		{
-			r_shift_up(src, dst, 1);
+			while (c_ta != 0 && c_ta--)
+			{
+				r_shift_up(src, dst, 1);
+			}
+			while (gap != 0 && gap--)
+				r_shift_up(dst, NULL, 1);
 		}
-		while (gap != 0 && gap--)
-			r_shift_up(dst, NULL, 1);
+		else
+		{
+			while (c_ta != 0 && c_ta--)
+			{
+				r_shift_up(src, dst, 1);
+			}
+			while (gap != 0 && gap--)
+				r_shift_up(src, NULL, 1);
+		}
 	}
 	if (action_case == 2 && c_ba >= c_bb)
 	{
@@ -466,107 +488,47 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 		printf("action: c_bb = %d\n", c_bb);
 		// move back  c_ta คือ c_tb
 		// move back c_bb คือ c_ba;
-		while (c_ta--)
-			r_shift_up(src, NULL, 1);
-		while (c_bb--)
-			rr_shift_down(dst, NULL, 1);
+		if (move_back == 0)
+		{
+			while (c_ta--)
+				r_shift_up(src, NULL, 1);
+			while (c_bb--)
+				rr_shift_down(dst, NULL, 1);
+		}
+		else if (move_back == 1)
+		{
+			while (c_ta--)
+				r_shift_up(dst, NULL, 1);
+			while (c_bb--)
+				rr_shift_down(src, NULL, 1);
+		}
 	}
 	if (action_case == 4)
 	{
 		// printf("action: c_ta = %d\n", c_ba);
 		// printf("action: c_bb = %d\n", c_tb);
+		// if (move_back == 0)
+
 		while (c_ba--)
 			rr_shift_down(src, NULL, 1);
 		while (c_tb--)
 			r_shift_up(dst, NULL, 1);
+
+		// else if (move_back == 1)
+		// {
+		// 	while (c_ta--)
+		// 		rr_shift_down(dst, NULL, 1);
+		// 	while (c_bb--)
+		// 		r_shift_up(src, NULL, 1);
+		// }
 	}
 	if (move_back == 0)
 		p_move_top(src, dst, 1);
-	else
+	else if (move_back == 1)
+	{
+		printf("MOVE BACK\n");
 		p_move_top(dst, src, 1);
-}
-
-void smart_move_back(int *action_array, t_stack *src, t_stack *dst)
-{
-	int action_case;
-	int gap;
-	int c_ta;
-	int c_tb;
-	int c_ba;
-	int c_bb;
-
-	action_case = action_array[2];
-	c_ta = action_array[3];
-	c_tb = action_array[4];
-	c_ba = action_array[5];
-	c_bb = action_array[6];
-	printf(" *** case = %d\n", action_case);
-	// printf("c_ta = %d\n", c_ta);
-	// printf("c_tb = %d\n", c_tb);
-	if (action_case == 1 && c_ta >= c_tb)
-	{
-		// min move A,B = ct_b and gap move only A
-		// printf("SM:CASE-1\n");
-		gap = c_ta - c_tb;
-		while (c_tb && c_tb--)
-		{
-			// printf("c_tb %d\n", c_tb);
-			r_shift_up(src, dst, 1);
-		}
-
-		while (gap && gap--)
-			r_shift_up(src, NULL, 1);
 	}
-	if (action_case == 1 && c_ta < c_tb)
-	{
-		// printf("SM:CASE-2\n");
-		// print_stack(a);
-		// print_stack(b);
-		gap = c_tb - c_ta;
-		// printf("c_ta=%d\n", c_ta);
-		// printf("c_tb=%d\n", c_tb);
-		// printf("gap=%d\n", gap);
-		while (c_ta != 0 && c_ta--)
-		{
-			r_shift_up(src, dst, 1);
-		}
-		while (gap != 0 && gap--)
-			r_shift_up(dst, NULL, 1);
-	}
-	if (action_case == 2 && c_ba >= c_bb)
-	{
-		gap = c_ba - c_bb;
-		while (c_bb && c_bb--)
-			rr_shift_down(src, dst, 1);
-		while (gap && gap--)
-			rr_shift_down(src, NULL, 1);
-	}
-	if (action_case == 2 && c_ba < c_bb)
-	{
-		gap = c_bb - c_ba;
-		while (c_ba && c_ba--)
-			rr_shift_down(src, dst, 1);
-		while (gap && gap--)
-			rr_shift_down(src, NULL, 1);
-	}
-	if (action_case == 3)
-	{
-		// printf("action case:3");
-		// printf("action: c_ta = %d\n", c_ta);
-		// printf("action: c_bb = %d\n", c_ta);
-		while (c_ta--)
-			r_shift_up(src, NULL, 1);
-		while (c_bb--)
-			rr_shift_down(src, NULL, 1);
-	}
-	if (action_case == 4)
-	{
-		while (c_ba--)
-			r_shift_up(src, NULL, 1);
-		while (c_tb--)
-			rr_shift_down(src, NULL, 1);
-	}
-	p_move_top(src, dst, 1);
 }
 
 void turk_sort(t_stack *a, t_stack *b)
@@ -633,21 +595,18 @@ void turk_sort(t_stack *a, t_stack *b)
 			// printf("c_ba=%d\n", c_ba);
 			// printf("c_tb=%d\n", c_tb);
 			// printf("c_bb=%d\n", c_bb);
-			
-			
-				
-				// print_stack(a);
-				// print_stack(b);
-				// printf("cheapest index = %d\n", cheapest[0]);
-				// printf("cheapest move = %d\n", cheapest[1]);
-				// printf("cheapest case = %d\n", cheapest[2]);
 
-				// printf("cheapest c_ta = %d\n", cheapest[3]);
-				// printf("cheapest c_tb = %d\n", cheapest[4]);
-				// printf("cheapest c_ba = %d\n", cheapest[5]);
-				// printf("cheapest c_bb = %d\n", cheapest[6]);
-				
-			
+			// print_stack(a);
+			// print_stack(b);
+			// printf("cheapest index = %d\n", cheapest[0]);
+			// printf("cheapest move = %d\n", cheapest[1]);
+			// printf("cheapest case = %d\n", cheapest[2]);
+
+			// printf("cheapest c_ta = %d\n", cheapest[3]);
+			// printf("cheapest c_tb = %d\n", cheapest[4]);
+			// printf("cheapest c_ba = %d\n", cheapest[5]);
+			// printf("cheapest c_bb = %d\n", cheapest[6]);
+
 			cheapest_case = calc_cheapest_case(c_ta, c_tb, c_ba * -1, c_bb * -1);
 			cheapest_move = calc_cheapest_move(cheapest_case, c_ta, c_tb, c_ba * -1, c_bb * -1);
 
@@ -671,7 +630,6 @@ void turk_sort(t_stack *a, t_stack *b)
 			size_a--;
 		}
 
-		
 		// printf("=========== SUMMARY ===========\n");
 		// printf("cheapest index = %d\n", cheapest[0]);
 		// printf("cheapest move = %d\n", cheapest[1]);
@@ -681,7 +639,6 @@ void turk_sort(t_stack *a, t_stack *b)
 		// printf("cheapest c_tb = %d\n", cheapest[4]);
 		// printf("cheapest c_ba = %d\n", cheapest[5]);
 		// printf("cheapest c_bb = %d\n", cheapest[6]);
-		
 
 		smart_move(cheapest, a, b, 0);
 		// printf("A->size = %d , B->size %d\n", a->size,b->size);
@@ -697,12 +654,13 @@ void turk_sort(t_stack *a, t_stack *b)
 		triple_sort(a);
 
 	// printf("============ MOVE_BACK  ==============\n");
-	print_stack(b);
-	print_stack(a);
+	// print_stack(b);
+	// print_stack(a);
 	// printf("============ MOVE_BACK  ==============\n");
 	// // #2 Move back to A
 	// int i = 1;
-	while (b->size > 96)
+	// Problem 92
+	while (b->size > 5)
 	{
 
 		index = 0;
@@ -712,8 +670,10 @@ void turk_sort(t_stack *a, t_stack *b)
 		cheapest_move = INT_MAX;
 		abs_min_move = INT_MAX;
 		// int i = 1;
-		printf("size->b = %d\n", size_a);
+		printf("\n\n\n\nsize->b = %d\n", size_a);
 		// printf("size->b = %d\n", size_a);
+		print_stack(b);
+		print_stack(a);
 		while (size_a && current)
 		{
 			// c_ta ==> c_tb
@@ -721,10 +681,10 @@ void turk_sort(t_stack *a, t_stack *b)
 			// c_tb ==> c_ta
 			// c_bb ==> c_ba
 			printf("============ LOOP %d ==============\n", index + 1);
-			printf("data = %d\n", current->data);
-			printf("data->rank = %d\n", current->rank);
-			printf("a->min_rank = %d\n", a->min_rank);
-			printf("a->max_rank = %d\n", a->max_rank);
+			// printf("data = %d\n", current->data);
+			// printf("data->rank = %d\n", current->rank);
+			// printf("a->min_rank = %d\n", a->min_rank);
+			// printf("a->max_rank = %d\n", a->max_rank);
 			// int c_ta = index;
 			// int c_ba = index - a->size;
 			// int c_tb = cal_rotate_cost_from_top(current->rank, b);
@@ -748,13 +708,13 @@ void turk_sort(t_stack *a, t_stack *b)
 			if (cheapest_move < abs_min_move)
 			{
 				abs_min_move = cheapest_move;
-				// printf("------------------> update new min\n");
+				printf("------------------> update new min\n");
 				cheapest[0] = index;
 				cheapest[1] = cheapest_move;
 				cheapest[2] = cheapest_case;
 
-				cheapest[3] = c_tb;
-				cheapest[4] = c_ta;
+				cheapest[3] = c_tb; // c_ta => c_tb;
+				cheapest[4] = c_ta; // c_tb => c_ta;
 				cheapest[5] = -1 * c_bb;
 				cheapest[6] = -1 * c_ba;
 				// c_ta ==> c_tb
@@ -767,15 +727,15 @@ void turk_sort(t_stack *a, t_stack *b)
 			size_a--;
 		}
 
-		printf("=========== SUMMARY ===========\n");
-		printf("cheapest index = %d\n", cheapest[0]);
-		printf("cheapest move = %d\n", cheapest[1]);
-		printf("cheapest case = %d\n", cheapest[2]);
+		// printf("=========== SUMMARY ===========\n");
+		// printf("cheapest index = %d\n", cheapest[0]);
+		// printf("cheapest move = %d\n", cheapest[1]);
+		// printf("cheapest case = %d\n", cheapest[2]);
 
-		printf("cheapest c_tb = %d\n", cheapest[3]);
-		printf("cheapest c_ta = %d\n", cheapest[4]);
-		printf("cheapest c_bb = %d\n", cheapest[5]);
-		printf("cheapest c_ba = %d\n", cheapest[6]);
+		// printf("cheapest c_tb = %d\n", cheapest[3]);
+		// printf("cheapest c_ta = %d\n", cheapest[4]);
+		// printf("cheapest c_bb = %d\n", cheapest[5]);
+		// printf("cheapest c_ba = %d\n", cheapest[6]);
 		smart_move(cheapest, a, b, 1);
 		// print_stack(a);
 		// print_stack(b);
@@ -801,5 +761,6 @@ void turk_sort(t_stack *a, t_stack *b)
 
 	// printf("============ RESULT  ==============\n");
 	print_stack(a);
+	print_stack(b);
 	// printf("============ RESULT  ==============\n");
 }
