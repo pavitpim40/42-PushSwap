@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 01:40:08 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 01:52:20 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -449,27 +449,16 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 	}
 }
 
-int *calc_action_array(t_stack *src, t_stack *dst, t_node *current, int index, int cheapest[],int mode)
+int *calc_action_array(t_stack *src, t_stack *dst, t_node *current, int index, int cheapest[], int mode)
 {
 
 	int src_top = index;
 	int src_bot = index - src->size;
-	
 	int dst_top = cal_rotate_cost_from_top(current->rank, dst, mode);
 	int dst_bot = cal_rotate_cost_from_bot(current->rank, dst, mode);
-	
 	int cheapest_case = calc_cheapest_case(src_top, dst_top, src_bot * -1, dst_bot * -1);
 	int cheapest_move = calc_cheapest_move(cheapest_case, src_top, dst_top, src_bot * -1, dst_bot * -1);
 
-	// int dst_top = index;
-	// int src_top = cal_rotate_cost_from_top(current->rank, a, 1);
-	
-	// int src_bot = cal_rotate_cost_from_bot(current->rank, a, 1);
-	// int dst_bot = index - b->size;
-	// // src_top => ctb
-
-	// cheapest_case = calc_cheapest_case(dst_top, src_top, dst_bot * -1, src_bot * -1);
-	// cheapest_move = calc_cheapest_move(cheapest_case, dst_top, src_top, dst_bot * -1, src_bot * -1);
 	if (cheapest_move < cheapest[1])
 	{
 		cheapest[0] = index;
@@ -483,82 +472,35 @@ int *calc_action_array(t_stack *src, t_stack *dst, t_node *current, int index, i
 	return (cheapest);
 }
 
+void cheapest_move(t_stack *src, t_stack *dst, int mode)
+{
+	int index = 0;
+	t_node *current = src->top;
+	int cheapest[7];
+	cheapest[1] = INT_MAX;
+	while (current)
+	{
+		calc_action_array(src, dst, current, index, cheapest, mode);
+		current = current->prev;
+		index++;
+	}
+	if(mode == 0)
+		smart_move(cheapest, src, dst, mode);
+	else 
+		smart_move(cheapest,dst,src,mode);
+}
 void turk_sort(t_stack *a, t_stack *b)
 {
-	// #1 Move to B
-	int size_a;
-	t_node *current;
-
-	int cheapest[7]; // [idex,case,c_ta,c_ba,dst_top,c_bb]
-	size_a = a->size;
-
+	
 	p_move_top_with_rank(a, b, a->top->rank, 1);
 	p_move_top_with_rank(a, b, a->top->rank, 1);
-
-	current = a->top;
-	int index = 0;
-	cheapest[1] = INT_MAX;
-	// int abs_min_move = INT_MAX;
-	// int cheapest_case;
-	// int cheapest_move;
 
 	while (a->size > 3)
-	{
-		index = 0;
-		current = a->top;
-		cheapest[1] = INT_MAX;
-		while (current)
-		{
-			calc_action_array(a, b, current, index, cheapest,0);
-			current = current->prev;
-			index++;
-		}
-		smart_move(cheapest, a, b, 0);
-	}
-
+		cheapest_move(a,b,0);
 	if (!is_sorted(a))
 		triple_sort(a);
 	while (b->size)
-	{
-
-		index = 0;
-		size_a = b->size;
-		current = b->top;
-		// cheapest_case = INT_MAX;
-		// cheapest_move = INT_MAX;
-		// abs_min_move = INT_MAX;
-		cheapest[1] = INT_MAX;
-
-		while (size_a && current)
-		{
-			calc_action_array(b, a, current, index, cheapest,1);
-
-			// int c_ta = cal_rotate_cost_from_top(current->rank, a, 1);
-			// int c_ba = cal_rotate_cost_from_bot(current->rank, a, 1);
-			// int c_tb = index;
-			// int c_bb = index - b->size;
-
-			// cheapest_case = calc_cheapest_case(c_tb, c_ta, c_bb * -1, c_ba * -1);
-			// cheapest_move = calc_cheapest_move(cheapest_case, c_tb, c_ta, c_bb * -1, c_ba * -1);
-
-			// if (cheapest_move < abs_min_move)
-			// {
-			// 	abs_min_move = cheapest_move;
-			// 	cheapest[0] = index;
-			// 	cheapest[1] = cheapest_move;
-			// 	cheapest[2] = cheapest_case;
-
-			// 	cheapest[3] = c_tb;
-			// 	cheapest[4] = c_ta;
-			// 	cheapest[5] = -1 * c_bb;
-			// 	cheapest[6] = -1 * c_ba;
-			// }
-			current = current->prev;
-			index++;
-			size_a--;
-		}
-		smart_move(cheapest, a, b, 1);
-	}
+		cheapest_move(b,a,1);
 
 	int c_top = find_pos_from_top(a->min_rank, a);
 	int c_bot = find_pos_from_bot(a->min_rank, a);
