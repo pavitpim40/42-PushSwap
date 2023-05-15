@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 02:28:15 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 02:53:12 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,8 +317,69 @@ int calc_cheapest_move(int move_case, int c_ta, int c_tb, int c_ba, int c_bb)
 	return c_tb + c_ba;
 }
 
+void smart_move_tt(int *action_array, t_stack *src, t_stack *dst, int move_back)
+{
 
+	int src_top;
+	int dst_top;
+	int common_count;
+	int gap_count;
 
+	src_top = action_array[3];
+	dst_top = action_array[4];
+	// gap_count=0;
+	if (src_top >= dst_top)
+	{
+		gap_count = src_top - dst_top;
+		common_count = dst_top;
+	}
+	else
+	{
+		gap_count = dst_top - src_top;
+		common_count = src_top;
+	}
+	while (common_count && common_count--)
+		r_shift_up(src, dst, 1);
+	// while (gap_count && gap_count--)
+	// {
+	// 	if (common_count == src_top)
+	// 		r_shift_up(dst, NULL, 1);
+	// 	else
+	// 		r_shift_up(src, NULL, 1);
+	// }
+
+	if (src_top >= dst_top)
+	{
+		// gap_count = src_top - dst_top;
+		// while (dst_top && dst_top--)
+		// 	r_shift_up(src, dst, 1);
+		while (gap_count && gap_count--)
+			r_shift_up(src, NULL, 1);
+	}
+	if (src_top < dst_top)
+	{
+
+		// gap_count = dst_top - src_top;
+		if (move_back == 0)
+		{
+			// while (src_top != 0 && src_top--)
+			// {
+			// 	r_shift_up(src, dst, 1);
+			// }
+			while (gap_count != 0 && gap_count--)
+				r_shift_up(dst, NULL, 1);
+		}
+		else
+		{
+			// while (src_top != 0 && src_top--)
+			// {
+			// 	r_shift_up(src, dst, 1);
+			// }
+			while (gap_count != 0 && gap_count--)
+				r_shift_up(src, NULL, 1);
+		}
+	}
+}
 void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 {
 	int action_case;
@@ -334,42 +395,45 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 	src_bot = action_array[5];
 	dst_bot = action_array[6];
 
-	if (action_case == 1 && src_top >= dst_top)
-	{
+	if (action_case == 1)
+		smart_move_tt(action_array, src, dst, move_back);
 
-		gap = src_top - dst_top;
-		while (dst_top && dst_top--)
-		{
+	// if (action_case == 1 && src_top >= dst_top)
+	// {
 
-			r_shift_up(src, dst, 1);
-		}
+	// 	gap = src_top - dst_top;
+	// 	while (dst_top && dst_top--)
+	// 	{
 
-		while (gap && gap--)
-			r_shift_up(src, NULL, 1);
-	}
-	if (action_case == 1 && src_top < dst_top)
-	{
+	// 		r_shift_up(src, dst, 1);
+	// 	}
 
-		gap = dst_top - src_top;
-		if (move_back == 0)
-		{
-			while (src_top != 0 && src_top--)
-			{
-				r_shift_up(src, dst, 1);
-			}
-			while (gap != 0 && gap--)
-				r_shift_up(dst, NULL, 1);
-		}
-		else
-		{
-			while (src_top != 0 && src_top--)
-			{
-				r_shift_up(src, dst, 1);
-			}
-			while (gap != 0 && gap--)
-				r_shift_up(src, NULL, 1);
-		}
-	}
+	// 	while (gap && gap--)
+	// 		r_shift_up(src, NULL, 1);
+	// }
+	// if (action_case == 1 && src_top < dst_top)
+	// {
+
+	// 	gap = dst_top - src_top;
+	// 	if (move_back == 0)
+	// 	{
+	// 		while (src_top != 0 && src_top--)
+	// 		{
+	// 			r_shift_up(src, dst, 1);
+	// 		}
+	// 		while (gap != 0 && gap--)
+	// 			r_shift_up(dst, NULL, 1);
+	// 	}
+	// 	else
+	// 	{
+	// 		while (src_top != 0 && src_top--)
+	// 		{
+	// 			r_shift_up(src, dst, 1);
+	// 		}
+	// 		while (gap != 0 && gap--)
+	// 			r_shift_up(src, NULL, 1);
+	// 	}
+	// }
 	if (action_case == 2 && src_bot >= dst_bot)
 	{
 		gap = src_bot - dst_bot;
@@ -451,14 +515,14 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 	}
 }
 
-int	find_index(t_stack *src, int rank)
+int find_index(t_stack *src, int rank)
 {
 	t_node *current;
 	int index;
 
 	current = src->top;
-	index=0;
-	while(current && current->rank != rank)
+	index = 0;
+	while (current && current->rank != rank)
 	{
 		index++;
 		current = current->prev;
@@ -469,7 +533,7 @@ int	find_index(t_stack *src, int rank)
 int *calc_action_array(t_stack *src, t_stack *dst, t_node *current, int cheapest[], int mode)
 {
 
-	int src_top = find_index(src,current->rank);
+	int src_top = find_index(src, current->rank);
 	int src_bot = src_top - src->size;
 	int dst_top = cal_rotate_cost_from_top(current->rank, dst, mode);
 	int dst_bot = cal_rotate_cost_from_bot(current->rank, dst, mode);
@@ -489,7 +553,6 @@ int *calc_action_array(t_stack *src, t_stack *dst, t_node *current, int cheapest
 	return (cheapest);
 }
 
-
 void cheapest_move(t_stack *src, t_stack *dst, int mode)
 {
 	int index;
@@ -501,14 +564,14 @@ void cheapest_move(t_stack *src, t_stack *dst, int mode)
 	cheapest[1] = INT_MAX;
 	while (current)
 	{
-		calc_action_array(src, dst, current,cheapest, mode);
+		calc_action_array(src, dst, current, cheapest, mode);
 		current = current->prev;
 		index++;
 	}
-	if(mode == 0)
+	if (mode == 0)
 		smart_move(cheapest, src, dst, mode);
-	else 
-		smart_move(cheapest,dst,src,mode);
+	else
+		smart_move(cheapest, dst, src, mode);
 }
 
 void internal_sort(t_stack *a)
@@ -519,21 +582,21 @@ void internal_sort(t_stack *a)
 	if (c_top <= c_bot)
 		while (c_top && c_top--)
 			r_shift_up(a, NULL, 1);
-	else if (c_bot && c_bot  < c_top)
+	else if (c_bot && c_bot < c_top)
 		while (c_bot--)
 			rr_shift_down(a, NULL, 1);
 }
 
 void turk_sort(t_stack *a, t_stack *b)
 {
-	
+
 	p_move_top_with_rank(a, b, a->top->rank, 1);
 	p_move_top_with_rank(a, b, a->top->rank, 1);
 	while (a->size > 3)
-		cheapest_move(a,b,0);
+		cheapest_move(a, b, 0);
 	if (!is_sorted(a))
 		triple_sort(a);
 	while (b->size)
-		cheapest_move(b,a,1);
+		cheapest_move(b, a, 1);
 	internal_sort(a);
 }
