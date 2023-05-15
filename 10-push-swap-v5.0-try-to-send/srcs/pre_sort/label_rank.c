@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:56 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/15 17:21:28 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:18:39 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void	label_rank(t_stack *A)
 	{
 		min = find_min(A);
 		current = A->top;
+		// printf("______min = %d\n", min);
 		while (current)
 		{
+				// printf("_________________data = %d\n", current->data);
 			if (current->data == min)
 			{
 				current->rank = rank;

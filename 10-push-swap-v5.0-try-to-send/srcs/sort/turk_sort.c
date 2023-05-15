@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/15 17:59:08 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:55:29 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ int find_less_than_pos(int rank, t_stack *b)
 int find_greater_than_pos_from_top(int rank, t_stack *b)
 {
 	int target_rank = rank + 1;
-
-	while (target_rank <= b->max)
+	
+	while (target_rank <= b->max_rank)
 	{
 		int pos = find_pos_from_top(target_rank, b);
 		// int pos_top = find_pos_from_top(target_rank,b);
@@ -175,7 +175,7 @@ int find_greater_than_pos_from_bot(int rank, t_stack *b)
 {
 	int target_rank = rank + 1;
 
-	while (target_rank <= b->max)
+	while (target_rank <= b->max_rank)
 	{
 		int pos = find_pos_from_bot(target_rank, b);
 		// int pos_top = find_pos_from_top(target_rank,b);
@@ -277,6 +277,7 @@ int cal_rotate_cost_from_top(int move_rank, t_stack *b, int find_greater)
 		else
 			cost = find_less_than_pos_from_top(move_rank, b);
 		// int another = find_more_than_pos_from_top(move_rank, b);
+		// printf("COST = %d\n",cost);
 		// if(cost > another)
 		// 	return (another);
 		return (cost);
@@ -585,7 +586,8 @@ void turk_sort(t_stack *a, t_stack *b)
 
 	// loop for cheapest on each round;
 	// int i = 1;
-	// 	while(i != 0)
+	
+	// while(i--)
 	while (a->size > 3)
 	{
 
@@ -679,11 +681,11 @@ void turk_sort(t_stack *a, t_stack *b)
 		triple_sort(a);
 
 	// printf("============ MOVE_BACK  ==============\n");
-	// // print_stack(b);
+	// print_stack(b);
 	// print_stack(a);
 	// printf("============ MOVE_BACK  ==============\n\n\n\n");
 	// // #2 Move back to A
-	// int i = 1;
+	// int i = 96;
 	// Problem @ 25
 	while (b->size)
 	{
@@ -762,11 +764,18 @@ void turk_sort(t_stack *a, t_stack *b)
 		// printf("cheapest c_ta = %d\n", cheapest[4]);
 		// printf("cheapest c_bb = %d\n", cheapest[5]);
 		// printf("cheapest c_ba = %d\n", cheapest[6]);
+		// if(b->size != 96)
+		// printf("b->size %d\n",b->size);
+			// i--;
+			// if(i!=0)
 		smart_move(cheapest, a, b, 1);
 		// print_stack(a);
 		// print_stack(b);
-		// i--;
+	
 	}
+
+
+	// LAST SORT
 	// printf("\n######## FINAL #########\n");
 	// printf("a->min=%d\n", a->min);
 	// printf("a->max=%d\n", a->max);

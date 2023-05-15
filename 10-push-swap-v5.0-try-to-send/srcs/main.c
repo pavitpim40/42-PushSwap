@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/15 18:03:53 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:19:37 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int	main(int argc, char *argv[])
 	}
 	// if(a->size == 100)
 	// 	printf("hi-1\n");
+	// print_stack(a);
 	label_rank(a);
+	
 		// if(a->size == 100)
 		// printf("hi-2\n");
 	if (a->size <= 5)
