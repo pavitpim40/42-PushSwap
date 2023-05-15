@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 01:52:20 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 02:03:32 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,31 +489,29 @@ void cheapest_move(t_stack *src, t_stack *dst, int mode)
 	else 
 		smart_move(cheapest,dst,src,mode);
 }
+
+void internal_sort(t_stack *a)
+{
+	int c_top = find_pos_from_top(a->min_rank, a);
+	int c_bot = -1 * find_pos_from_bot(a->min_rank, a);
+
+	if (c_top <= c_bot)
+		while (c_top && c_top--)
+			r_shift_up(a, NULL, 1);
+	else if (c_bot && c_bot  < c_top)
+		while (c_bot--)
+			rr_shift_down(a, NULL, 1);
+}
 void turk_sort(t_stack *a, t_stack *b)
 {
 	
 	p_move_top_with_rank(a, b, a->top->rank, 1);
 	p_move_top_with_rank(a, b, a->top->rank, 1);
-
 	while (a->size > 3)
 		cheapest_move(a,b,0);
 	if (!is_sorted(a))
 		triple_sort(a);
 	while (b->size)
 		cheapest_move(b,a,1);
-
-	int c_top = find_pos_from_top(a->min_rank, a);
-	int c_bot = find_pos_from_bot(a->min_rank, a);
-
-	if (c_top <= (-1 * c_bot))
-	{
-		while (c_top && c_top--)
-			r_shift_up(a, NULL, 1);
-	}
-	else if (c_bot != 0 && (-1 * c_bot) < c_top)
-	{
-		int count = -1 * c_bot;
-		while (count--)
-			rr_shift_down(a, NULL, 1);
-	}
+	internal_sort(a);
 }
