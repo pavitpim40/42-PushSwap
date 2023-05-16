@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 10:55:02 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:22:43 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,7 +347,7 @@ void smart_move_tt(int *action_array, t_stack *src, t_stack *dst, int mode)
 	}
 }
 
-void smart_move_bb(int *action_array, t_stack *src, t_stack *dst, int mode)
+void smart_move_bb(int *action_array, t_stack *src, t_stack *dst)
 {
 	int src_bot;
 	int dst_bot;
@@ -356,37 +356,21 @@ void smart_move_bb(int *action_array, t_stack *src, t_stack *dst, int mode)
 
 	src_bot = action_array[5];
 	dst_bot = action_array[6];
-
 	if (src_bot >= dst_bot)
-	{
-		gap_count = src_bot - dst_bot;
 		common_count = dst_bot;
-	}
 	else
-	{
-		gap_count = dst_bot - src_bot;
 		common_count = src_bot;
-	}
+	gap_count = dst_bot - src_bot;
+	if (gap_count < 0)
+		gap_count = -1 * gap_count;
 	while (common_count && common_count--)
 		rr_shift_down(src, dst, 1);
 	if (src_bot >= dst_bot)
-	{
-		if (mode == 0)
-			while (gap_count && gap_count--)
-				rr_shift_down(src, NULL, 1);
-		else
-			while (gap_count && gap_count--)
-				rr_shift_down(dst, NULL, 1);
-	}
-	if (src_bot < dst_bot)
-	{
-		if (mode == 0)
-			while (gap_count && gap_count--)
-				rr_shift_down(dst, NULL, 1);
-		else
-			while (gap_count && gap_count--)
-				rr_shift_down(src, NULL, 1);
-	}
+		while (gap_count && gap_count--)
+			rr_shift_down(src, NULL, 1);
+	else
+		while (gap_count && gap_count--)
+			rr_shift_down(dst, NULL, 1);
 }
 
 void smart_move_crossone(int *action_array, t_stack *src, t_stack *dst)
@@ -396,7 +380,6 @@ void smart_move_crossone(int *action_array, t_stack *src, t_stack *dst)
 
 	src_top = action_array[3];
 	dst_bot = action_array[6];
-
 	while (src_top--)
 		r_shift_up(src, NULL, 1);
 	while (dst_bot--)
@@ -410,7 +393,6 @@ void smart_move_crosstwo(int *action_array, t_stack *src, t_stack *dst)
 
 	dst_top = action_array[4];
 	src_bot = action_array[5];
-
 	while (src_bot--)
 		rr_shift_down(src, NULL, 1);
 	while (dst_top--)
@@ -424,16 +406,18 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 
 	if (action_case == 1)
 		smart_move_tt(action_array, src, dst, move_back);
-	if (action_case == 2)
-		smart_move_bb(action_array, src, dst, move_back);
+	if (action_case == 2 && move_back == 0)
+		smart_move_bb(action_array, src, dst);
+	if (action_case == 2 && move_back == 1)
+		smart_move_bb(action_array, dst, src);
 	if (action_case == 3 && move_back == 0)
 		smart_move_crossone(action_array, src, dst);
 	if (action_case == 3 && move_back == 1)
 		smart_move_crossone(action_array, dst, src);
 	if (action_case == 4 && move_back == 0)
-			smart_move_crosstwo(action_array, src, dst);
+		smart_move_crosstwo(action_array, src, dst);
 	if (action_case == 4 && move_back == 1)
-			smart_move_crosstwo(action_array, dst,src);
+		smart_move_crosstwo(action_array, dst, src);
 
 	if (move_back == 0)
 		p_move_top(src, dst, 1);
