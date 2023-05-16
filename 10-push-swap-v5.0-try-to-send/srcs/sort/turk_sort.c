@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 16:32:25 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:59:10 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,27 @@ int find_index(t_stack *src, int rank)
 	return (index);
 }
 
-int *calc_action_array(t_stack *src, t_stack *dst, t_node *current, int cheapest[], int mode)
+int	*calc_action_array(t_stack *src, t_stack *dst,  int cheapest[], int mode)
 {
+	int	cur[7];
+	int	cheapest_case;
+	int	cheapest_move;
 
-	int src_top = find_index(src, current->rank);
-	int src_bot = src_top - src->size;
-	int dst_top = cal_rotate_cost_from_top(current->rank, dst, mode);
-	int dst_bot = cal_rotate_cost_from_bot(current->rank, dst, mode);
-	int cheapest_case = calc_cheapest_case(src_top, dst_top, src_bot * -1, dst_bot * -1);
-	int cheapest_move = calc_cheapest_move(cheapest_case, src_top, dst_top, src_bot * -1, dst_bot * -1);
-
+	cur[3] = find_index(src, cheapest[7]);
+	cur[4] = cal_rotate_cost_from_top(cheapest[7], dst, mode);
+	cur[5] = cur[3] - src->size;
+	cur[6] = cal_rotate_cost_from_bot(cheapest[7], dst, mode);
+	cheapest_case = calc_cheapest_case(cur[3], cur[4], cur[5] * -1, cur[6] * -1);
+	cheapest_move = calc_cheapest_move(cheapest_case, cur);
 	if (cheapest_move < cheapest[1])
 	{
-		cheapest[0] = src_top;
+		cheapest[0] = cur[3];
 		cheapest[1] = cheapest_move;
 		cheapest[2] = cheapest_case;
-		cheapest[3] = src_top;
-		cheapest[4] = dst_top;
-		cheapest[5] = -1 * src_bot;
-		cheapest[6] = -1 * dst_bot;
+		cheapest[3] = cur[3];
+		cheapest[4] = cur[4];
+		cheapest[5] = -1 * cur[5];
+		cheapest[6] = -1 * cur[6];
 	}
 	return (cheapest);
 }
@@ -56,14 +58,15 @@ void cheapest_move(t_stack *src, t_stack *dst, int mode)
 {
 	int index;
 	t_node *current;
-	int cheapest[7];
+	int cheapest[8];
 
 	index = 0;
 	current = src->top;
 	cheapest[1] = INT_MAX;
 	while (current)
 	{
-		calc_action_array(src, dst, current, cheapest, mode);
+		cheapest[7] = current->rank;
+		calc_action_array(src, dst, cheapest, mode);
 		current = current->prev;
 		index++;
 	}
