@@ -6,13 +6,13 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:56:39 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/13 03:41:41 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:26:18 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void error_and_exit(char *word, t_stack *A, t_stack *B)
+void	error_and_exit(char *word, t_stack *A, t_stack *B)
 {
 	if (A)
 		free_stack(A);
@@ -22,9 +22,8 @@ void error_and_exit(char *word, t_stack *A, t_stack *B)
 	exit(1);
 }
 
-void execute_action(t_stack *A, t_stack *B, char *action)
+void	execute_action(t_stack *A, t_stack *B, char *action)
 {
-	// printf("execute %s\n", action);
 	if (ft_strncmp(action, "sa\n", 4) == 0)
 		s_swap_top(A, 0);
 	else if (ft_strncmp(action, "sb\n", 4) == 0)
@@ -51,56 +50,16 @@ void execute_action(t_stack *A, t_stack *B, char *action)
 		error_and_exit("Error\n", A, B);
 }
 
-// void	checker(t_stack *A, t_stack *B)
-// {
-// 	char	action[1000];
-// 	char	buff[1];
-// 	int		read_size;
-// 	int		i;
-
-// 	i = 0;
-// 	read_size = -1;
-// 	while(read_size && action[i] != '\n')
-// 	{
-// 		read_size = read(STDIN_FILENO, buff, 1);
-// 		action[i] = buff[0];
-// 		i++;
-// 	}
-// 	action[i] = 0;
-// 	// printf("action = %s", action);
-// 	// while (read_size > 0 || !is_sorted(A))
-// 	// {
-// 	// 	execute_action(A, B, action);
-// 	// 	while(read_size && action[i] != '\n')
-// 	// 	{
-// 	// 		read_size = read(STDIN_FILENO, action, 1);
-// 	// 		action[i] = buff[0];
-// 	// 		i++;
-// 	// 	}
-// 	// 	action[i] = 0;
-// 	// }
-// 	if (is_sorted(A) && B->size == 0)
-// 		ft_putstr_fd("OK\n", STDOUT_FILENO);
-// 	else
-// 		ft_putstr_fd("KO\n", STDOUT_FILENO);
-// }
-
-void checker(t_stack *A, t_stack *B)
+void	checker(t_stack *A, t_stack *B)
 {
-	char *action;
+	char	*action;
 
 	action = get_next_line(STDIN_FILENO);
-
 	while (action)
 	{
-		// printf("address = %p\n", action);
 		execute_action(A, B, action);
 		free(action);
 		action = get_next_line(STDIN_FILENO);
-		// printf("action = %s", action);
-		// printf("action.len = %zu", ft_strlen(action));
-		// if(!action)
-		// 	break ;
 	}
 	free(action);
 	if (is_sorted(A) && B->size == 0)
@@ -109,10 +68,10 @@ void checker(t_stack *A, t_stack *B)
 		ft_putstr_fd("KO\n", STDOUT_FILENO);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_stack *a;
-	t_stack *b;
+	t_stack	*a;
+	t_stack	*b;
 
 	a = fill_stack(argc, argv);
 	b = create_stack("b");
@@ -120,7 +79,6 @@ int main(int argc, char *argv[])
 		error_and_exit("Error\n", a, b);
 	label_rank(a);
 	checker(a, b);
-	// print_stack(a);
 	free_stack(a);
 	free_stack(b);
 	return (0);

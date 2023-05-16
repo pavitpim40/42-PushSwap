@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:53:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 16:59:29 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:24:07 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,13 @@ int		cal_rotate_cost_from_top(int move_rank, t_stack *b, int find_greater);
 int		cal_rotate_cost_from_bot(int move_rank, t_stack *b, int find_greater);
 
 int		calc_cheapest_case(int c_ta, int c_tb, int c_ba, int c_bb);
-// int		calc_cheapest_case(int c_ta, int c_tb, int c_ba, int c_bb);
-// int		calc_cheapest_move(int move_case, int c_ta, int c_tb, int c_ba, int c_bb);
 int		calc_cheapest_move(int move_case, int *action_array);
 
 void	smart_move_tt(int *action_array, t_stack *src, t_stack *dst, int mode);
 void	smart_move_bb(int *action_array, t_stack *src, t_stack *dst);
 void	smart_move_crossone(int *action_array, t_stack *src, t_stack *dst);
 void	smart_move_crosstwo(int *action_array, t_stack *src, t_stack *dst);
-void	smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back);
+void	smart_move(int *action_array, t_stack *src, t_stack *dst, int move);
 
 int		*calc_action(t_stack *src, t_stack *dst, int cheapest[], int mode);
 

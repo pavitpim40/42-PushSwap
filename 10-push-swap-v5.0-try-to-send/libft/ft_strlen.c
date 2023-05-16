@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 01:50:56 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/12 23:27:00 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:22:47 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	int	i;
 
 	i = -1;
-	if(!s)
+	if (!s)
 		return (0);
 	while (s[++i])
 		;
