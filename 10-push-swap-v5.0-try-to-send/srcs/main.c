@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:12:34 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 11:30:22 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:22:09 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,11 @@ int	main(int argc, char *argv[])
 		free_stack(b);
 		return (0);
 	}
-	// if(a->size == 100)
-	// 	printf("hi-1\n");
-	// print_stack(a);
 	label_rank(a);
-	
-		// if(a->size == 100)
-		// printf("hi-2\n");
 	if (a->size <= 5)
 		small_sort(a, b);
-	else 
+	else
 		turk_sort(a, b);
-	// else
-	// 	chunk_sort(a, b);
-	// print_stack(a);
 	free_stack(a);
 	free_stack(b);
 	return (0);
