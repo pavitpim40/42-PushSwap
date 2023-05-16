@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 03:06:29 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:31:55 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ int calc_cheapest_move(int move_case, int c_ta, int c_tb, int c_ba, int c_bb)
 	return c_tb + c_ba;
 }
 
-void smart_move_tt(int *action_array, t_stack *src, t_stack *dst,int mode)
+void smart_move_tt(int *action_array, t_stack *src, t_stack *dst, int mode)
 {
 	int src_top;
 	int dst_top;
@@ -346,102 +346,147 @@ void smart_move_tt(int *action_array, t_stack *src, t_stack *dst,int mode)
 			r_shift_up(dst, NULL, 1);
 	}
 }
-void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
+
+void smart_move_bb(int *action_array, t_stack *src, t_stack *dst, int mode)
 {
-	int action_case;
-	int gap;
+	int src_bot;
+	int dst_bot;
+	int common_count;
+	int gap_count;
+
+	src_bot = action_array[5];
+	dst_bot = action_array[6];
+
+	if (src_bot >= dst_bot)
+	{
+		gap_count = src_bot - dst_bot;
+		common_count = dst_bot;
+	}
+	else
+	{
+		gap_count = dst_bot - src_bot;
+		common_count = src_bot;
+	}
+	while (common_count && common_count--)
+		rr_shift_down(src, dst, 1);
+	if (src_bot >= dst_bot)
+	{
+		if (mode == 0)
+			while (gap_count && gap_count--)
+				rr_shift_down(src, NULL, 1);
+		else
+			while (gap_count && gap_count--)
+				rr_shift_down(dst, NULL, 1);
+	}
+	if (src_bot < dst_bot)
+	{
+		if (mode == 0)
+			while (gap_count && gap_count--)
+				rr_shift_down(dst, NULL, 1);
+		else
+			while (gap_count && gap_count--)
+				rr_shift_down(src, NULL, 1);
+	}
+}
+
+void smart_move_crossone(int *action_array, t_stack *src, t_stack *dst, int move_back)
+{
+	int src_top;
+	int dst_bot;
+
+	src_top = action_array[3];
+	dst_bot = action_array[6];
+
+	if (move_back == 0)
+	{
+		while (src_top--)
+			r_shift_up(src, NULL, 1);
+		while (dst_bot--)
+			rr_shift_down(dst, NULL, 1);
+	}
+	else if (move_back == 1)
+	{
+		while (src_top--)
+			r_shift_up(dst, NULL, 1);
+		while (dst_bot--)
+			rr_shift_down(src, NULL, 1);
+	}
+}
+
+void smart_move_crosstwo(int *action_array, t_stack *src, t_stack *dst, int move_back)
+{
+
+	// int action_case;
+	// int gap;
 	int src_top;
 	int dst_top;
 	int src_bot;
 	int dst_bot;
 
-	action_case = action_array[2];
+	// action_case = action_array[2];
 	src_top = action_array[3];
 	dst_top = action_array[4];
 	src_bot = action_array[5];
 	dst_bot = action_array[6];
+	if (move_back == 0)
+	{
+		while (src_bot--)
+			rr_shift_down(src, NULL, 1);
+		while (dst_top--)
+			r_shift_up(dst, NULL, 1);
+	}
+	else if (move_back == 1)
+	{
+		while (src_top--)
+			rr_shift_down(dst, NULL, 1);
+		while (dst_bot--)
+			r_shift_up(src, NULL, 1);
+	}
+}
+void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
+{
+	int action_case;
+	// int gap;
+	// int src_top;
+	// int dst_top;
+	// int src_bot;
+	// int dst_bot;
+
+	action_case = action_array[2];
+	// src_top = action_array[3];
+	// dst_top = action_array[4];
+	// src_bot = action_array[5];
+	// dst_bot = action_array[6];
 
 	if (action_case == 1)
-		smart_move_tt(action_array, src, dst,move_back);
-	if (action_case == 2 && src_bot >= dst_bot)
-	{
-		gap = src_bot - dst_bot;
-		if (move_back == 0)
-		{
-			while (dst_bot && dst_bot--)
-				rr_shift_down(src, dst, 1);
-			while (gap && gap--)
-				rr_shift_down(src, NULL, 1);
-		}
-		else
-		{
-			while (dst_bot && dst_bot--)
-				rr_shift_down(src, dst, 1);
-			while (gap && gap--)
-				rr_shift_down(dst, NULL, 1);
-		}
-	}
-	if (action_case == 2 && src_bot < dst_bot)
-	{
-		gap = dst_bot - src_bot;
-		if (move_back == 0)
-		{
-			while (src_bot && src_bot--)
-				rr_shift_down(src, dst, 1);
-			while (gap && gap--)
-				rr_shift_down(dst, NULL, 1);
-		}
-		else
-		{
-
-			while (src_bot && src_bot--)
-				rr_shift_down(src, dst, 1);
-			while (gap && gap--)
-				rr_shift_down(src, NULL, 1);
-		}
-	}
+		smart_move_tt(action_array, src, dst, move_back);
+	if (action_case == 2)
+		smart_move_bb(action_array, src, dst, move_back);
 	if (action_case == 3)
-	{
-		if (move_back == 0)
-		{
-			while (src_top--)
-				r_shift_up(src, NULL, 1);
-			while (dst_bot--)
-				rr_shift_down(dst, NULL, 1);
-		}
-		else if (move_back == 1)
-		{
-			while (src_top--)
-				r_shift_up(dst, NULL, 1);
-			while (dst_bot--)
-				rr_shift_down(src, NULL, 1);
-		}
-	}
+		smart_move_crossone(action_array, src, dst, move_back);
+
 	if (action_case == 4)
 	{
-
-		if (move_back == 0)
-		{
-			while (src_bot--)
-				rr_shift_down(src, NULL, 1);
-			while (dst_top--)
-				r_shift_up(dst, NULL, 1);
-		}
-		else if (move_back == 1)
-		{
-			while (src_top--)
-				rr_shift_down(dst, NULL, 1);
-			while (dst_bot--)
-				r_shift_up(src, NULL, 1);
-		}
+		smart_move_crosstwo(action_array, src,dst,move_back);
+		// if (move_back == 0)
+		// {
+		// 	while (src_bot--)
+		// 		rr_shift_down(src, NULL, 1);
+		// 	while (dst_top--)
+		// 		r_shift_up(dst, NULL, 1);
+		// }
+		// else if (move_back == 1)
+		// {
+		// 	while (src_top--)
+		// 		rr_shift_down(dst, NULL, 1);
+		// 	while (dst_bot--)
+		// 		r_shift_up(src, NULL, 1);
+		// }
 	}
 	if (move_back == 0)
 		p_move_top(src, dst, 1);
 	else if (move_back == 1)
-	{
-
 		p_move_top(dst, src, 1);
-	}
 }
 
 int find_index(t_stack *src, int rank)
