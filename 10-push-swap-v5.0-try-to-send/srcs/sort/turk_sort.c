@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 10:42:26 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:55:02 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,7 +389,7 @@ void smart_move_bb(int *action_array, t_stack *src, t_stack *dst, int mode)
 	}
 }
 
-void smart_move_crossone(int *action_array, t_stack *src, t_stack *dst, int move_back)
+void smart_move_crossone(int *action_array, t_stack *src, t_stack *dst)
 {
 	int src_top;
 	int dst_bot;
@@ -397,20 +397,10 @@ void smart_move_crossone(int *action_array, t_stack *src, t_stack *dst, int move
 	src_top = action_array[3];
 	dst_bot = action_array[6];
 
-	if (move_back == 0)
-	{
-		while (src_top--)
-			r_shift_up(src, NULL, 1);
-		while (dst_bot--)
-			rr_shift_down(dst, NULL, 1);
-	}
-	else if (move_back == 1)
-	{
-		while (src_top--)
-			r_shift_up(dst, NULL, 1);
-		while (dst_bot--)
-			rr_shift_down(src, NULL, 1);
-	}
+	while (src_top--)
+		r_shift_up(src, NULL, 1);
+	while (dst_bot--)
+		rr_shift_down(dst, NULL, 1);
 }
 
 void smart_move_crosstwo(int *action_array, t_stack *src, t_stack *dst)
@@ -420,7 +410,7 @@ void smart_move_crosstwo(int *action_array, t_stack *src, t_stack *dst)
 
 	dst_top = action_array[4];
 	src_bot = action_array[5];
-	
+
 	while (src_bot--)
 		rr_shift_down(src, NULL, 1);
 	while (dst_top--)
@@ -431,16 +421,19 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 	int action_case;
 
 	action_case = action_array[2];
-	
+
 	if (action_case == 1)
 		smart_move_tt(action_array, src, dst, move_back);
 	if (action_case == 2)
 		smart_move_bb(action_array, src, dst, move_back);
-	if (action_case == 3)
-		smart_move_crossone(action_array, src, dst, move_back);
-
-	if (action_case == 4)
-		smart_move_crosstwo(action_array, src,dst);
+	if (action_case == 3 && move_back == 0)
+		smart_move_crossone(action_array, src, dst);
+	if (action_case == 3 && move_back == 1)
+		smart_move_crossone(action_array, dst, src);
+	if (action_case == 4 && move_back == 0)
+			smart_move_crosstwo(action_array, src, dst);
+	if (action_case == 4 && move_back == 1)
+			smart_move_crosstwo(action_array, dst,src);
 
 	if (move_back == 0)
 		p_move_top(src, dst, 1);
