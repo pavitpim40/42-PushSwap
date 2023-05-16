@@ -6,15 +6,15 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:32:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/15 17:58:08 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:17:19 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-t_stack *create_stack(char *name)
+t_stack	*create_stack(char *name)
 {
-	t_stack *new_stack;
+	t_stack	*new_stack;
 
 	new_stack = (t_stack *)malloc(sizeof(t_stack));
 	if (new_stack == NULL)
@@ -28,13 +28,13 @@ t_stack *create_stack(char *name)
 	return (new_stack);
 }
 
-void free_stack(t_stack *stack)
+void	free_stack(t_stack *stack)
 {
-	t_node *current;
-	t_node *next;
+	t_node	*current;
+	t_node	*next;
 
 	if (!stack)
-		return;
+		return ;
 	current = stack->top;
 	while (current != NULL)
 	{
@@ -46,13 +46,13 @@ void free_stack(t_stack *stack)
 	free(stack);
 }
 
-void push(t_stack *stack, int data)
+void	push(t_stack *stack, int data)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = (t_node *)malloc(sizeof(t_node));
 	if (node == NULL)
-		return;
+		return ;
 	node->data = data;
 	node->next = NULL;
 	node->prev = stack->top;
@@ -64,13 +64,13 @@ void push(t_stack *stack, int data)
 	stack->size++;
 }
 
-void push_with_rank(t_stack *dst, int data, int rank)
+void	push_with_rank(t_stack *dst, int data, int rank)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = (t_node *)malloc(sizeof(t_node));
 	if (node == NULL)
-		return;
+		return ;
 	node->data = data;
 	node->next = NULL;
 	node->prev = dst->top;
@@ -79,21 +79,11 @@ void push_with_rank(t_stack *dst, int data, int rank)
 		dst->max = data;
 	if (rank > dst->max_rank)
 		dst->max_rank = rank;
-	// printf("\n######## PUSH WITH RANK ############\n");
-	// printf("STACK : %s\n", dst->name);
-	// printf("___data = %d\n", data);
-	// printf("___rank = %d\n", rank);
-	// printf("dst->min = %d\n", dst->min);
-	// printf("dst->max = %d\n", dst->max);
-	// printf("dst->min_rank = %d\n", dst->min_rank);
-	// printf("dst->max_rank = %d\n", dst->max_rank);
 	if (data < dst->min)
 	{
 		dst->min = data;
 		dst->min_rank = rank;
 	}
-	if (rank != -1 && rank < dst->min_rank)
-		dst->min_rank = rank; // why cannot move ?
 	if (dst->top != NULL)
 		dst->top->next = node;
 	dst->top = node;
