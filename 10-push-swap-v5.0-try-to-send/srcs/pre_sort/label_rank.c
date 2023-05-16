@@ -33,28 +33,19 @@ void	label_rank(t_stack *A)
 	int		rank;
 	int		min;
 	t_node	*current;
-	// printf("============LABEL RANK===========\n");
+
 	rank = 1;
 	min = INT_MAX;
 	current = A->top;
-	// printf("A->size=%d\n",A->size);
-	// printf("A->min_rank=%d\n",A->min_rank);
 	while (rank <= A->size)
 	{
 		min = find_min(A);
 		current = A->top;
-		// printf("______min = %d\n", min);
 		while (current)
 		{
-				// printf("_________________data = %d\n", current->data);
 			if (current->data == min)
 			{
 				current->rank = rank;
-				// printf("hi\n");
-				// add to try correct
-				// if(rank < A->min_rank)
-				// 	A->min_rank = rank;
-				// add to try correct
 				rank++;
 				min = INT_MAX;
 				break ;
