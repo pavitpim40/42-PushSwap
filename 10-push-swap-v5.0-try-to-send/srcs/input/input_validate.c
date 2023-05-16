@@ -12,86 +12,55 @@
 
 #include "../../includes/push_swap.h"
 
-static int is_sign(char c)
+static int	is_sign(char c)
 {
 	if (c == '-' || c == '+')
 		return (1);
 	return (0);
 }
 
-static int is_nan(char *word)
+static int	is_nan(char *word)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (word[i] == '\0')
 		return (0);
-	if(is_sign(word[i]))
+	if (is_sign(word[i]))
 		i++;
-	if(!word[i])
+	if (!word[i])
 		return (1);
 	while (ft_isdigit(word[i]))
 		i++;
-	if(word[i] != 0)
+	if (word[i] != 0)
 		return (1);
 	return (0);
 }
 
-// static int	is_nan(char *word)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (word[i] == '-' || word[i] == '+')
-// 		i++;
-// 	if (!word[i])
-// 		return (1);
-// 	while (ft_isdigit(word[i]))
-// 		i++;
-// 	if (word[i] != 0)
-// 		return (1);
-// 	return (0);
-// }
-
-static int is_overflow(char *word)
+static int	is_overflow(char *word)
 {
-	int num = ft_atoi(word);
-	char *word_check = ft_itoa(num);
-	int i = 0;
-	int j = 0;
+	int		num;
+	char	*word_check;
+	int		i;
+	int		j;
 
+	num = ft_atoi(word);
+	word_check = ft_itoa(num);
+	i = 0;
+	j = 0;
 	while (word[i] && word_check[j])
 	{
 		if (word[i++] == word_check[j++])
-			continue;
+			continue ;
 		else
 		{
 			free(word_check);
 			return (1);
 		}
-			
 	}
 	free(word_check);
 	return (0);
 }
-
-// static int	is_overflow(char *word)
-// {
-// 	long	num;
-// 	long	max;
-// 	long	min;
-
-// 	max = INT_MAX;
-// 	min = INT_MIN;
-// 	if (!word)
-// 		return (1);
-// 	if (ft_strlen(word) > 11)
-// 		return (1);
-// 	num = ft_atol(word);
-// 	if (max < num || num < min)
-// 		return (1);
-// 	return (0);
-// }
 
 static int	is_dup(t_stack *stack, int num)
 {

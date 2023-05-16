@@ -12,10 +12,16 @@
 
 #include "../../includes/push_swap.h"
 
-static int try_to_fill_arg(t_stack *A, char *each_arg)
+static void	free_all(t_stack *src, char	**words)
 {
-	char **words;
-	int j;
+	free(words);
+	free_stack(src);
+}
+
+static int	try_to_fill_arg(t_stack *A, char *each_arg)
+{
+	char	**words;
+	int		j;
 
 	words = ft_split(each_arg, ' ');
 	j = 0;
@@ -29,9 +35,8 @@ static int try_to_fill_arg(t_stack *A, char *each_arg)
 			while (j)
 				free(words[j--]);
 			free(words[0]);
-			free(words);
-			free_stack(A);
-			return 0;
+			free_all(A, words);
+			return (0);
 		}
 		else
 			push_with_rank(A, ft_atoi(words[j]), -1);
@@ -41,35 +46,6 @@ static int try_to_fill_arg(t_stack *A, char *each_arg)
 	free(words);
 	return (1);
 }
-
-// static int	try_to_fill_arg(t_stack *A, char *each_arg)
-// {
-// 	char	**words;
-// 	int		j;
-
-// 	words = ft_split(each_arg, ' ');
-// 	j = -1;
-// 	while (words[++j])
-// 		;
-// 	while (j >= 0)
-// 	{
-// 		if (words[j] && !verify_string(A, words[j]))
-// 		{
-// 			while (j)
-// 				free(words[j--]);
-// 			free(words[0]);
-// 			free(words);
-// 			free_stack(A);
-// 			return (0);
-// 		}
-// 		else if (words[j])
-// 			push_with_rank(A, ft_atoi(words[j]), -1);
-// 		free(words[j]);
-// 		j--;
-// 	}
-// 	free(words);
-// 	return (1);
-// }
 
 t_stack	*fill_stack(int argc, char **argv)
 {
