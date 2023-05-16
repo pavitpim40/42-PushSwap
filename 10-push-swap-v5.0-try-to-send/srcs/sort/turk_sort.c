@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 17:06:10 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:09:57 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ int	*calc_action_array(t_stack *src, t_stack *dst, int cheapest[], int mode)
 	}
 	return (cheapest);
 }
-// END - ACTION ARRAY
 
-void cheapest_move(t_stack *src, t_stack *dst, int mode)
+void	cheapest_move(t_stack *src, t_stack *dst, int mode)
 {
-	int index;
-	t_node *current;
-	int cheapest[8];
+	int		index;
+	t_node	*current;
+	int		cheapest[8];
 
 	index = 0;
 	current = src->top;
@@ -76,11 +75,13 @@ void cheapest_move(t_stack *src, t_stack *dst, int mode)
 		smart_move(cheapest, dst, src, mode);
 }
 
-void internal_sort(t_stack *a)
+void	internal_sort(t_stack *a)
 {
-	int c_top = find_pos_from_top(a->min_rank, a);
-	int c_bot = -1 * find_pos_from_bot(a->min_rank, a);
+	int	c_top;
+	int	c_bot;
 
+	c_top = find_pos_from_top(a->min_rank, a);
+	c_bot = -1 * find_pos_from_bot(a->min_rank, a);
 	if (c_top <= c_bot)
 		while (c_top && c_top--)
 			r_shift_up(a, NULL, 1);
@@ -89,9 +90,8 @@ void internal_sort(t_stack *a)
 			rr_shift_down(a, NULL, 1);
 }
 
-void turk_sort(t_stack *a, t_stack *b)
+void	turk_sort(t_stack *a, t_stack *b)
 {
-
 	p_move_top_with_rank(a, b, a->top->rank, 1);
 	p_move_top_with_rank(a, b, a->top->rank, 1);
 	while (a->size > 3)

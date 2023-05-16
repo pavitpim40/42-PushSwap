@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:55:53 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 15:56:26 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:12:14 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 // START - SMART_MOVE
 void	smart_move_tt(int *action_array, t_stack *src, t_stack *dst, int mode)
 {
-	int src_top;
-	int dst_top;
-	int common_count;
-	int gap_count;
+	int	src_top;
+	int	dst_top;
+	int	common_count;
+	int	gap_count;
 
 	src_top = action_array[3];
 	dst_top = action_array[4];
@@ -42,10 +42,10 @@ void	smart_move_tt(int *action_array, t_stack *src, t_stack *dst, int mode)
 
 void	smart_move_bb(int *action_array, t_stack *src, t_stack *dst)
 {
-	int src_bot;
-	int dst_bot;
-	int common_count;
-	int gap_count;
+	int	src_bot;
+	int	dst_bot;
+	int	common_count;
+	int	gap_count;
 
 	src_bot = action_array[5];
 	dst_bot = action_array[6];
@@ -68,8 +68,8 @@ void	smart_move_bb(int *action_array, t_stack *src, t_stack *dst)
 
 void	smart_move_crossone(int *action_array, t_stack *src, t_stack *dst)
 {
-	int src_top;
-	int dst_bot;
+	int	src_top;
+	int	dst_bot;
 
 	src_top = action_array[3];
 	dst_bot = action_array[6];
@@ -81,8 +81,8 @@ void	smart_move_crossone(int *action_array, t_stack *src, t_stack *dst)
 
 void	smart_move_crosstwo(int *action_array, t_stack *src, t_stack *dst)
 {
-	int dst_top;
-	int src_bot;
+	int	dst_top;
+	int	src_bot;
 
 	dst_top = action_array[4];
 	src_bot = action_array[5];
@@ -91,9 +91,10 @@ void	smart_move_crosstwo(int *action_array, t_stack *src, t_stack *dst)
 	while (dst_top--)
 		r_shift_up(dst, NULL, 1);
 }
+
 void	smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 {
-	int action_case;
+	int	action_case;
 
 	action_case = action_array[2];
 	if (action_case == 1)

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:54:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 17:06:46 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:11:27 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	cal_rotate_cost_from_top(int move_rank, t_stack *b, int find_greater)
 
 int	cal_rotate_cost_from_bot(int move_rank, t_stack *b, int find_greater)
 {
-	int cost;
+	int	cost;
+
 	if (move_rank < b->min_rank || move_rank > b->max_rank)
 	{
 		if (find_greater == 1)
@@ -56,10 +57,10 @@ int	cal_rotate_cost_from_bot(int move_rank, t_stack *b, int find_greater)
 // เอา 4 ทิศหาว่าควร move ทางไหน
 int	calc_cheapest_case(int c_ta, int c_tb, int c_ba, int c_bb)
 {
-	int top_top;
-	int bot_bot;
-	int cross_one;
-	int cross_two;
+	int	top_top;
+	int	bot_bot;
+	int	cross_one;
+	int	cross_two;
 
 	top_top = c_ta;
 	bot_bot = c_ba;
@@ -99,6 +100,6 @@ int	calc_cheapest_move(int move_case, int	*action_array)
 	else if (move_case == 2 && c_ba < c_bb)
 		return (c_bb);
 	if (move_case == 3)
-		return c_ta + c_bb;
-	return c_tb + c_ba;
+		return (c_ta + c_bb);
+	return (c_tb + c_ba);
 }
