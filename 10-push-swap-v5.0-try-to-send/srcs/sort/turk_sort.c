@@ -6,24 +6,13 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 11:22:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:55:19 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-// LAYER 4
-int cal_lowest_move(int c_top, int c_bot)
-{
-	if (c_top <= c_bot * -1)
-	{
-		return (c_top);
-	}
-	else
-	{
-		return (c_bot);
-	}
-}
+
 
 // #LAYER #3 when NewMin , newMax
 
@@ -36,26 +25,17 @@ int find_pos_from_top(int find_rank, t_stack *b)
 	c_top = 0;
 	f_top = b->top;
 	founded = 0;
-
 	while (!founded && f_top)
 	{
-		if (find_rank == b->max && f_top->rank == b->max)
-		{
-
-			founded = 1;
-			break;
-		}
-		else if (find_rank == f_top->rank)
-		{
-			founded = 1;
-			break;
-		}
-
 		c_top++;
+		if (find_rank == b->max && f_top->rank == b->max)
+			founded = 1;
+		else if (find_rank == f_top->rank)
+			founded = 1;
 		f_top = f_top->prev;
 	}
 	if (founded == 1)
-		return (c_top);
+		return (c_top - 1);
 	return (INT_MIN);
 }
 
@@ -70,20 +50,11 @@ int find_pos_from_bot(int find_rank, t_stack *b)
 	founded = 0;
 	while (!founded && f_bot)
 	{
-		// printf("hi\n");
-		if (find_rank == b->max && f_bot->rank == b->max)
-		{
-			c_bot--;
-			founded = 2;
-			break;
-		}
-		else if (f_bot->rank == find_rank)
-		{
-			c_bot--;
-			founded = 2;
-			break;
-		}
 		c_bot--;
+		if (find_rank == b->max && f_bot->rank == b->max)
+			founded = 1;
+		else if (f_bot->rank == find_rank)
+			founded = 1;
 		f_bot = f_bot->next;
 	}
 	if (founded)
@@ -91,30 +62,7 @@ int find_pos_from_bot(int find_rank, t_stack *b)
 	return (INT_MIN);
 }
 
-int find_pos(int find_rank, t_stack *b)
-{
-	int cost_top;
-	int cost_bot;
-	cost_top = find_pos_from_top(find_rank, b);
-	cost_bot = find_pos_from_top(find_rank, b);
-	return cal_lowest_move(cost_top, cost_bot);
-}
 
-// LAYER 3B: when general
-// หาตำแหน่งที่น้อยกว่า 1 และหาต่อถ้าไม่เจอ (น้อยกว่า 2,3,4)
-int find_less_than_pos(int rank, t_stack *b)
-{
-	int target_rank = rank - 1;
-
-	while (target_rank > 0)
-	{
-		int pos = find_pos(target_rank, b);
-		if (pos != INT_MIN)
-			return (pos);
-		target_rank--;
-	}
-	return (-1);
-}
 
 int find_greater_than_pos_from_top(int rank, t_stack *b)
 {
@@ -247,34 +195,6 @@ int cal_rotate_cost_from_bot(int move_rank, t_stack *b, int find_greater)
 		return (cost);
 	}
 }
-// calc_rotate_from_bot
-
-int cal_rotate_cost(int move_rank, t_stack *b)
-{
-	int cost;
-
-	// int cost_top = 0;
-	// int cost_bot = 0;
-	if (move_rank < b->min)
-	{
-		cost = find_pos(b->max, b);
-		return (cost);
-	}
-
-	else if (move_rank > b->max)
-	{
-
-		cost = find_pos(b->max, b);
-		return (cost);
-	}
-
-	else
-	{
-
-		cost = find_less_than_pos(move_rank, b);
-		return (cost);
-	}
-}
 
 // เอา 4 ทิศหาว่าควร move ทางไหน
 int calc_cheapest_case(int c_ta, int c_tb, int c_ba, int c_bb)
@@ -311,12 +231,12 @@ int calc_cheapest_move(int move_case, int c_ta, int c_tb, int c_ba, int c_bb)
 		return (c_ba);
 	else if (move_case == 2 && c_ba < c_bb)
 		return (c_bb);
-
 	if (move_case == 3)
 		return c_ta + c_bb;
 	return c_tb + c_ba;
 }
 
+// START - SMART_MOVE
 void smart_move_tt(int *action_array, t_stack *src, t_stack *dst, int mode)
 {
 	int src_top;
@@ -327,15 +247,12 @@ void smart_move_tt(int *action_array, t_stack *src, t_stack *dst, int mode)
 	src_top = action_array[3];
 	dst_top = action_array[4];
 	if (src_top >= dst_top)
-	{
-		gap_count = src_top - dst_top;
 		common_count = dst_top;
-	}
 	else
-	{
-		gap_count = dst_top - src_top;
 		common_count = src_top;
-	}
+	gap_count = src_top - dst_top;
+	if (gap_count < 0)
+		gap_count = -1 * gap_count;
 	while (common_count && common_count--)
 		r_shift_up(src, dst, 1);
 	while (gap_count && gap_count--)
@@ -406,6 +323,8 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 
 	if (action_case == 1)
 		smart_move_tt(action_array, src, dst, move_back);
+	// if (action_case == 1 && move_back == 1)
+	// 	smart_move_tt(action_array, src, dst);
 	if (action_case == 2 && move_back == 0)
 		smart_move_bb(action_array, src, dst);
 	if (action_case == 2 && move_back == 1)
@@ -424,7 +343,9 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 	else if (move_back == 1)
 		p_move_top(dst, src, 1);
 }
+// END - SMART_MOVE
 
+// START - ACTION ARRAY
 int find_index(t_stack *src, int rank)
 {
 	t_node *current;
@@ -462,6 +383,7 @@ int *calc_action_array(t_stack *src, t_stack *dst, t_node *current, int cheapest
 	}
 	return (cheapest);
 }
+// END - ACTION ARRAY
 
 void cheapest_move(t_stack *src, t_stack *dst, int mode)
 {
