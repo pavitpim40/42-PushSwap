@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:54:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 16:52:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:06:46 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ int	calc_cheapest_move(int move_case, int	*action_array)
 
 	c_ta = action_array[3];
 	c_tb = action_array[4];
-	c_ba = action_array[5] * -1;
-	c_bb = action_array[6] * -1;
+	c_ba = action_array[5];
+	c_bb = action_array[6];
 	if (move_case == 1 && c_ta >= c_tb)
 		return (c_ta);
 	else if (move_case == 1 && c_ta < c_tb)

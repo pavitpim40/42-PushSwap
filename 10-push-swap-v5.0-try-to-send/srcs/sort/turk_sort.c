@@ -6,17 +6,17 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 16:59:10 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:06:10 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
 // START - ACTION ARRAY
-int find_index(t_stack *src, int rank)
+int	find_index(t_stack *src, int rank)
 {
-	t_node *current;
-	int index;
+	t_node	*current;
+	int		index;
 
 	current = src->top;
 	index = 0;
@@ -28,7 +28,7 @@ int find_index(t_stack *src, int rank)
 	return (index);
 }
 
-int	*calc_action_array(t_stack *src, t_stack *dst,  int cheapest[], int mode)
+int	*calc_action_array(t_stack *src, t_stack *dst, int cheapest[], int mode)
 {
 	int	cur[7];
 	int	cheapest_case;
@@ -36,9 +36,9 @@ int	*calc_action_array(t_stack *src, t_stack *dst,  int cheapest[], int mode)
 
 	cur[3] = find_index(src, cheapest[7]);
 	cur[4] = cal_rotate_cost_from_top(cheapest[7], dst, mode);
-	cur[5] = cur[3] - src->size;
-	cur[6] = cal_rotate_cost_from_bot(cheapest[7], dst, mode);
-	cheapest_case = calc_cheapest_case(cur[3], cur[4], cur[5] * -1, cur[6] * -1);
+	cur[5] = (cur[3] - src->size) * -1;
+	cur[6] = cal_rotate_cost_from_bot(cheapest[7], dst, mode) * -1;
+	cheapest_case = calc_cheapest_case(cur[3], cur[4], cur[5], cur[6]);
 	cheapest_move = calc_cheapest_move(cheapest_case, cur);
 	if (cheapest_move < cheapest[1])
 	{
@@ -47,8 +47,8 @@ int	*calc_action_array(t_stack *src, t_stack *dst,  int cheapest[], int mode)
 		cheapest[2] = cheapest_case;
 		cheapest[3] = cur[3];
 		cheapest[4] = cur[4];
-		cheapest[5] = -1 * cur[5];
-		cheapest[6] = -1 * cur[6];
+		cheapest[5] = cur[5];
+		cheapest[6] = cur[6];
 	}
 	return (cheapest);
 }
