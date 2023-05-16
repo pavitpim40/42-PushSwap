@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:43:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/05/16 11:55:19 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/05/16 12:08:09 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,76 +124,42 @@ int find_less_than_pos_from_bot(int rank, t_stack *b)
 // calc_rotate_from_top
 int cal_rotate_cost_from_top(int move_rank, t_stack *b, int find_greater)
 {
-	// mode 1 = find less than
-	// mode 1 = find greater than
 	int cost;
-	if (move_rank < b->min_rank)
-	{
-		// printf("cal_rotate_cost_from_top: top:As a new min %d\n", move_rank);
-		if (find_greater == 1)
-			cost = find_pos_from_top(b->min_rank, b);
-		else
-			cost = find_pos_from_top(b->max_rank, b);
-		return (cost);
-	}
-
-	else if (move_rank > b->max_rank)
+	if (move_rank < b->min_rank || move_rank > b->max_rank)
 	{
 		if (find_greater == 1)
 			cost = find_pos_from_top(b->min_rank, b);
 		else
 			cost = find_pos_from_top(b->max_rank, b);
-		return (cost);
 	}
-
 	else
 	{
-		// printf("FN:cal_rotate_cost: find rank = %d\n", move_rank);
 		if (find_greater == 1)
 			cost = find_greater_than_pos_from_top(move_rank, b);
 		else
 			cost = find_less_than_pos_from_top(move_rank, b);
-		// int another = find_more_than_pos_from_top(move_rank, b);
-		// printf("COST = %d\n",cost);
-		// if(cost > another)
-		// 	return (another);
-		return (cost);
 	}
+	return (cost);
 }
 
 int cal_rotate_cost_from_bot(int move_rank, t_stack *b, int find_greater)
 {
-	// mode 1 = find less than
-	// mode 1 = find greater than
 	int cost;
-	if (move_rank < b->min_rank)
+	if (move_rank < b->min_rank || move_rank > b->max_rank)
 	{
 		if (find_greater == 1)
 			cost = find_pos_from_bot(b->min_rank, b);
 		else
 			cost = find_pos_from_bot(b->max_rank, b);
-		return (cost);
 	}
-
-	else if (move_rank > b->max_rank)
-	{
-
-		if (find_greater == 1)
-			cost = find_pos_from_bot(b->min_rank, b);
-		else
-			cost = find_pos_from_bot(b->max_rank, b);
-		return (cost);
-	}
-
 	else
 	{
 		if (find_greater == 1)
 			cost = find_greater_than_pos_from_bot(move_rank, b);
 		else
 			cost = find_less_than_pos_from_bot(move_rank, b);
-
-		return (cost);
 	}
+	return (cost);
 }
 
 // เอา 4 ทิศหาว่าควร move ทางไหน
@@ -320,7 +286,6 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 	int action_case;
 
 	action_case = action_array[2];
-
 	if (action_case == 1)
 		smart_move_tt(action_array, src, dst, move_back);
 	// if (action_case == 1 && move_back == 1)
@@ -337,7 +302,6 @@ void smart_move(int *action_array, t_stack *src, t_stack *dst, int move_back)
 		smart_move_crosstwo(action_array, src, dst);
 	if (action_case == 4 && move_back == 1)
 		smart_move_crosstwo(action_array, dst, src);
-
 	if (move_back == 0)
 		p_move_top(src, dst, 1);
 	else if (move_back == 1)
