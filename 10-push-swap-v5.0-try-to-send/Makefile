@@ -17,7 +17,9 @@ SRCS			=	stack/stack.c stack/stack_utils.c\
 					input/input_validate.c input/input_fill.c\
 					pre_sort/label_rank.c \
 					sort/utils.c sort/small_sort.c  sort/chunk_sort.c \
-					sort/is_sorted.c sort/turk_sort.c \
+					sort/is_sorted.c sort/turk_sort.c sort/turk_utils_1.c sort/turk_utils_2.c \
+					sort/turk_utils_3.c sort/turk_utils_4.c
+					
 					
 PATH_DIR	=	srcs/
 PATH		=	$(addprefix $(PATH_DIR), $(SRCS))
